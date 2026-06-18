@@ -845,6 +845,51 @@ window.addEventListener('load', function() {
     document.getElementById('hero-photo').classList.add('animate');
   }, 5000); // 5000ms = 5 seconds
 });
+  // Typewriter Effect on Scroll - Entire Website
+window.addEventListener('load', function() {
+  // Select all text elements you want to animate
+  const allText = document.querySelectorAll('h1, h2, h3, p, li, .hero-subtitle');
+  
+  // Hide text initially and store original content
+  allText.forEach(el => {
+    if (el.textContent.trim().length > 0) {
+      el.dataset.text = el.textContent; // Save original text
+      el.textContent = ''; // Clear text
+      el.style.opacity = 0; // Hide element
+    }
+  });
+
+  // Observer triggers typing when element enters viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.classList.contains('typed')) {
+        entry.target.classList.add('typed');
+        typeWriter(entry.target);
+      }
+    });
+  }, { threshold: 0.3 }); // Trigger when 30% visible
+
+  // Start observing all elements
+  allText.forEach(el => {
+    if (el.dataset.text) observer.observe(el);
+  });
+
+  // Typewriter function
+  function typeWriter(element) {
+    const text = element.dataset.text;
+    let i = 0;
+    element.style.opacity = 1; // Make visible
+    
+    function typing() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(typing, 15); // Typing speed: lower = faster
+      }
+    }
+    typing();
+  }
+});
 </script>
     </body>
   </html>
