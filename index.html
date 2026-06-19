@@ -6,47 +6,33 @@
   <title>Ravi Raj | Academic Portfolio</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-  /* Timeline/Education Cards Horizontal Scroll Fix */
-/* ===== Mobile Zoom + Horizontal Scroll Fix - Final ===== */
+  /* Mobile Scroll Fix - Universal */
 @media only screen and (max-width: 768px) {
     
-    /* Cards ke parent ko scrollable banao */
-    main section:nth-of-type(2) > div,
-    section:nth-of-type(2) > div {
-        overflow-x: auto !important;
-        overflow-y: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+    /* Education cards ka parent - sab pakdega */
+    section:nth-of-type(2) div[style*="display: flex"],
+    section:nth-of-type(2) > div,
+    div[style*="overflow"] {
+        overflow-x: scroll !important;
         display: flex !important;
         flex-wrap: nowrap !important;
-        gap: 20px !important;
-        padding: 10px 20px 25px 20px !important;
-        scroll-snap-type: x proximity !important;
-        scroll-padding: 0 20px !important;
-        touch-action: pan-x !important;
-        scrollbar-width: none;
+        gap: 15px !important;
+        padding: 15px 20px !important;
+        -webkit-overflow-scrolling: touch !important;
     }
     
-    /* Scrollbar hide karo */
-    main section:nth-of-type(2) > div::-webkit-scrollbar,
-    section:nth-of-type(2) > div::-webkit-scrollbar {
-        display: none;
-    }
-    
-    /* Cards ka size fix */
-    main section:nth-of-type(2) > div > div,
+    /* Saare cards */
+    section:nth-of-type(2) div[style*="display: flex"] > div,
     section:nth-of-type(2) > div > div {
-        min-width: 80% !important;
-        max-width: 80% !important;
-        flex-shrink: 0 !important;
-        scroll-snap-align: start !important;
+        min-width: 75vw !important;
+        flex: 0 0 75vw !important;
     }
     
-    /* Body fix */
     body {
         overflow-x: hidden !important;
         touch-action: manipulation !important;
     }
-      }
+  }
   /* Print PDF Gap Fix */
 @media print {
     .section, section, div {
