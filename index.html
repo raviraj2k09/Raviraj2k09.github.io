@@ -676,7 +676,27 @@ body.light-mode .btn:hover {
       margin: 30px 15px 0;
    }
 }
-</style> </head>
+/* Live Time Bar - NEET Style */
+#live-time-bar {
+    width: 100%;
+    background: #ff9800; /* Orange bar jaisa screenshot me */
+    color: #000;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Dark mode me bhi dikhe */
+body.light-mode #live-time-bar {
+    background: #ff9800;
+    color: #000;
+    }
+  </style> </head>
     <body>
       <button id="theme-toggle" class="theme-btn">🌙</button>
 <canvas id="matrix-bg"></canvas>
@@ -1202,6 +1222,10 @@ document.getElementById('contact-form').addEventListener('submit', function(even
      });
 });
 </script>
+      <!-- Live Date Time Bar -->
+<div id="live-time-bar">
+    <span id="current-date-time">Loading...</span>
+</div>
   </body>
   </html>
                                                                               
