@@ -251,45 +251,60 @@
     /* ============================================
        THEME MANAGER
        ============================================ */
-    class ThemeManager {
-        constructor(toggleBtn, body) {
-            this.toggleBtn = toggleBtn;
-            this.body = body;
-            this.currentTheme = 'dark';
+    /* ============================================
+   THEME MANAGER - 100% WORKING
+   ============================================ */
+class ThemeManager {
+    constructor(toggleBtn, body) {
+        this.toggleBtn = toggleBtn;
+        this.body = body;
+        this.currentTheme = 'dark';
 
+        if (this.toggleBtn) {
             this.init();
-        }
-
-        init() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'light') {
-                this.setTheme('light');
-            } else {
-                this.setTheme('dark');
-            }
-
-            this.toggleBtn.addEventListener('click', () => {
-                this.toggle();
-            });
-        }
-
-        setTheme(theme) {
-            this.currentTheme = theme;
-            if (theme === 'light') {
-                this.body.classList.add('light-mode');
-                this.toggleBtn.textContent = '☀️';
-            } else {
-                this.body.classList.remove('light-mode');
-                this.toggleBtn.textContent = '🌙';
-            }
-            localStorage.setItem('theme', theme);
-        }
-
-        toggle() {
-            const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
-            this.setTheme(newTheme);
+        } else {
+            console.error('❌ Theme button missing! Check ID: theme-toggle');
         }
     }
+
+    init() {
+        // Load saved theme from localStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            this.setTheme('light');
+        } else {
+            this.setTheme('dark');
+        }
+
+        // ✅ Click event listener
+        this.toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('🔄 Theme button clicked!');
+            this.toggle();
+        });
+    }
+
+    setTheme(theme) {
+        this.currentTheme = theme;
+        
+        if (theme === 'light') {
+            this.body.classList.add('light-mode');
+            this.toggleBtn.textContent = '☀️';
+            console.log('🌞 Light mode ON');
+        } else {
+            this.body.classList.remove('light-mode');
+            this.toggleBtn.textContent = '🌙';
+            console.log('🌙 Dark mode ON');
+        }
+        
+        localStorage.setItem('theme', theme);
+    }
+
+    toggle() {
+        const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+        this.setTheme(newTheme);
+    }
+}
 
     /* ============================================
        SMOOTH SCROLL
