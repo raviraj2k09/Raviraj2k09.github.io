@@ -582,3 +582,66 @@ class TypewriterEffect {
     });
 
 })();
+
+/* ============================================
+   SOCIAL WIDGET - LOAD FROM EXTERNAL FILE
+   ============================================ */
+document.addEventListener('DOMContentLoaded', function() {
+    const trigger = document.getElementById('triggerBtn');
+    const container = document.getElementById('socialContainer');
+
+    if (trigger && container) {
+        // Load social menu from external file
+        fetch('social-widget.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(html => {
+                container.innerHTML = html;
+                console.log('✅ Social widget loaded successfully!');
+            })
+            .catch(error => {
+                console.error('Error loading social links:', error);
+                container.innerHTML = '<span style="color: #00d9ff;">@rravirajhere</span>';
+            });
+
+        // Toggle dropdown on click
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+            
+            const menu = container.querySelector('.social-menu');
+            if (menu) {
+                menu.classList.toggle('show');
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!trigger.contains(e.target) && !container.contains(e.target)) {
+                trigger.classList.remove('active');
+                
+                const menu = container.querySelector('.social-menu');
+                if (menu) {
+                    menu.classList.remove('show');
+                }
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                trigger.classList.remove('active');
+                const menu = container.querySelector('.social-menu');
+                if (menu) {
+                    menu.classList.remove('show');
+                }
+            }
+        });
+    } else {
+        console.warn('⚠️ Social trigger or container not found!');
+    }
+});
