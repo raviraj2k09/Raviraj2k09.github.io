@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Ravi Raj - Student Portfolio, Web Developer from Begusarai, Bihar. 12th grade student passionate about web development.">
+    <meta name="keywords" content="Ravi Raj, Portfolio, Student, Web Developer, Begusarai, Bihar">
+    <meta name="author" content="Ravi Raj">
+    <meta property="og:title" content="Ravi Raj | Academic Portfolio">
+    <meta property="og:description" content="Passionate 12th-grade student building modern web experiences.">
+    <meta property="og:type" content="website">
+    
+    <title>Ravi Raj | Academic Portfolio</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+        🌙
+    </button>
+    
+    <!-- Matrix Background -->
+    <canvas id="matrix-bg" aria-hidden="true"></canvas>
+    
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="logo">
+                Singh<span>Ravirajhere</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" aria-current="page">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Main Container -->
+    <main class="container">
+        
+        <!-- Hero Section -->
+        <section id="home" class="hero" aria-labelledby="hero-title">
+            <div class="hero-badge">@rravirajhere</div>
+            
+            <img 
+                src="Singh_ravirajhere.jpeg" 
+                alt="Ravi Raj - Student and Web Developer" 
+                id="hero-photo" 
+                class="hero-image fly-in-photo" 
+                loading="eager"
+                width="160" 
+                height="160"
+            >
+            
+            <h1 id="hero-title" class="hero-title">RaviRaj</h1>
+            
+            <h2 class="hero-subtitle">
+                I'm a <span>Student</span> from Begusarai Bihar
+            </h2>
+            
+            <p class="hero-desc">
+                Passionate 12th-grade student building modern web experiences with HTML, CSS, and Python.
+                I turn ideas into code and love learning new technologies every day.
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="hero-actions">
+                <a href="#" onclick="alert('Resume PDF will be available soon!');return false;" class="btn btn-primary">
+                    📄 Resume PDF
+                </a>
+                <a href="#" onclick="window.print();return false;" class="btn btn-secondary">
+                    ⬇️ Save as PDF
+                </a>
+            </div>
+            
+            <!-- Stats -->
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">2+</span>
+                    <span class="stat-label">Years Learning</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2+</span>
+                    <span class="stat-label">Projects Built</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Tech Stack</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Dedication</span>
+                </div>
+            </div>
+            
+            <!-- Tech Tags -->
+            <div class="hero-tags">
+                <span class="tag">HTML5</span>
+                <span class="tag">CSS3</span>
+                <span class="tag">Python</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Responsive Design</span>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" aria-labelledby="about-title">
+            <div class="section-header">
+                <div class="section-label">ABOUT ME</div>
+                <h2 id="about-title" class="section-title">Know Who I Am</h2>
+                <p class="section-desc">My introduction, journey, and what drives me to code</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Hello! I'm Ravi Raj</h3>
+                    <p>
+                        A passionate <strong>Student</strong> and <strong>12th-grade student</strong> from Bandwar, Begusarai, Bihar.
+                        My coding journey started in 2024, and since then, I've been obsessed with creating beautiful, functional websites.
+                    </p>
+                    
+                    <h3>My Journey</h3>
+                    <p>
+                        I started with basic HTML and CSS, and now I'm diving deep into JavaScript and Python.
+                        Every day I challenge myself to learn something new. I believe in <strong>learning by building</strong> -
+                        that's why I create projects constantly to improve my skills.
+                    </p>
+                    
+                    <h3>What I Do</h3>
+                    <p>
+                        I specialize in building <strong>responsive, modern websites</strong> that work perfectly on all devices.
+                        From landing pages to portfolio sites, I focus on clean code, great design, and smooth user experience.
+                    </p>
+                    
+                    <h3>My Goal</h3>
+                    <p>
+                        To become a <strong>Full-Stack Developer</strong> and work on projects that make a real impact.
+                        Currently mastering frontend technologies while exploring backend with Python.
+                    </p>
+                </div>
+                
+                <div class="about-card">
+                    <h4>Quick Info</h4>
+                    <div class="info-item">
+                        <span class="info-label">Name</span>
+                        <span class="info-value">Ravi Raj</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Location</span>
+                        <span class="info-value">Patna, India</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Education</span>
+                        <span class="info-value">12th Passed</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Experience</span>
+                        <span class="info-value">2+ Years</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Availability</span>
+                        <span class="info-value" style="color:var(--secondary)">Open to Work</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Languages</span>
+                        <span class="info-value">Hindi, English</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skills Section -->
+        <section id="skills" aria-labelledby="skills-title">
+            <div class="section-header">
+                <div class="section-label">MY SKILLS</div>
+                <h2 id="skills-title" class="section-title">Technologies I Work With</h2>
+                <p class="section-desc">Tools and technologies I'm proficient in and currently learning</p>
+            </div>
+            
+            <div class="skills-container">
+                <!-- Frontend -->
+                <div class="skill-box">
+                    <h3>
+                        <span class="skill-icon" aria-hidden="true">🎨</span> 
+                        Frontend
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>HTML5</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:75%" data-width="75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>CSS3</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:80%" data-width="80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>JavaScript</span>
+                            <span>50%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:50%" data-width="50%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Responsive Design</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:70%" data-width="70%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Backend -->
+                <div class="skill-box">
+                    <h3>
+                        <span class="skill-icon" aria-hidden="true">⚙️</span> 
+                        Backend
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Python</span>
+                            <span>50%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:50%" data-width="50%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Learning Node.js</span>
+                            <span>20%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:20%" data-width="20%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tools -->
+                <div class="skill-box">
+                    <h3>
+                        <span class="skill-icon" aria-hidden="true">🛠️</span> 
+                        Tools & Others
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>VS Code</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:85%" data-width="85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Git & GitHub</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:60%" data-width="60%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Chrome DevTools</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:70%" data-width="70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects" aria-labelledby="projects-title">
+            <div class="section-header">
+                <div class="section-label">MY WORK</div>
+                <h2 id="projects-title" class="section-title">Featured Projects</h2>
+                <p class="section-desc">Some of my recent work and projects I'm proud of</p>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card">
+                    <div class="project-header">
+                        <span>Portfolio Website</span>
+                        <span>v2.0</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Personal Portfolio v2.0</h3>
+                        <p class="project-desc">
+                            Modern, responsive portfolio website with Matrix animation, smooth scrolling, and clean UI.
+                            Built from scratch using HTML5, CSS3, and vanilla JavaScript. Features dark theme,
+                            animated skill bars, and mobile-first design.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS3</span>
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">Canvas API</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="View live demo">→ Live Demo</a>
+                            <a href="#" class="project-link" aria-label="View source code">→ Source Code</a>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Project 2 -->
+                <article class="project-card">
+                    <div class="project-header" style="background:linear-gradient(135deg,var(--accent),var(--primary));color:#fff;">
+                        <span>Landing Page</span>
+                        <span>v1.0</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Modern Landing Page</h3>
+                        <p class="project-desc">
+                            Responsive landing page design with smooth animations, gradient effects, and optimized performance.
+                            Perfect for startups and product launches. Mobile-friendly and SEO optimized.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge" style="border-color:var(--accent);color:var(--accent);">HTML5</span>
+                            <span class="tech-badge" style="border-color:var(--accent);color:var(--accent);">CSS3</span>
+                            <span class="tech-badge" style="border-color:var(--accent);color:var(--accent);">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="View live demo">→ Live Demo</a>
+                            <a href="#" class="project-link" aria-label="View source code">→ Source Code</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        
+        <!-- Education Section -->
+        <section id="education" aria-labelledby="education-title">
+            <div class="section-header">
+                <div class="section-label">EDUCATION</div>
+                <h2 id="education-title" class="section-title">Academic Journey</h2>
+                <p class="section-desc">My educational background and learning path</p>
+            </div>
+            
+            <div class="education-grid">
+                <!-- Graduation -->
+                <div class="education-card">
+                    <div class="education-badge">To be updated</div>
+                    <h3>GRADUATION</h3>
+                    <p>Not Admitted in College Yet.</p>
+                </div>
+                
+                <!-- Senior Secondary -->
+                <div class="education-card">
+                    <div class="education-badge">2024 - 2026</div>
+                    <h3>SENIOR SECONDARY</h3>
+                    <h4>Udaan International School, Begusarai</h4>
+                    <p>Completed 12th standard with Physics, Chemistry, Maths.</p>
+                </div>
+                
+                <!-- Secondary -->
+                <div class="education-card">
+                    <div class="education-badge">2019 - 2024</div>
+                    <h3>SECONDARY</h3>
+                    <h4>Mother's Pride International Sr. Sec. Anglo Public School, Begusarai</h4>
+                    <p>Completed 10th standard. This is when I discovered my passion for coding and started learning HTML/CSS.</p>
+                </div>
+                
+                <!-- Primary -->
+                <div class="education-card">
+                    <div class="education-badge">2014 - 2019</div>
+                    <h3>PRIMARY</h3>
+                    <h4>Gautam Buddha Global School, Begusarai</h4>
+                    <p>Completed Primary Education to 5th Standard, after that Shifted to new School.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" aria-labelledby="contact-title">
+            <div class="section-header">
+                <div class="section-label">GET IN TOUCH</div>
+                <h2 id="contact-title" class="section-title">Let's Work Together</h2>
+                <p class="section-desc">Have a project in mind? Let's talk</p>
+            </div>
+            
+            <div class="contact-wrapper">
+                <div class="contact-cta">
+                    <h3>Ready to start your project?</h3>
+                    <p>I'm currently available for freelance work and open to new opportunities. Feel free to reach out if you want to collaborate!</p>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="contact-card">
+                    <h3 class="form-title">Send me a message</h3>
+                    <p class="form-subtitle">I'll reply within 24 hours</p>
+                    
+                    <form id="contact-form" novalidate>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <input type="text" name="from_name" id="name" required>
+                                <label for="name">Your Name</label>
+                            </div>
+                            <div class="input-group">
+                                <input type="email" name="from_email" id="email" required>
+                                <label for="email">Your Email</label>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <textarea name="message" id="message" rows="5" required></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        
+                        <button type="submit" class="btn-glow">
+                            <span>Send Message</span>
+                            <span class="btn-spinner" style="display:none;">⏳</span>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="social-box">
+                    <h3>Connect With Me</h3>
+                    <div class="social-links">
+                        <a href="#" onclick="alert('Facebook - Coming Soon'); return false;" class="social-link">
+                            <i class="fab fa-facebook" aria-hidden="true"></i> Facebook
+                        </a>
+                        <a href="https://twitter.com/Raviraj2k09" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <i class="fab fa-x-twitter" aria-hidden="true"></i> Twitter
+                        </a>
+                        <a href="#" onclick="alert('Instagram - No Account Yet'); return false;" class="social-link">
+                            <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
+                        </a>
+                        <a href="https://youtube.com/@Ravirajhere" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <i class="fab fa-youtube" aria-hidden="true"></i> YouTube
+                        </a>
+                        <a href="https://linkedin.com/in/Ravirajhere" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <p>© 2026 Ravi Raj</p>
+        <p>Patna, India</p>
+        <p>Last Updated: <span id="lastUpdated"></span></p>
+    </footer>
+    
+    <!-- Live Date Time Bar -->
+    <div id="live-time-bar" role="status" aria-live="polite">
+        <span id="current-date-time">Loading...</span>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
