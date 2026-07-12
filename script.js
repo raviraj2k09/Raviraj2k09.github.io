@@ -248,64 +248,33 @@
         }
     }
 
-    /* ============================================
-       THEME MANAGER
-       ============================================ */
-    /* ============================================
-   THEME MANAGER - 100% WORKING
-   ============================================ */
-class ThemeManager {
-    constructor(toggleBtn, body) {
-        this.toggleBtn = toggleBtn;
-        this.body = body;
-        this.currentTheme = 'dark';
-
-        if (this.toggleBtn) {
-            this.init();
+    // SUPER SIMPLE THEME TOGGLE
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('theme-toggle');
+    const body = document.body;
+    
+    if(!btn) { console.log('Button nahi mila'); return; }
+    
+    // Load saved theme
+    if(localStorage.getItem('theme') === 'light') {
+        body.classList.add('light-mode');
+        btn.textContent = 'Light'; // ☀️ ki jagah
+    }
+    
+    // Click pe toggle
+    btn.onclick = function() {
+        body.classList.toggle('light-mode');
+        if(body.classList.contains('light-mode')) {
+            btn.textContent = 'Light'; // ☀️ ki jagah
+            localStorage.setItem('theme', 'light');
         } else {
-            console.error('❌ Theme button missing! Check ID: theme-toggle');
+            btn.textContent = 'Dark'; // 🌙 ki jagah
+            localStorage.setItem('theme', 'dark');
         }
+        console.log('Toggle hua!');
     }
-
-    init() {
-        // Load saved theme from localStorage
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            this.setTheme('light');
-        } else {
-            this.setTheme('dark');
-        }
-
-        // ✅ Click event listener
-        this.toggleBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log('🔄 Theme button clicked!');
-            this.toggle();
-        });
-    }
-
-    setTheme(theme) {
-        this.currentTheme = theme;
-        
-        if (theme === 'light') {
-            this.body.classList.add('light-mode');
-            this.toggleBtn.textContent = '☀️';
-            console.log('🌞 Light mode ON');
-        } else {
-            this.body.classList.remove('light-mode');
-            this.toggleBtn.textContent = '🌙';
-            console.log('🌙 Dark mode ON');
-        }
-        
-        localStorage.setItem('theme', theme);
-    }
-
-    toggle() {
-        const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
-        this.setTheme(newTheme);
-    }
-}
-
+});
+   
     /* ============================================
        SMOOTH SCROLL
        ============================================ */
