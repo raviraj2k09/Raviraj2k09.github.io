@@ -1084,10 +1084,11 @@ footer p:last-child {
 /* ============================================
    LIVE TIME BAR
    ============================================ */
-#live-time-bar {
+
+   #live-time-bar {
     width: 100%;
-    background: #ff9800;
-    color: #000;
+    background: var(--dark2);
+    color: var(--primary);
     text-align: center;
     padding: 12px 0;
     font-size: 18px;
@@ -1096,6 +1097,7 @@ footer p:last-child {
     letter-spacing: 1px;
     position: relative;
     z-index: 10;
+    border-top: 1px solid rgba(0, 217, 255, 0.1);
 }
 
 /* ============================================
@@ -1178,8 +1180,9 @@ body.light-mode .theme-btn {
 }
 
 body.light-mode #live-time-bar {
-    background: #ff9800;
-    color: #000;
+    background: #ffffff;
+    color: #0077ff;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 body.light-mode footer {
