@@ -1501,3 +1501,157 @@ body.light-mode .education-badge {
     position: relative;
     display: inline-block;
 }
+/* ============================================
+   SOCIAL TRIGGER + HIDDEN GRID
+   ============================================ */
+
+.social-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* Trigger Button */
+.social-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 28px;
+    background: rgba(0, 217, 255, 0.08);
+    border: 2px solid #00d9ff;
+    border-radius: 50px;
+    color: #00d9ff;
+    font-family: 'Fira Code', monospace;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.social-trigger:hover {
+    background: rgba(0, 217, 255, 0.18);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 217, 255, 0.25);
+}
+
+.social-trigger .arrow {
+    font-size: 11px;
+    transition: transform 0.35s ease;
+}
+
+.social-trigger.active .arrow {
+    transform: rotate(180deg);
+}
+
+/* ====== SOCIAL ICONS GRID - HIDDEN BY DEFAULT ====== */
+.social-icons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 240px;
+    margin: 16px auto 0 auto;
+    padding: 14px 18px;
+    background: rgba(19, 19, 26, 0.85);
+    border: 1px solid rgba(0, 217, 255, 0.15);
+    border-radius: 14px;
+    backdrop-filter: blur(12px);
+    
+    /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.95);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Position below trigger */
+    position: relative;
+    z-index: 10;
+}
+
+/* Show grid when active */
+.social-icons-grid.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* Social Icon Items */
+.social-icon-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    color: #e4e4e7;
+    font-size: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon-item:hover {
+    background: rgba(0, 217, 255, 0.12);
+    border-color: #00d9ff;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 217, 255, 0.15);
+}
+
+.social-icon-item:active {
+    transform: scale(0.92);
+}
+
+/* Hover Colors */
+.social-icon-item:hover .fa-x-twitter { color: #1DA1F2; }
+.social-icon-item:hover .fa-instagram { color: #E4405F; }
+.social-icon-item:hover .fa-linkedin-in { color: #0A66C2; }
+.social-icon-item:hover .fa-youtube { color: #FF0000; }
+.social-icon-item:hover .fa-github { color: #6e5494; }
+.social-icon-item:hover .fa-facebook { color: #1877F2; }
+
+/* Light Mode */
+body.light-mode .social-icons-grid {
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(0, 217, 255, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .social-icon-item {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.06);
+    color: #1a1a1a;
+}
+
+body.light-mode .social-icon-item:hover {
+    background: rgba(0, 217, 255, 0.08);
+    border-color: #00d9ff;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .social-icons-grid {
+        max-width: 200px;
+        gap: 10px;
+        padding: 12px 14px;
+    }
+    .social-icon-item {
+        font-size: 17px;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .social-icons-grid {
+        max-width: 170px;
+        gap: 8px;
+        padding: 10px 12px;
+    }
+    .social-icon-item {
+        font-size: 15px;
+        border-radius: 8px;
+    }
+    .social-trigger {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+}
