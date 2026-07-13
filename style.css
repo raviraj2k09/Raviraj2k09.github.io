@@ -1635,3 +1635,180 @@ body.light-mode .social-icon-item:hover {
     position: relative;
     z-index: 1;
 }
+/* ============================================
+   RJ ACHIEVE MODAL - PROFESSIONAL
+   ============================================ */
+
+/* Modal Background */
+.rj-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.rj-modal.active {
+    display: flex;
+    animation: rjModalFade 0.35s ease;
+}
+
+@keyframes rjModalFade {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Modal Card */
+.rj-modal-content {
+    background: var(--dark2);
+    border: 1px solid rgba(0, 217, 255, 0.15);
+    border-radius: 24px;
+    padding: 40px 36px 32px;
+    max-width: 540px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+}
+
+/* Close Button */
+.rj-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 28px;
+    color: var(--gray);
+    cursor: pointer;
+    transition: 0.3s;
+    line-height: 1;
+    background: none;
+    border: none;
+}
+
+.rj-modal-close:hover {
+    color: var(--light);
+    transform: rotate(90deg);
+}
+
+/* Modal Header */
+.rj-modal-content h2 {
+    color: var(--light);
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.rj-modal-content p {
+    color: var(--gray);
+    font-size: 15px;
+    margin-bottom: 24px;
+}
+
+/* Grid */
+.rj-modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+/* Items */
+.rj-modal-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 22px 14px 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rj-modal-item:hover {
+    background: rgba(0, 217, 255, 0.06);
+    border-color: var(--primary);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.rj-modal-item:active {
+    transform: scale(0.96);
+}
+
+.rj-modal-item span {
+    font-size: 38px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.rj-modal-item h4 {
+    color: var(--light);
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.rj-modal-item p {
+    font-size: 12px;
+    color: var(--gray);
+    margin: 0;
+}
+
+/* Light Mode */
+body.light-mode .rj-modal-content {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.12);
+}
+
+body.light-mode .rj-modal-item {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-mode .rj-modal-item:hover {
+    background: rgba(0, 119, 255, 0.04);
+    border-color: var(--primary);
+}
+
+body.light-mode .rj-modal-item h4 {
+    color: #0f172a;
+}
+
+body.light-mode .rj-modal-close {
+    color: #64748b;
+}
+
+body.light-mode .rj-modal-close:hover {
+    color: #0f172a;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .rj-modal-content {
+        padding: 28px 18px 24px;
+    }
+    .rj-modal-grid {
+        gap: 10px;
+    }
+    .rj-modal-item {
+        padding: 16px 10px 14px;
+    }
+    .rj-modal-item span {
+        font-size: 30px;
+    }
+    .rj-modal-item h4 {
+        font-size: 15px;
+    }
+    .rj-modal-content h2 {
+        font-size: 22px;
+    }
+}
