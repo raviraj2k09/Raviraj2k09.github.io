@@ -1,17 +1,17 @@
-/* ============================================
-   EMAILJS.JS - SEND MESSAGE FUNCTIONALITY
-   ============================================ */
+// ============================================
+// EMAILJS.JS — COMPLETE (Aapke HTML ke hisab se)
+// ============================================
 
 (function() {
     'use strict';
 
     // ============================================
-    // CONFIGURATION - APNI CREDENTIALS DAALO
+    // CONFIGURATION
     // ============================================
     const EMAILJS_CONFIG = {
-        publicKey: 'ZKEUMnGSjznurORAI',     // Apna Public Key
-        serviceID: 'service_kc0c1i5',        // Apna Service ID
-        templateID: 'template_s53pk7r'       // Apna Template ID
+        publicKey: 'ZKEUMnGSjznurORAI',
+        serviceID: 'service_kc0c1i5',
+        templateID: 'template_s53pk7r'
     };
 
     // ============================================
@@ -49,7 +49,7 @@
     };
 
     // ============================================
-    // FORM SUBMIT HANDLER
+    // FORM SUBMIT HANDLER (Aapke HTML ke hisab se)
     // ============================================
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('contactForm');
