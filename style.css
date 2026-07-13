@@ -1653,3 +1653,36 @@ body.light-mode .contact-btn:hover {
         font-size: 16px;
     }
 }
+/* ============================================
+   LIGHT MODE — CONTACT BUTTON
+   ============================================ */
+body.light-mode .contact-btn {
+    background: linear-gradient(135deg, #0077ff, #5b2b9e) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 32px rgba(0, 119, 255, 0.3) !important;
+}
+
+body.light-mode .contact-btn::before {
+    background: linear-gradient(135deg, #5b2b9e, #0077ff) !important;
+}
+
+body.light-mode .contact-btn:hover {
+    box-shadow: 0 12px 48px rgba(0, 119, 255, 0.5) !important;
+}
+
+/* ============================================
+   LIGHT MODE — RJ ACHIEVE BUTTON
+   ============================================ */
+body.light-mode .btn-achieve {
+    background: linear-gradient(135deg, #0077ff, #7c3aed) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 32px rgba(0, 119, 255, 0.3) !important;
+}
+
+body.light-mode .btn-achieve::before {
+    background: linear-gradient(135deg, #7c3aed, #0077ff) !important;
+}
+
+body.light-mode .btn-achieve:hover {
+    box-shadow: 0 12px 48px rgba(0, 119, 255, 0.5) !important;
+}
