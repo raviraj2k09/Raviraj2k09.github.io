@@ -498,27 +498,21 @@
     <div id="live-time-bar" role="status" aria-live="polite">
         <span id="current-date-time">Loading...</span>
     </div>
-    <!-- Chatbox -->
-    <div id="chatbox-container"></div>
+    <!-- Chatbox Container -->
+<div id="chatbox-container"></div>
 
 <script>
     fetch('chatbox.html')
         .then(res => res.text())
         .then(html => {
             document.getElementById('chatbox-container').innerHTML = html;
-            
-            // MANUAL EXECUTE - Sirf 4 lines
-            const script = document.querySelector('#chatbox-container script');
-            if (script) {
-                const newScript = document.createElement('script');
-                newScript.textContent = script.textContent;
-                document.body.appendChild(newScript);
-                script.remove();
-            }
-        });
+        })
+        .catch(err => console.error('Chatbox load failed:', err));
 </script>
+
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
+    <script src="chatbox.js"></script>
 </body>
 </html>
