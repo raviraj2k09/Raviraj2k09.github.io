@@ -498,30 +498,15 @@
     <div id="live-time-bar" role="status" aria-live="polite">
         <span id="current-date-time">Loading...</span>
     </div>
-    <!-- Chatbox Container -->
+    <!-- Chatbox -->
 <div id="chatbox-container"></div>
-
 <script>
     fetch('chatbox.html')
         .then(res => res.text())
         .then(html => {
-            // HTML insert karo
             document.getElementById('chatbox-container').innerHTML = html;
-            
-            // Ab manually script execute karo
-            const scripts = document.querySelectorAll('#chatbox-container script');
-            scripts.forEach(oldScript => {
-                const newScript = document.createElement('script');
-                newScript.textContent = oldScript.textContent;
-                document.body.appendChild(newScript);
-                oldScript.remove();
-            });
-            
-            console.log('✅ Chatbox loaded and initialized!');
         })
-        .catch(err => {
-            console.error('❌ Chatbox load failed:', err);
-        });
+        .catch(err => console.error('Chatbox load failed:', err));
 </script>
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
