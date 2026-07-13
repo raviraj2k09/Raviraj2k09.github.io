@@ -1,0 +1,562 @@
+<!-- chatbox.html - Complete Chatbox -->
+<style>
+    /* Chatbox CSS */
+    .chatbox-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #00d9ff;
+        border: none;
+        font-size: 30px;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0, 217, 255, 0.4);
+        z-index: 9999;
+        transition: 0.3s;
+    }
+
+    .chatbox-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 30px rgba(0, 217, 255, 0.6);
+    }
+
+    /* Chat Window */
+    .chat-window {
+        position: fixed;
+        bottom: 100px;
+        right: 30px;
+        width: 380px;
+        height: 500px;
+        background: #13131a;
+        border: 1px solid rgba(0, 217, 255, 0.3);
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        z-index: 9998;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+    }
+
+    .chat-window.open {
+        display: flex;
+    }
+
+    /* Chat Header */
+    .chat-header {
+        padding: 16px 20px;
+        background: #00d9ff;
+        color: #0a0a0f;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .chat-close {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #0a0a0f;
+    }
+
+    /* Chat Messages */
+    .chat-messages {
+        flex: 1;
+        padding: 16px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .message {
+        max-width: 80%;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .message.user {
+        align-self: flex-end;
+        background: #00d9ff;
+        color: #0a0a0f;
+        border-bottom-right-radius: 4px;
+    }
+
+    .message.bot {
+        align-self: flex-start;
+        background: rgba(255, 255, 255, 0.08);
+        color: #e4e4e7;
+        border-bottom-left-radius: 4px;
+    }
+
+    .message.system {
+        align-self: center;
+        background: rgba(0, 255, 136, 0.15);
+        color: #00ff88;
+        font-size: 13px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        max-width: 90%;
+        text-align: center;
+    }
+
+    /* Chat Input */
+    .chat-input-area {
+        padding: 12px 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        display: flex;
+        gap: 10px;
+        background: rgba(19, 19, 26, 0.95);
+    }
+
+    .chat-input {
+        flex: 1;
+        padding: 10px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #e4e4e7;
+        font-size: 14px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .chat-input:focus {
+        border-color: #00d9ff;
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.1);
+    }
+
+    .chat-send {
+        padding: 10px 20px;
+        background: #00d9ff;
+        color: #0a0a0f;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .chat-send:hover {
+        background: #00ff88;
+        transform: scale(1.02);
+    }
+
+    .chat-send:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* Mode Selection */
+    .mode-selection {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+
+    .mode-btn {
+        padding: 14px;
+        border: 2px solid rgba(0, 217, 255, 0.3);
+        border-radius: 12px;
+        background: transparent;
+        color: #e4e4e7;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .mode-btn:hover {
+        background: rgba(0, 217, 255, 0.1);
+        border-color: #00d9ff;
+        transform: translateY(-2px);
+    }
+
+    /* Contact Form */
+    .contact-form {
+        display: none;
+        padding: 20px;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .contact-form.active {
+        display: flex;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        padding: 12px 14px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: #e4e4e7;
+        font-size: 14px;
+        outline: none;
+        transition: 0.3s;
+        font-family: inherit;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        border-color: #00d9ff;
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.1);
+    }
+
+    .contact-form textarea {
+        min-height: 80px;
+        resize: vertical;
+    }
+
+    .contact-form .send-btn {
+        padding: 12px;
+        background: #00d9ff;
+        color: #0a0a0f;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .contact-form .send-btn:hover {
+        background: #00ff88;
+    }
+
+    .contact-form .send-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    /* Back Button */
+    .back-btn {
+        background: none;
+        border: none;
+        color: #00d9ff;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 4px 0;
+        margin-bottom: 10px;
+        font-weight: 500;
+    }
+
+    .back-btn:hover {
+        color: #00ff88;
+    }
+
+    /* Light Mode */
+    body.light-mode .chat-window {
+        background: #ffffff;
+        border-color: rgba(0, 217, 255, 0.2);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    body.light-mode .message.bot {
+        background: #f0f0f0;
+        color: #1a1a1a;
+    }
+
+    body.light-mode .message.system {
+        background: rgba(0, 255, 136, 0.1);
+        color: #0077ff;
+    }
+
+    body.light-mode .chat-input-area {
+        background: #f8f8f8;
+        border-top-color: rgba(0, 0, 0, 0.06);
+    }
+
+    body.light-mode .chat-input {
+        background: #ffffff;
+        color: #1a1a1a;
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-mode .chat-input:focus {
+        border-color: #00d9ff;
+    }
+
+    body.light-mode .mode-btn {
+        color: #1a1a1a;
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-mode .mode-btn:hover {
+        background: rgba(0, 217, 255, 0.1);
+        border-color: #00d9ff;
+    }
+
+    body.light-mode .contact-form input,
+    body.light-mode .contact-form textarea {
+        background: #ffffff;
+        color: #1a1a1a;
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+        .chat-window {
+            width: 90vw;
+            height: 80vh;
+            right: 5vw;
+            bottom: 80px;
+        }
+
+        .chatbox-button {
+            width: 56px;
+            height: 56px;
+            font-size: 26px;
+            bottom: 20px;
+            right: 20px;
+        }
+    }
+</style>
+
+<!-- Chatbox HTML -->
+<div id="chatbox">
+    <!-- Chat Button -->
+    <button class="chatbox-button" id="chatToggle">💬</button>
+
+    <!-- Chat Window -->
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>💬 Chat with Ravi</span>
+            <button class="chat-close" id="chatClose">✕</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">Hi! 👋 Welcome to my portfolio.</div>
+            <div class="message bot">Choose an option below to get started:</div>
+        </div>
+
+        <!-- Mode Selection -->
+        <div class="mode-selection" id="modeSelection">
+            <button class="mode-btn" id="aiModeBtn">🤖 AI Chat</button>
+            <button class="mode-btn" id="contactModeBtn">📧 Contact Me</button>
+        </div>
+
+        <!-- AI Chat Mode -->
+        <div id="aiChatMode" style="display:none; flex-direction:column; flex:1;">
+            <div style="padding: 8px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <button class="back-btn" id="aiBackBtn">← Back</button>
+            </div>
+            <div class="chat-messages" id="aiMessages"></div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="aiInput" placeholder="Type your message...">
+                <button class="chat-send" id="aiSend">Send</button>
+            </div>
+        </div>
+
+        <!-- Contact Mode -->
+        <div class="contact-form" id="contactForm">
+            <div style="padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <button class="back-btn" id="contactBackBtn">← Back</button>
+            </div>
+            <input type="text" id="contactName" placeholder="Your Name" required>
+            <input type="email" id="contactEmail" placeholder="Your Email" required>
+            <textarea id="contactMessage" placeholder="Your Message" required></textarea>
+            <button class="send-btn" id="contactSend">Send Message</button>
+            <div id="contactStatus" style="text-align:center; font-size:14px; margin-top:4px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Chatbox JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const chatToggle = document.getElementById('chatToggle');
+    const chatWindow = document.getElementById('chatWindow');
+    const chatClose = document.getElementById('chatClose');
+    const modeSelection = document.getElementById('modeSelection');
+    const aiModeBtn = document.getElementById('aiModeBtn');
+    const contactModeBtn = document.getElementById('contactModeBtn');
+    const aiChatMode = document.getElementById('aiChatMode');
+    const aiMessages = document.getElementById('aiMessages');
+    const aiInput = document.getElementById('aiInput');
+    const aiSend = document.getElementById('aiSend');
+    const aiBackBtn = document.getElementById('aiBackBtn');
+    const contactForm = document.getElementById('contactForm');
+    const contactBackBtn = document.getElementById('contactBackBtn');
+    const contactName = document.getElementById('contactName');
+    const contactEmail = document.getElementById('contactEmail');
+    const contactMessage = document.getElementById('contactMessage');
+    const contactSend = document.getElementById('contactSend');
+    const contactStatus = document.getElementById('contactStatus');
+    const chatMessages = document.getElementById('chatMessages');
+
+    let currentMode = null; // 'ai' or 'contact'
+
+    // Toggle Chat Window
+    chatToggle.addEventListener('click', () => {
+        chatWindow.classList.toggle('open');
+        if (chatWindow.classList.contains('open')) {
+            resetToModeSelection();
+        }
+    });
+
+    chatClose.addEventListener('click', () => {
+        chatWindow.classList.remove('open');
+    });
+
+    // Reset to mode selection
+    function resetToModeSelection() {
+        modeSelection.style.display = 'flex';
+        aiChatMode.style.display = 'none';
+        contactForm.classList.remove('active');
+        contactForm.style.display = 'none';
+        currentMode = null;
+        // Reset chat messages
+        chatMessages.innerHTML = `
+            <div class="message bot">Hi! 👋 Welcome to my portfolio.</div>
+            <div class="message bot">Choose an option below to get started:</div>
+        `;
+        contactStatus.textContent = '';
+        document.querySelectorAll('.chat-messages:not(#chatMessages):not(#aiMessages)').forEach(el => {
+            // clear
+        });
+    }
+
+    // ===== AI MODE =====
+    const aiReplies = {
+        'hello': 'Hi! How can I help you today?',
+        'hi': 'Hi! How can I help you today?',
+        'help': 'Sure! What do you need help with?',
+        'project': 'I build websites using HTML, CSS, and JavaScript!',
+        'skills': 'HTML5, CSS3, JavaScript, Python, Responsive Design',
+        'contact': 'Click "Contact Me" mode to send me a message!',
+        'thanks': 'You\'re welcome! 😊',
+        'thank you': 'You\'re welcome! 😊',
+        'who are you': 'I\'m Ravi\'s virtual assistant!',
+        'bye': 'Goodbye! Feel free to come back anytime!',
+        'default': 'Let me know what you need help with!'
+    };
+
+    function getAIResponse(message) {
+        const lowerMsg = message.toLowerCase();
+        for (const [key, reply] of Object.entries(aiReplies)) {
+            if (lowerMsg.includes(key)) {
+                return reply;
+            }
+        }
+        return aiReplies['default'];
+    }
+
+    aiModeBtn.addEventListener('click', () => {
+        modeSelection.style.display = 'none';
+        aiChatMode.style.display = 'flex';
+        currentMode = 'ai';
+        aiMessages.innerHTML = `
+            <div class="message bot">🤖 AI Chat Mode activated!</div>
+            <div class="message bot">Ask me anything about Ravi or his work!</div>
+        `;
+        aiInput.value = '';
+        aiInput.focus();
+    });
+
+    function sendAIMessage() {
+        const msg = aiInput.value.trim();
+        if (!msg) return;
+
+        // Add user message
+        aiMessages.innerHTML += `<div class="message user">${msg}</div>`;
+        aiInput.value = '';
+        aiInput.focus();
+        aiSend.disabled = true;
+
+        // Auto-scroll
+        aiMessages.scrollTop = aiMessages.scrollHeight;
+
+        // Get AI reply
+        setTimeout(() => {
+            const reply = getAIResponse(msg);
+            aiMessages.innerHTML += `<div class="message bot">${reply}</div>`;
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+            aiSend.disabled = false;
+        }, 500 + Math.random() * 500); // Simulate typing delay
+    }
+
+    aiSend.addEventListener('click', sendAIMessage);
+    aiInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendAIMessage();
+    });
+
+    aiBackBtn.addEventListener('click', resetToModeSelection);
+
+    // ===== CONTACT MODE =====
+    contactModeBtn.addEventListener('click', () => {
+        modeSelection.style.display = 'none';
+        contactForm.style.display = 'flex';
+        contactForm.classList.add('active');
+        currentMode = 'contact';
+        contactName.value = '';
+        contactEmail.value = '';
+        contactMessage.value = '';
+        contactStatus.textContent = '';
+    });
+
+    contactBackBtn.addEventListener('click', resetToModeSelection);
+
+    contactSend.addEventListener('click', function() {
+        const name = contactName.value.trim();
+        const email = contactEmail.value.trim();
+        const message = contactMessage.value.trim();
+
+        // Validation
+        if (!name || !email || !message) {
+            contactStatus.innerHTML = '⚠️ Please fill all fields.';
+            contactStatus.style.color = '#ff4444';
+            return;
+        }
+
+        if (!email.includes('@') || !email.includes('.')) {
+            contactStatus.innerHTML = '⚠️ Please enter a valid email address.';
+            contactStatus.style.color = '#ff4444';
+            return;
+        }
+
+        // Sending...
+        contactSend.disabled = true;
+        contactStatus.innerHTML = '⏳ Sending your message...';
+        contactStatus.style.color = '#ff9800';
+
+        // Simulate send (replace with EmailJS later)
+        setTimeout(() => {
+            // Success
+            contactStatus.innerHTML = '✅ Message sent successfully! I\'ll reply within 24 hours.';
+            contactStatus.style.color = '#00ff88';
+            contactSend.disabled = false;
+            contactName.value = '';
+            contactEmail.value = '';
+            contactMessage.value = '';
+
+            // Add to chat
+            chatMessages.innerHTML += `
+                <div class="message system">📧 Message sent! I'll reply within 24 hours.</div>
+            `;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Reset after 5 seconds
+            setTimeout(() => {
+                if (currentMode === 'contact') {
+                    resetToModeSelection();
+                }
+            }, 5000);
+        }, 1500);
+    });
+});
+</script>
