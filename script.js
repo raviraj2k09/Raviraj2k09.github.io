@@ -1,5 +1,5 @@
 /* ============================================
-   SCRIPT.JS - COMPLETE PORTFOLIO FUNCTIONALITY (FIXED)
+   SCRIPT.JS - COMPLETE PORTFOLIO FUNCTIONALITY (IMPROVED)
    ============================================ */
 
 (function() {
@@ -134,73 +134,72 @@
     }
 
     /* ============================================
-   TYPEWRITER EFFECT - FIXED
-   ============================================ */
-class TypewriterEffect {
-    constructor(elements, speed) {
-        this.elements = elements;
-        this.speed = speed;
-        this.observer = null;
-        this.init();
-    }
+       TYPEWRITER EFFECT
+       ============================================ */
+    class TypewriterEffect {
+        constructor(elements, speed) {
+            this.elements = elements;
+            this.speed = speed;
+            this.observer = null;
+            this.init();
+        }
 
-    init() {
-        // FIX: Convert NodeList to Array
-        const targets = Array.from(this.elements).filter(el => 
-            ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(el.tagName)
-        );
+        init() {
+            const targets = Array.from(this.elements).filter(el => 
+                ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(el.tagName)
+            );
 
-        targets.forEach(el => {
-            const text = el.textContent.trim();
-            if (text) {
-                el.dataset.text = text;
-                el.textContent = '';
-                el.style.opacity = '0';
-            }
-        });
-
-        this.setupObserver(targets);
-    }
-
-    setupObserver(elements) {
-        this.observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.classList.contains('typed')) {
-                    entry.target.classList.add('typed');
-                    this.typeWriter(entry.target);
+            targets.forEach(el => {
+                const text = el.textContent.trim();
+                if (text) {
+                    el.dataset.text = text;
+                    el.textContent = '';
+                    el.style.opacity = '0';
                 }
             });
-        }, { threshold: CONFIG.typewriter.threshold });
 
-        elements.forEach(el => {
-            if (el.dataset.text) {
-                this.observer.observe(el);
-            }
-        });
-    }
-
-    typeWriter(element) {
-        const text = element.dataset.text;
-        let index = 0;
-        element.style.opacity = '1';
-
-        function typing() {
-            if (index < text.length) {
-                element.textContent += text.charAt(index);
-                index++;
-                setTimeout(typing, CONFIG.typewriter.speed);
-            }
+            this.setupObserver(targets);
         }
 
-        typing();
-    }
+        setupObserver(elements) {
+            this.observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.classList.contains('typed')) {
+                        entry.target.classList.add('typed');
+                        this.typeWriter(entry.target);
+                    }
+                });
+            }, { threshold: CONFIG.typewriter.threshold });
 
-    destroy() {
-        if (this.observer) {
-            this.observer.disconnect();
+            elements.forEach(el => {
+                if (el.dataset.text) {
+                    this.observer.observe(el);
+                }
+            });
+        }
+
+        typeWriter(element) {
+            const text = element.dataset.text;
+            let index = 0;
+            element.style.opacity = '1';
+
+            function typing() {
+                if (index < text.length) {
+                    element.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(typing, CONFIG.typewriter.speed);
+                }
+            }
+
+            typing();
+        }
+
+        destroy() {
+            if (this.observer) {
+                this.observer.disconnect();
+            }
         }
     }
-}
 
     /* ============================================
        SKILL BARS ANIMATION
@@ -213,7 +212,7 @@ class TypewriterEffect {
         }
 
         init() {
-            this.bars.forEach(bar => {
+            Array.from(this.bars).forEach(bar => {
                 const width = bar.style.width;
                 bar.dataset.width = width;
                 bar.style.width = '0%';
@@ -232,7 +231,7 @@ class TypewriterEffect {
                 });
             }, { threshold: 0.5 });
 
-            this.bars.forEach(bar => {
+            Array.from(this.bars).forEach(bar => {
                 this.observer.observe(bar);
             });
         }
@@ -245,7 +244,7 @@ class TypewriterEffect {
     }
 
     /* ============================================
-       THEME MANAGER - FIXED
+       THEME MANAGER
        ============================================ */
     class ThemeManager {
         constructor(button, body) {
@@ -260,7 +259,6 @@ class TypewriterEffect {
                 return;
             }
 
-            // Load saved theme
             if (localStorage.getItem('theme') === 'light') {
                 this.body.classList.add('light-mode');
                 this.button.textContent = '☀️';
@@ -268,7 +266,6 @@ class TypewriterEffect {
                 this.button.textContent = '🌙';
             }
 
-            // Toggle on click
             this.button.addEventListener('click', () => {
                 this.toggle();
             });
@@ -303,7 +300,7 @@ class TypewriterEffect {
         }
 
         init() {
-            this.links.forEach(anchor => {
+            Array.from(this.links).forEach(anchor => {
                 anchor.addEventListener('click', (e) => {
                     e.preventDefault();
                     const targetId = anchor.getAttribute('href');
@@ -321,7 +318,7 @@ class TypewriterEffect {
         }
 
         destroy() {
-            this.links.forEach(anchor => {
+            Array.from(this.links).forEach(anchor => {
                 anchor.removeEventListener('click', () => {});
             });
         }
@@ -517,7 +514,7 @@ class TypewriterEffect {
     }
 
     /* ============================================
-       PHOTO ANIMATION - FIXED
+       PHOTO ANIMATION
        ============================================ */
     function setupPhotoAnimation(photo) {
         if (!photo) return;
@@ -528,13 +525,96 @@ class TypewriterEffect {
     }
 
     /* ============================================
+       PORTFOLIO PDF DOWNLOAD (CV STYLE)
+       ============================================ */
+    function downloadPortfolioPDF() {
+        const content = document.createElement('div');
+        content.innerHTML = `
+        <div style="padding:50px;font-family:'Segoe UI',Arial,sans-serif;max-width:900px;margin:auto;color:#000;background:#fff;line-height:1.6;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.05);">
+
+            <!-- Header -->
+            <div style="text-align:center;border-bottom:3px solid #0055aa;padding-bottom:20px;">
+                <h1 style="color:#0055aa;font-size:36px;margin:0;">Ravi Raj</h1>
+                <p style="font-size:18px;color:#333;margin:4px 0;">Student | Web Developer</p>
+                <p style="font-size:14px;color:#555;">Begusarai, Bihar | rravirajhere@gmail.com</p>
+            </div>
+
+            <!-- About -->
+            <div style="margin-top:20px;">
+                <h2 style="color:#0055aa;border-bottom:2px solid #0055aa;padding-bottom:6px;">📌 About Me</h2>
+                <p style="font-size:15px;color:#222;">Passionate 12th-grade student building modern web experiences with HTML, CSS, and Python. I turn ideas into code and love learning new technologies every day.</p>
+            </div>
+
+            <!-- Education -->
+            <div style="margin-top:20px;">
+                <h2 style="color:#0055aa;border-bottom:2px solid #0055aa;padding-bottom:6px;">🎓 Education</h2>
+                <ul style="font-size:15px;color:#222;padding-left:20px;">
+                    <li><strong>12th (2024–2026):</strong> Udaan International School, Begusarai — Physics, Chemistry, Maths</li>
+                    <li><strong>10th (2019–2024):</strong> Mother's Pride International School, Begusarai</li>
+                    <li><strong>Primary (2014–2019):</strong> Gautam Buddha Global School, Begusarai</li>
+                </ul>
+            </div>
+
+            <!-- Skills -->
+            <div style="margin-top:20px;">
+                <h2 style="color:#0055aa;border-bottom:2px solid #0055aa;padding-bottom:6px;">💻 Skills</h2>
+                <ul style="font-size:15px;color:#222;padding-left:20px;">
+                    <li><strong>HTML5:</strong> 75%</li>
+                    <li><strong>CSS3:</strong> 80%</li>
+                    <li><strong>JavaScript:</strong> 50%</li>
+                    <li><strong>Python:</strong> 50%</li>
+                    <li><strong>Responsive Design:</strong> 70%</li>
+                    <li><strong>Tools:</strong> VS Code, Git & GitHub, Chrome DevTools</li>
+                </ul>
+            </div>
+
+            <!-- Projects -->
+            <div style="margin-top:20px;">
+                <h2 style="color:#0055aa;border-bottom:2px solid #0055aa;padding-bottom:6px;">🚀 Projects</h2>
+                <ul style="font-size:15px;color:#222;padding-left:20px;">
+                    <li><strong>Portfolio v2.0:</strong> Modern, responsive portfolio website with Matrix animation, smooth scrolling, and dark/light theme.</li>
+                    <li><strong>Modern Landing Page:</strong> Responsive design with smooth animations, gradient effects, and optimized performance.</li>
+                </ul>
+            </div>
+
+            <!-- Achievements -->
+            <div style="margin-top:20px;">
+                <h2 style="color:#0055aa;border-bottom:2px solid #0055aa;padding-bottom:6px;">🏆 Achievements</h2>
+                <ul style="font-size:15px;color:#222;padding-left:20px;">
+                    <li>Built first portfolio website at 17</li>
+                    <li>100+ hours of coding practice</li>
+                    <li>Completed HTML, CSS, JavaScript courses</li>
+                    <li>Helped 10+ friends learn coding</li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div style="margin-top:20px;padding-top:10px;border-top:2px solid #0055aa;text-align:center;font-size:14px;color:#555;">
+                <p>📧 rravirajhere@gmail.com | 🐦 @Raviraj2k09 | 💼 linkedin.com/in/Ravirajhere</p>
+                <p style="margin-top:4px;">© 2026 Ravi Raj — Built with ❤️</p>
+            </div>
+
+        </div>
+        `;
+
+        const win = window.open('', '_blank');
+        if (win) {
+            win.document.write(content.innerHTML);
+            win.document.close();
+            win.focus();
+            win.print();
+        } else {
+            alert('Popup blocked! Please allow popups for this site.');
+        }
+    }
+
+    /* ============================================
        INITIALIZATION
        ============================================ */
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🚀 Portfolio v2.0 - Ravi Raj');
         console.log('📅 Loaded:', new Date().toLocaleString());
 
-        // Initialize all components
         const matrix = new MatrixEffect(
             DOM.matrixCanvas,
             CONFIG.matrix.chars,
@@ -547,23 +627,14 @@ class TypewriterEffect {
         );
 
         const skillBars = new SkillBars(DOM.skillBars);
-
-        // Theme Manager - NOW FIXED
-        const themeManager = new ThemeManager(
-            DOM.themeToggle,
-            DOM.body
-        );
-
+        const themeManager = new ThemeManager(DOM.themeToggle, DOM.body);
         const smoothScroll = new SmoothScroll(DOM.navLinks);
-
         const contactForm = new ContactForm(DOM.contactForm);
-
         const liveDateTime = new LiveDateTime(DOM.timeDisplay);
 
         setLastUpdated(DOM.lastUpdated);
         setupPhotoAnimation(DOM.heroPhoto);
 
-        // Cleanup on page unload
         window.addEventListener('beforeunload', function() {
             matrix.destroy();
             typewriter.destroy();
@@ -591,14 +662,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const grid = document.getElementById('socialGrid');
 
     if (trigger && grid) {
-        // Toggle grid on trigger click
         trigger.addEventListener('click', function(e) {
             e.stopPropagation();
             this.classList.toggle('active');
             grid.classList.toggle('show');
         });
 
-        // Close grid when clicking outside
         document.addEventListener('click', function(e) {
             if (!trigger.contains(e.target) && !grid.contains(e.target)) {
                 trigger.classList.remove('active');
@@ -606,7 +675,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Close on Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 trigger.classList.remove('active');
@@ -615,6 +683,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 /* ============================================
    RJ ACHIEVE MODAL - FUNCTIONS
    ============================================ */
@@ -630,12 +699,15 @@ function closeRJModal() {
 }
 
 function openAchieveModal(type) {
-    const modal = document.getElementById('rjModal');
     const body = document.getElementById('achieveModalBody');
-
-    // Agar achieveModalBody nahi hai toh banao
     if (!body) {
-        console.warn('⚠️ achieveModalBody not found!');
+        console.warn('⚠️ achieveModalBody not found! Creating fallback...');
+        const modalContent = document.querySelector('.rj-modal-content');
+        if (modalContent) {
+            const newBody = document.createElement('div');
+            newBody.id = 'achieveModalBody';
+            modalContent.appendChild(newBody);
+        }
         return;
     }
 
@@ -643,29 +715,17 @@ function openAchieveModal(type) {
         'experience': {
             title: '💼 My Experience',
             sub: 'Coming soon — I\'m currently updating this section.',
-            details: [
-                '📌 Available Soon',
-                '🛠️ I\'m working on adding my professional journey here.',
-                '⏳ Please check back later!'
-            ]
+            details: ['📌 Available Soon', '🛠️ I\'m working on adding my professional journey here.', '⏳ Please check back later!']
         },
         'memories': {
             title: '📸 Photo Gallery',
             sub: 'Coming soon — I\'m collecting my favorite moments.',
-            details: [
-                '📌 Available Soon',
-                '🛠️ This section is under development.',
-                '⏳ Stay tuned for updates!'
-            ]
+            details: ['📌 Available Soon', '🛠️ This section is under development.', '⏳ Stay tuned for updates!']
         },
         'autobiography': {
             title: '📖 Autobiography',
             sub: 'Coming soon — my life story in words.',
-            details: [
-                '📝 Coming Soon',
-                '🛠️ I\'m currently writing my autobiography.',
-                '⏳ Please check back later for updates!'
-            ]
+            details: ['📝 Coming Soon', '🛠️ I\'m currently writing my autobiography.', '⏳ Please check back later for updates!']
         }
     };
 
