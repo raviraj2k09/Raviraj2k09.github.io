@@ -436,29 +436,65 @@
         </section>
 
         <!-- ============================================================
-               CHATBOX CONTAINER (Hidden by default, load on demand)
-        ============================================================ -->
-        <div id="chatbox-container" style="display:none;"></div>
+     CONTACT ME BUTTON (Ab 2 options ke saath)
+============================================================ -->
+<div class="contact-btn-wrapper">
+    <button onclick="showContactOptions()" class="contact-btn">
+        <span class="contact-btn-icon">💬</span>
+        <span class="contact-btn-label">Contact Me</span>
+        <span class="contact-btn-sub"></span>
+    </button>
+</div>
 
-        <!-- ============================================================
-               CONTACT ME BUTTON (Footer ke upar)
-        ============================================================ -->
-        <div class="contact-btn-wrapper">
-            <button onclick="openChatbox()" class="contact-btn">
-                <span class="contact-btn-icon">💬</span>
-                <span class="contact-btn-label">Contact Me</span>
-                <span class="contact-btn-sub"></span>
+<!-- ============================================================
+     CONTACT OPTIONS POPUP (2 buttons)
+============================================================ -->
+<div id="contactOptionsModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:9999; display:none; align-items:center; justify-content:center;">
+    <div style="background:var(--bg-secondary); padding:40px; border-radius:20px; text-align:center; max-width:400px; width:90%; border:1px solid var(--border-color);">
+        <h3 style="margin-bottom:10px; color:var(--text-primary);">📬 Contact Me</h3>
+        <p style="margin-bottom:25px; color:var(--text-secondary);">Choose how you want to connect</p>
+        
+        <div style="display:flex; flex-direction:column; gap:15px;">
+            <a href="chatbox.html" style="display:block; padding:15px; background:linear-gradient(135deg,var(--primary),var(--accent)); color:#fff; text-decoration:none; border-radius:12px; font-weight:600; font-size:18px; transition:transform 0.2s;">
+                🤖 AI Chatbox
+            </a>
+            
+            <a href="#" onclick="openEmailForm(); return false;" style="display:block; padding:15px; background:var(--bg-tertiary); color:var(--text-primary); text-decoration:none; border-radius:12px; font-weight:600; font-size:18px; border:2px solid var(--border-color); transition:transform 0.2s;">
+                ✉️ Send a Message
+            </a>
+            
+            <button onclick="closeContactOptions()" style="margin-top:10px; padding:10px; background:transparent; color:var(--text-secondary); border:1px solid var(--border-color); border-radius:8px; cursor:pointer; font-size:14px;">
+                Cancel
             </button>
         </div>
+    </div>
+</div>
 
-        <!-- ============================================================
-               RJ's ACHIEVE BUTTON (Footer ke upar)
-        ============================================================ -->
-        <div class="achieve-footer-btn">
-            <button onclick="openRJModal()" class="btn-achieve">
-                <span>🏆</span> RJ's Achieve
-            </button>
+<!-- ============================================================
+     EMAILJS FORM (Hidden by default)
+============================================================ -->
+<div id="emailFormModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:var(--bg-secondary); padding:35px; border-radius:20px; max-width:450px; width:90%; border:1px solid var(--border-color);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 style="color:var(--text-primary);">✉️ Send a Message</h3>
+            <button onclick="closeEmailForm()" style="background:transparent; border:none; color:var(--text-secondary); font-size:24px; cursor:pointer;">✕</button>
         </div>
+        
+        <form id="contactForm">
+            <input type="text" id="user_name" placeholder="Your Name" required style="width:100%; padding:12px; margin-bottom:12px; background:var(--bg-tertiary); border:1px solid var(--border-color); border-radius:8px; color:var(--text-primary); font-size:16px;">
+            
+            <input type="email" id="user_email" placeholder="Your Email" required style="width:100%; padding:12px; margin-bottom:12px; background:var(--bg-tertiary); border:1px solid var(--border-color); border-radius:8px; color:var(--text-primary); font-size:16px;">
+            
+            <textarea id="user_message" placeholder="Your Message" required rows="4" style="width:100%; padding:12px; margin-bottom:15px; background:var(--bg-tertiary); border:1px solid var(--border-color); border-radius:8px; color:var(--text-primary); font-size:16px; resize:vertical;"></textarea>
+            
+            <button type="submit" style="width:100%; padding:14px; background:linear-gradient(135deg,var(--primary),var(--accent)); color:#fff; border:none; border-radius:8px; font-size:18px; font-weight:600; cursor:pointer; transition:transform 0.2s;">
+                📤 Send
+            </button>
+        </form>
+        
+        <div id="formStatus" style="margin-top:12px; text-align:center; font-weight:500; display:none;"></div>
+    </div>
+</div>
 
         <!-- ============================================================
                RJ ACHIEVE MODAL
