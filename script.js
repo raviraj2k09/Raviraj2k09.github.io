@@ -582,3 +582,36 @@ class TypewriterEffect {
     });
 
 })();
+
+/* ============================================
+   SOCIAL TOGGLE - CLICK KARNE PAR ICONS
+   ============================================ */
+document.addEventListener('DOMContentLoaded', function() {
+    const trigger = document.getElementById('triggerBtn');
+    const grid = document.getElementById('socialGrid');
+
+    if (trigger && grid) {
+        // Toggle grid on trigger click
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+            grid.classList.toggle('show');
+        });
+
+        // Close grid when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!trigger.contains(e.target) && !grid.contains(e.target)) {
+                trigger.classList.remove('active');
+                grid.classList.remove('show');
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                trigger.classList.remove('active');
+                grid.classList.remove('show');
+            }
+        });
+    }
+});
