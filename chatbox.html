@@ -1,10 +1,112 @@
 <!-- chatbox.html - PROFESSIONAL THEME MATCH -->
+<!-- ===== CHATBOX HTML ===== --/>
+<div id="chatbox">
+    <div class="chat-window" id="chatWindow">
+        <!-- Header -->
+        <div class="chat-header">
+            <div class="chat-header-left">
+                <div class="chat-avatar">👨‍💻</div>
+                <div class="chat-header-info">
+                    <span class="name">Ravi Raj</span>
+                    <span class="status">
+                        <span class="status-dot online" id="statusDot"></span>
+                        <span id="statusText">Online</span>
+                    </span>
+                </div>
+            </div>
+            <div class="chat-header-meta">
+                <span class="battery" id="batteryDisplay">
+                    <i>🔋</i>
+                    <span id="batteryLevel">--</span>
+                </span>
+                <span class="time-display" id="liveTime">--:--</span>
+            </div>
+            <div class="chat-header-actions">
+                <button id="chatMinimize" aria-label="Minimize">─</button>
+                <button id="chatClose" aria-label="Close chat">✕</button>
+            </div>
+        </div>
+
+        <!-- Toast -->
+        <div class="chat-toast" id="chatToast">📨 New message</div>
+
+        <!-- Messages -->
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                👋 Hey! I'm Ravi — a passionate developer from Bihar, India.
+                <span class="time">Just now</span>
+            </div>
+            <div class="message bot">
+                How can I help you today?
+                <span class="time">Just now</span>
+            </div>
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="typing-indicator" id="typingIndicator">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+        </div>
+
+        <!-- Mode Selection -->
+        <div class="mode-selection">
+            <div class="mode-title">🔗 Connect with me</div>
+            <button class="mode-btn" id="aiModeBtn">
+                <span class="mode-icon">🤖</span>
+                <span class="mode-label">
+                    <span>AI Chat</span>
+                    <span>Ask me anything</span>
+                </span>
+            </button>
+            <button class="mode-btn" id="contactModeBtn">
+                <span class="mode-icon">📧</span>
+                <span class="mode-label">
+                    <span>Contact Me</span>
+                    <span>Send directly to inbox</span>
+                </span>
+            </button>
+        </div>
+
+        <!-- AI Chat Mode -->
+        <div id="aiChatMode">
+            <div class="ai-header">
+                <button id="aiBackBtn" class="back-btn">← Back</button>
+                <span class="ai-mode-label">AI Mode</span>
+            </div>
+            <div class="chat-messages" id="aiMessages">
+                <div class="message bot">🤖 AI mode activated! Ask me anything about Ravi, his work, or just have a conversation.</div>
+            </div>
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <input type="text" class="chat-input" id="aiInput" placeholder="Type your message...">
+                </div>
+                <button class="chat-send" id="aiSend">Send</button>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form" id="contactForm">
+            <div class="contact-form-header">
+                <button id="contactBackBtn" class="back-btn">← Back</button>
+            </div>
+            <div class="form-title">📩 Send a Message</div>
+            <p class="form-sub">I'll get back to you within 24 hours.</p>
+            <input type="text" id="contactName" placeholder="Your Name" required>
+            <input type="email" id="contactEmail" placeholder="Your Email" required>
+            <textarea id="contactMessage" placeholder="Your Message" required></textarea>
+            <button id="contactSend" class="send-btn">Send Message</button>
+            <div id="contactStatus"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== CHATBOX CSS ===== -->
 <style>
     /* ============================================================
-       CHATBOX — PROFESSIONAL THEME MATCH (10+ YEAR PRO)
+       CHATBOX — PROFESSIONAL THEME MATCH
        ============================================================ */
 
-    /* === ROOT VARIABLES (Website Theme Match) === */
     :root {
         --chat-bg: #0a0a0f;
         --chat-surface: #13131a;
@@ -20,7 +122,6 @@
         --chat-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* === CHAT WINDOW === */
     .chat-window {
         position: fixed;
         bottom: 100px;
@@ -52,7 +153,6 @@
         100% { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    /* === HEADER === */
     .chat-header {
         padding: 16px 20px;
         background: linear-gradient(135deg, var(--chat-primary), var(--chat-accent));
@@ -170,7 +270,6 @@
         transform: scale(1.05);
     }
 
-    /* === MESSAGES === */
     .chat-messages {
         flex: 1;
         padding: 16px 18px 10px;
@@ -236,7 +335,6 @@
         opacity: 0.6;
     }
 
-    /* === TYPING INDICATOR === */
     .typing-indicator {
         align-self: flex-start;
         background: var(--chat-surface);
@@ -270,7 +368,6 @@
         30% { transform: translateY(-8px); opacity: 1; }
     }
 
-    /* === INPUT AREA === */
     .chat-input-area {
         padding: 12px 16px 14px;
         border-top: 1px solid var(--chat-border);
@@ -350,7 +447,6 @@
         box-shadow: none !important;
     }
 
-    /* === SYSTEM MESSAGE === */
     .message.system {
         align-self: center;
         background: rgba(0, 255, 136, 0.06);
@@ -364,7 +460,6 @@
         font-weight: 500;
     }
 
-    /* === TOAST === */
     .chat-toast {
         position: absolute;
         bottom: 80px;
@@ -390,6 +485,198 @@
         opacity: 1;
         visibility: visible;
         bottom: 90px;
+    }
+
+    /* ===== MODE SELECTION ===== */
+    .mode-selection {
+        padding: 12px 16px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: rgba(10, 10, 15, 0.6);
+        flex-shrink: 0;
+        border-top: 1px solid var(--chat-border);
+    }
+
+    .mode-title {
+        text-align: center;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--chat-text-secondary);
+        opacity: 0.4;
+        font-weight: 600;
+    }
+
+    .mode-btn {
+        padding: 12px 16px;
+        border: 1px solid var(--chat-border);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--chat-text);
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 500;
+        text-align: left;
+    }
+
+    .mode-btn:hover {
+        background: rgba(0, 217, 255, 0.06);
+        border-color: var(--chat-primary);
+    }
+
+    .mode-icon {
+        font-size: 22px;
+    }
+
+    .mode-label {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mode-label span:first-child {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .mode-label span:last-child {
+        font-size: 11px;
+        color: var(--chat-text-secondary);
+        opacity: 0.5;
+        font-weight: 400;
+    }
+
+    /* ===== AI MODE ===== */
+    #aiChatMode {
+        display: none;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+    }
+
+    .ai-header {
+        padding: 8px 16px;
+        border-bottom: 1px solid var(--chat-border);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        background: rgba(10, 10, 15, 0.4);
+    }
+
+    .ai-mode-label {
+        font-size: 12px;
+        color: var(--chat-text-secondary);
+        opacity: 0.4;
+    }
+
+    .back-btn {
+        background: none;
+        border: none;
+        color: var(--chat-primary);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: 'Space Grotesk', sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.3s;
+    }
+
+    .back-btn:hover {
+        color: var(--chat-secondary);
+    }
+
+    /* ===== CONTACT FORM ===== */
+    .contact-form {
+        display: none;
+        padding: 16px 18px 18px;
+        flex-direction: column;
+        gap: 12px;
+        background: rgba(10, 10, 15, 0.6);
+        flex-shrink: 0;
+        border-top: 1px solid var(--chat-border);
+    }
+
+    .contact-form-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 2px;
+    }
+
+    .form-title {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--chat-text);
+    }
+
+    .form-sub {
+        text-align: center;
+        font-size: 12px;
+        color: var(--chat-text-secondary);
+        opacity: 0.5;
+        margin: -4px 0 2px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        padding: 12px 14px;
+        background: var(--chat-surface);
+        border: 1px solid var(--chat-border);
+        border-radius: 10px;
+        color: var(--chat-text);
+        font-size: 14px;
+        outline: none;
+        transition: 0.3s;
+        font-family: 'Space Grotesk', sans-serif;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        border-color: var(--chat-primary);
+        box-shadow: 0 0 0 4px rgba(0, 217, 255, 0.06);
+    }
+
+    .contact-form textarea {
+        min-height: 70px;
+        resize: vertical;
+    }
+
+    .send-btn {
+        padding: 12px;
+        background: linear-gradient(135deg, var(--chat-primary), var(--chat-accent));
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-family: 'Space Grotesk', sans-serif;
+        margin-top: 2px;
+        box-shadow: 0 4px 16px rgba(0, 217, 255, 0.2);
+    }
+
+    .send-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(0, 217, 255, 0.35);
+    }
+
+    #contactStatus {
+        text-align: center;
+        font-size: 12px;
+        min-height: 20px;
+        font-weight: 500;
     }
 
     /* ============================================================
@@ -440,6 +727,43 @@
         background: rgba(0, 200, 100, 0.06);
         color: #059669;
         border-color: rgba(0, 200, 100, 0.08);
+    }
+
+    body.light-mode .mode-btn {
+        color: #0f172a;
+        border-color: rgba(0, 0, 0, 0.06);
+        background: rgba(0, 0, 0, 0.02);
+    }
+
+    body.light-mode .mode-btn:hover {
+        background: rgba(0, 119, 255, 0.04);
+        border-color: var(--chat-primary);
+    }
+
+    body.light-mode .mode-label span:last-child {
+        color: #94a3b8;
+    }
+
+    body.light-mode .contact-form {
+        background: #ffffff;
+        border-top-color: rgba(0, 0, 0, 0.06);
+    }
+
+    body.light-mode .contact-form input,
+    body.light-mode .contact-form textarea {
+        background: #f1f5f9;
+        color: #0f172a;
+        border-color: rgba(0, 0, 0, 0.06);
+    }
+
+    body.light-mode .contact-form input:focus,
+    body.light-mode .contact-form textarea:focus {
+        border-color: var(--chat-primary);
+        background: #ffffff;
+    }
+
+    body.light-mode .form-title {
+        color: #0f172a;
     }
 
     /* ============================================================
@@ -507,99 +831,3 @@
         }
     }
 </style>
-
-<!-- ===== CHATBOX HTML ===== -->
-<div id="chatbox">
-    <div class="chat-window" id="chatWindow">
-        <!-- Header -->
-        <div class="chat-header">
-            <div class="chat-header-left">
-                <div class="chat-avatar">👨‍💻</div>
-                <div class="chat-header-info">
-                    <span class="name">Ravi Raj</span>
-                    <span class="status">
-                        <span class="status-dot online" id="statusDot"></span>
-                        <span id="statusText">Online</span>
-                    </span>
-                </div>
-            </div>
-            <div class="chat-header-meta">
-                <span class="battery" id="batteryDisplay">
-                    <i>🔋</i>
-                    <span id="batteryLevel">--</span>
-                </span>
-                <span class="time-display" id="liveTime">--:--</span>
-            </div>
-            <div class="chat-header-actions">
-                <button id="chatMinimize" aria-label="Minimize">─</button>
-                <button id="chatClose" aria-label="Close chat">✕</button>
-            </div>
-        </div>
-
-        <!-- Toast -->
-        <div class="chat-toast" id="chatToast">📨 New message</div>
-
-        <!-- Messages -->
-        <div class="chat-messages" id="chatMessages">
-            <div class="message bot">
-                👋 Hey! I'm Ravi — a passionate developer from Bihar, India.
-                <span class="time">Just now</span>
-            </div>
-            <div class="message bot">
-                How can I help you today?
-                <span class="time">Just now</span>
-            </div>
-        </div>
-
-        <!-- Typing Indicator -->
-        <div class="typing-indicator" id="typingIndicator">
-            <span class="typing-dot"></span>
-            <span class="typing-dot"></span>
-            <span class="typing-dot"></span>
-        </div>
-
-        <!-- Mode Selection -->
-        <div class="mode-selection" style="padding:12px 16px 14px; display:flex; flex-direction:column; gap:10px; background:rgba(10,10,15,0.6); flex-shrink:0; border-top:1px solid var(--chat-border);">
-            <div style="text-align:center; font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--chat-text-secondary); opacity:0.4; font-weight:600;">🔗 Connect with me</div>
-            <button class="mode-btn" id="aiModeBtn" style="padding:12px 16px; border:1px solid var(--chat-border); border-radius:10px; background:rgba(255,255,255,0.02); color:var(--chat-text); font-size:14px; cursor:pointer; transition:0.3s; display:flex; align-items:center; gap:12px; font-family:'Space Grotesk',sans-serif; font-weight:500; text-align:left;">
-                <span style="font-size:22px;">🤖</span>
-                <span style="display:flex; flex-direction:column;"><span style="font-weight:600;">AI Chat</span><span style="font-size:11px; color:var(--chat-text-secondary); opacity:0.5;">Ask me anything</span></span>
-            </button>
-            <button class="mode-btn" id="contactModeBtn" style="padding:12px 16px; border:1px solid var(--chat-border); border-radius:10px; background:rgba(255,255,255,0.02); color:var(--chat-text); font-size:14px; cursor:pointer; transition:0.3s; display:flex; align-items:center; gap:12px; font-family:'Space Grotesk',sans-serif; font-weight:500; text-align:left;">
-                <span style="font-size:22px;">📧</span>
-                <span style="display:flex; flex-direction:column;"><span style="font-weight:600;">Contact Me</span><span style="font-size:11px; color:var(--chat-text-secondary); opacity:0.5;">Send directly to inbox</span></span>
-            </button>
-        </div>
-
-        <!-- AI Chat Mode -->
-        <div id="aiChatMode" style="display:none; flex-direction:column; flex:1; min-height:0;">
-            <div style="padding:8px 16px; border-bottom:1px solid var(--chat-border); display:flex; align-items:center; gap:10px; flex-shrink:0; background:rgba(10,10,15,0.4);">
-                <button id="aiBackBtn" style="background:none; border:none; color:var(--chat-primary); cursor:pointer; font-size:13px; font-weight:600; font-family:'Space Grotesk',sans-serif; display:flex; align-items:center; gap:6px; transition:0.3s;">← Back</button>
-                <span style="font-size:12px; color:var(--chat-text-secondary); opacity:0.4;">AI Mode</span>
-            </div>
-            <div class="chat-messages" id="aiMessages" style="flex:1; padding:12px 16px 8px; overflow-y:auto; display:flex; flex-direction:column; gap:8px; background:rgba(10,10,15,0.6);">
-                <div class="message bot">🤖 AI mode activated! Ask me anything about Ravi, his work, or just have a conversation.</div>
-            </div>
-            <div class="chat-input-area">
-                <div class="chat-input-wrapper">
-                    <input type="text" class="chat-input" id="aiInput" placeholder="Type your message..." style="width:100%; padding:10px 14px; background:transparent; border:none; color:var(--chat-text); font-size:14px; outline:none; font-family:'Space Grotesk',sans-serif; min-height:42px; line-height:1.4;">
-                </div>
-                <button class="chat-send" id="aiSend" style="padding:10px 20px; background:linear-gradient(135deg,var(--chat-primary),var(--chat-accent)); color:#fff; border:none; border-radius:10px; font-weight:600; font-size:14px; cursor:pointer; transition:0.3s; font-family:'Space Grotesk',sans-serif; min-height:42px; display:flex; align-items:center; gap:6px; flex-shrink:0; box-shadow:0 4px 16px rgba(0,217,255,0.2);">Send</button>
-            </div>
-        </div>
-
-        <!-- Contact Form -->
-        <div class="contact-form" id="contactForm" style="display:none; padding:16px 18px 18px; flex-direction:column; gap:12px; background:rgba(10,10,15,0.6); flex-shrink:0; border-top:1px solid var(--chat-border);">
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:2px;">
-                <button id="contactBackBtn" style="background:none; border:none; color:var(--chat-primary); cursor:pointer; font-size:13px; font-weight:600; font-family:'Space Grotesk',sans-serif; display:flex; align-items:center; gap:6px; transition:0.3s;">← Back</button>
-            </div>
-            <div style="text-align:center; font-size:18px; font-weight:700; color:var(--chat-text);">📩 Send a Message</div>
-            <p style="text-align:center; font-size:12px; color:var(--chat-text-secondary); opacity:0.5; margin:-4px 0 2px;">I'll get back to you within 24 hours.</p>
-            <input type="text" id="contactName" placeholder="Your Name" required style="padding:12px 14px; background:var(--chat-surface); border:1px solid var(--chat-border); border-radius:10px; color:var(--chat-text); font-size:14px; outline:none; transition:0.3s; font-family:'Space Grotesk',sans-serif; width:100%; box-sizing:border-box;">
-            <input type="email" id="contactEmail" placeholder="Your Email" required style="padding:12px 14px; background:var(--chat-surface); border:1px solid var(--chat-border); border-radius:10px; color:var(--chat-text); font-size:14px; outline:none; transition:0.3s; font-family:'Space Grotesk',sans-serif; width:100%; box-sizing:border-box;">
-            <textarea id="contactMessage" placeholder="Your Message" required style="padding:12px 14px; background:var(--chat-surface); border:1px solid var(--chat-border); border-radius:10px; color:var(--chat-text); font-size:14px; outline:none; transition:0.3s; font-family:'Space Grotesk',sans-serif; width:100%; box-sizing:border-box; min-height:70px; resize:vertical;"></textarea>
-            <button id="contactSend" style="padding:12px; background:linear-gradient(135deg,var(--chat-primary),var(--chat-accent)); color:#fff; border:none; border-radius:10px; font-weight:600; font-size:15px; cursor:pointer; transition:0.3s; font-family:'Space Grotesk',sans-serif; margin-top:2px; box-shadow:0 4px 16px rgba(0,217,255,0.2);">Send Message</button>
-            <div id="contactStatus" style="text-align:center; font-size:12px; min-height:20px; font-weight:500;"></div>
-        </div>
-    </div>
-</div>
