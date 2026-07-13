@@ -2,13 +2,7 @@
    SCRIPT.JS - COMPLETE PORTFOLIO FUNCTIONALITY (FIXED)
    ============================================ */
 
-// 🔑 API Key config se load (Safe)
-const API_KEY = (typeof CONFIG !== 'undefined') ? CONFIG.GEMINI_API_KEY : null;
-
-if (!API_KEY) {
-    console.warn('⚠️ Gemini API Key not found! Please add it in config.js');
-}
-
+const API_KEY = process.env.GEMINI_API_KEY;
 (function() {
     'use strict';
 
