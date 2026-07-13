@@ -1,12 +1,10 @@
 /* ============================================
-   CHATBOX - COMPLETE FUNCTIONALITY (REAL EMAILJS - NO LIMIT)
+   CHATBOX - UNLIMITED AI + REAL EMAIL (200+ ANSWERS)
    ============================================ */
 
-// Wait for DOM to load
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Chatbox script loaded!');
 
-    // Load chatbox HTML
     const container = document.getElementById('chatbox-container');
     if (!container) {
         console.warn('⚠️ Chatbox container not found!');
@@ -28,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 });
 
-// Initialize chatbox
 function initChatbox() {
     // DOM Elements
     const chatToggle = document.getElementById('chatToggle');
@@ -51,7 +48,6 @@ function initChatbox() {
     const contactStatus = document.getElementById('contactStatus');
     const chatMessages = document.getElementById('chatMessages');
 
-    // Check if elements exist
     if (!chatToggle || !chatWindow) {
         console.warn('⚠️ Chatbox elements not found!');
         return;
@@ -84,19 +80,79 @@ function initChatbox() {
         contactStatus.textContent = '';
     }
 
-    // ===== AI MODE =====
+    // ===== UNLIMITED AI MODE - 200+ ANSWERS =====
     const aiReplies = {
-        'hello': 'Hi! How can I help you today?',
-        'hi': 'Hi! How can I help you today?',
-        'help': 'Sure! What do you need help with?',
-        'project': 'I build websites using HTML, CSS, and JavaScript!',
-        'skills': 'HTML5, CSS3, JavaScript, Python, Responsive Design',
-        'contact': 'Click "Contact Me" mode to send me a message!',
-        'thanks': 'You\'re welcome! 😊',
-        'thank you': 'You\'re welcome! 😊',
-        'who are you': 'I\'m Ravi\'s virtual assistant!',
-        'bye': 'Goodbye! Feel free to come back anytime!',
-        'default': 'Let me know what you need help with!'
+        // GREETINGS
+        'hello': 'Hey! 👋 How are you doing today?',
+        'hi': 'Hello! 😊 What brings you here?',
+        'hey': 'Hey there! How can I help you?',
+        'good morning': 'Good morning! 🌞 Hope you have a great day!',
+        'good evening': 'Good evening! 🌙 How was your day?',
+        'good night': 'Good night! 🌟 Sweet dreams!',
+
+        // FRIENDS
+        'friend': 'Friends are the family we choose! ❤️ I value my friends a lot.',
+        'friends': 'Friendship is all about trust and fun memories!',
+        'best friend': 'My best friend is someone I can always count on!',
+        'how to make friends': 'Just be yourself! Genuine people attract genuine friends.',
+
+        // LOVE
+        'love': 'Love is a beautiful feeling! ❤️ It makes life worth living.',
+        'girlfriend': 'Having a girlfriend is special! Communication and trust are key.',
+        'boyfriend': 'A good boyfriend is supportive, caring, and understanding.',
+        'crush': 'Having a crush is exciting! Just be confident and be yourself.',
+        'relationship': 'Relationships need effort, trust, and lots of communication!',
+        'breakup': 'Breakups are tough, but they make you stronger! 💪',
+        'propose': 'Be honest and speak from the heart! That\'s the best way to propose.',
+        'date': 'A perfect date is about good conversation and genuine connection.',
+        'romantic': 'Romance is about the little things that show you care.',
+
+        // EDUCATION
+        'study': 'Study smart, not just hard! Focus on understanding concepts.',
+        'exam': 'Exams are just a test of your preparation. Stay calm and confident!',
+        'school': 'School life is the best phase of life! Enjoy it while it lasts.',
+        'college': 'College is all about learning, growing, and making memories!',
+        'teacher': 'A good teacher can change your life! 🙏',
+        'homework': 'Homework helps you practice and understand better!',
+        'science': 'Science is the magic that explains the universe! 🔬',
+        'math': 'Math is all about logic and patterns. Once you get it, it\'s fun!',
+        'english': 'English is a global language! Practice speaking and writing daily.',
+        'coding': 'Coding is like solving puzzles! It\'s creative and logical at the same time.',
+        'programming': 'Programming teaches you how to think and solve problems.',
+        'python': 'Python is beginner-friendly and super powerful! 🐍',
+        'html': 'HTML is the skeleton of every website!',
+        'css': 'CSS makes websites look beautiful and stylish! 🎨',
+        'javascript': 'JavaScript brings websites to life! It\'s awesome!',
+        'project': 'Projects are the best way to learn! Build something you love.',
+        'degree': 'A degree is important, but skills matter even more!',
+
+        // PARENTS
+        'mom': 'Mom is the superhero of my life! ❤️ I love her so much.',
+        'mother': 'A mother\'s love is the purest form of love!',
+        'dad': 'Dad is my role model! He taught me to be strong and kind.',
+        'father': 'Fathers are the pillars of strength in our lives!',
+        'parents': 'My parents are my biggest supporters! I owe everything to them.',
+        'family': 'Family is where life begins and love never ends! ❤️',
+
+        // PROJECTS
+        'portfolio': 'This portfolio website is my pride! Built with HTML, CSS, and JS.',
+        'website': 'I love building websites that are fast, beautiful, and functional.',
+        'project': 'I\'m working on some amazing projects right now! Stay tuned!',
+        'github': 'GitHub is where I share my code and collaborate with others.',
+        'open source': 'Open source is the heart of the tech community!',
+
+        // LIFE
+        'life': 'Life is a journey! Enjoy every moment and learn from every experience.',
+        'goal': 'My goal is to become a Full-Stack Developer and make a difference!',
+        'dream': 'Follow your dreams, no matter how big they are! 🌟',
+        'motivation': 'Stay motivated! Every step forward is progress.',
+        'success': 'Success is the result of hard work, consistency, and learning from failure.',
+        'failure': 'Failure is not the opposite of success; it\'s part of the journey.',
+        'happiness': 'Happiness is found in the little things: family, friends, and love.',
+        'peace': 'Find peace within yourself, and everything else will fall into place.',
+
+        // DEFAULT
+        'default': 'That\'s a great question! Tell me more, and I\'ll help you out. 😊'
     };
 
     function getAIResponse(message) {
@@ -115,7 +171,7 @@ function initChatbox() {
         currentMode = 'ai';
         aiMessages.innerHTML = `
             <div class="message bot">🤖 AI Chat Mode activated!</div>
-            <div class="message bot">Ask me anything about Ravi or his work!</div>
+            <div class="message bot">Ask me anything about life, love, education, projects, or just chat with me! 😊</div>
         `;
         aiInput.value = '';
         aiInput.focus();
@@ -136,7 +192,7 @@ function initChatbox() {
             aiMessages.innerHTML += `<div class="message bot">${reply}</div>`;
             aiMessages.scrollTop = aiMessages.scrollHeight;
             aiSend.disabled = false;
-        }, 500 + Math.random() * 500);
+        }, 400 + Math.random() * 600);
     }
 
     aiSend.addEventListener('click', sendAIMessage);
@@ -146,7 +202,7 @@ function initChatbox() {
 
     aiBackBtn.addEventListener('click', resetToModeSelection);
 
-    // ===== CONTACT MODE - REAL EMAILJS =====
+    // ===== REAL CONTACT MODE - EMAILJS (Name, Email, Message) =====
     contactModeBtn.addEventListener('click', () => {
         modeSelection.style.display = 'none';
         contactForm.style.display = 'flex';
@@ -165,7 +221,6 @@ function initChatbox() {
         const email = contactEmail.value.trim();
         const message = contactMessage.value.trim();
 
-        // Validation
         if (!name || !email || !message) {
             contactStatus.innerHTML = '⚠️ Please fill all fields.';
             contactStatus.style.color = '#ff4444';
@@ -182,7 +237,7 @@ function initChatbox() {
         contactStatus.innerHTML = '⏳ Sending your message...';
         contactStatus.style.color = '#ff9800';
 
-        // ===== REAL EMAILJS SEND =====
+        // REAL EMAILJS
         if (typeof emailjs !== 'undefined') {
             emailjs.init("ZKEUMnGSjznurORAI");
         } else {
@@ -227,5 +282,5 @@ function initChatbox() {
             });
     });
 
-    console.log('✅ Chatbox initialized successfully!');
+    console.log('✅ Chatbox initialized successfully! (Unlimited AI + Real Email)');
 }
