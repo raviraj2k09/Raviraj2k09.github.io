@@ -453,6 +453,8 @@
                     <h3>Ready to start your project?</h3>
                     <p>I'm currently available for freelance work and open to new opportunities. Feel free to reach out if you want to collaborate!</p>
                 </div>
+                   <!-- Chatbox Container -->
+<div id="chatbox-container"></div>
             </div>
         </section>
         
@@ -469,9 +471,54 @@
     <div id="live-time-bar" role="status" aria-live="polite">
         <span id="current-date-time">Loading...</span>
     </div>
-    <!-- Chatbox Container -->
-<div id="chatbox-container"></div>
+ 
+    
+<!-- Archive Button -->
+<div class="archive-bottom">
+    <button class="archive-btn" onclick="toggleArchiveBottom()">
+        📦 Explore More <i class="fas fa-chevron-up"></i>
+    </button>
+    <div class="archive-dropdown" id="archiveDropdownBottom">
+        
+        <a href="friends.html" class="archive-item">
+            <div class="archive-item-icon icon-friends">👥</div>
+            <div class="archive-item-info">
+                <div class="title">Friends Corner</div>
+                <div class="desc">Search → Photo → Certificate</div>
+            </div>
+            <span class="archive-item-arrow">→</span>
+        </a>
 
+        <a href="#gallery" class="archive-item">
+            <div class="archive-item-icon icon-gallery">📸</div>
+            <div class="archive-item-info">
+                <div class="title">Photo Gallery</div>
+                <div class="desc">2009-2026 — My Journey</div>
+            </div>
+            <span class="archive-item-arrow">→</span>
+        </a>
+
+        <a href="#about" class="archive-item">
+            <div class="archive-item-icon icon-bio">📖</div>
+            <div class="archive-item-info">
+                <div class="title">Autobiography</div>
+                <div class="desc">Born to 12th Pass</div>
+            </div>
+            <span class="archive-item-arrow">→</span>
+        </a>
+
+        <a href="#festival" class="archive-item">
+            <div class="archive-item-icon icon-festival">🎉</div>
+            <div class="archive-item-info">
+                <div class="title">Festival & Life</div>
+                <div class="desc">Diwali, Holi, Eid stories</div>
+            </div>
+            <span class="archive-item-arrow">→</span>
+        </a>
+
+    </div>
+</div>
+    
 <script>
     fetch('chatbox.html')
         .then(res => res.text())
