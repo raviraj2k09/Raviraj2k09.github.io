@@ -1,6 +1,6 @@
-<!-- chatbox.html - Complete Chatbox -->
+<!-- chatbox.html - POORA CHATBOX (HTML + CSS + JS) -->
 <style>
-    /* Chatbox CSS */
+    /* ===== CHATBOX CSS ===== */
     .chatbox-button {
         position: fixed;
         bottom: 30px;
@@ -22,7 +22,6 @@
         box-shadow: 0 8px 30px rgba(0, 217, 255, 0.6);
     }
 
-    /* Chat Window */
     .chat-window {
         position: fixed;
         bottom: 100px;
@@ -44,7 +43,6 @@
         display: flex;
     }
 
-    /* Chat Header */
     .chat-header {
         padding: 16px 20px;
         background: #00d9ff;
@@ -64,7 +62,6 @@
         color: #0a0a0f;
     }
 
-    /* Chat Messages */
     .chat-messages {
         flex: 1;
         padding: 16px;
@@ -107,7 +104,6 @@
         text-align: center;
     }
 
-    /* Chat Input */
     .chat-input-area {
         padding: 12px 16px;
         border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -155,7 +151,6 @@
         transform: none;
     }
 
-    /* Mode Selection */
     .mode-selection {
         padding: 20px;
         display: flex;
@@ -185,7 +180,6 @@
         transform: translateY(-2px);
     }
 
-    /* Contact Form */
     .contact-form {
         display: none;
         padding: 20px;
@@ -242,7 +236,6 @@
         cursor: not-allowed;
     }
 
-    /* Back Button */
     .back-btn {
         background: none;
         border: none;
@@ -258,7 +251,6 @@
         color: #00ff88;
     }
 
-    /* Light Mode */
     body.light-mode .chat-window {
         background: #ffffff;
         border-color: rgba(0, 217, 255, 0.2);
@@ -307,7 +299,6 @@
         border-color: rgba(0, 0, 0, 0.1);
     }
 
-    /* Mobile */
     @media (max-width: 480px) {
         .chat-window {
             width: 90vw;
@@ -315,7 +306,6 @@
             right: 5vw;
             bottom: 80px;
         }
-
         .chatbox-button {
             width: 56px;
             height: 56px;
@@ -326,12 +316,10 @@
     }
 </style>
 
-<!-- Chatbox HTML -->
+<!-- ===== CHATBOX HTML ===== -->
 <div id="chatbox">
-    <!-- Chat Button -->
     <button class="chatbox-button" id="chatToggle">💬</button>
 
-    <!-- Chat Window -->
     <div class="chat-window" id="chatWindow">
         <div class="chat-header">
             <span>💬 Chat with Ravi</span>
@@ -343,13 +331,11 @@
             <div class="message bot">Choose an option below to get started:</div>
         </div>
 
-        <!-- Mode Selection -->
         <div class="mode-selection" id="modeSelection">
             <button class="mode-btn" id="aiModeBtn">🤖 AI Chat</button>
             <button class="mode-btn" id="contactModeBtn">📧 Contact Me</button>
         </div>
 
-        <!-- AI Chat Mode -->
         <div id="aiChatMode" style="display:none; flex-direction:column; flex:1;">
             <div style="padding: 8px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);">
                 <button class="back-btn" id="aiBackBtn">← Back</button>
@@ -361,7 +347,6 @@
             </div>
         </div>
 
-        <!-- Contact Mode -->
         <div class="contact-form" id="contactForm">
             <div style="padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06);">
                 <button class="back-btn" id="contactBackBtn">← Back</button>
@@ -375,7 +360,7 @@
     </div>
 </div>
 
-<!-- Chatbox JavaScript -->
+<!-- ===== CHATBOX JAVASCRIPT ===== -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
@@ -399,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactStatus = document.getElementById('contactStatus');
     const chatMessages = document.getElementById('chatMessages');
 
-    let currentMode = null; // 'ai' or 'contact'
+    let currentMode = null;
 
     // Toggle Chat Window
     chatToggle.addEventListener('click', () => {
@@ -413,22 +398,17 @@ document.addEventListener('DOMContentLoaded', function() {
         chatWindow.classList.remove('open');
     });
 
-    // Reset to mode selection
     function resetToModeSelection() {
         modeSelection.style.display = 'flex';
         aiChatMode.style.display = 'none';
         contactForm.classList.remove('active');
         contactForm.style.display = 'none';
         currentMode = null;
-        // Reset chat messages
         chatMessages.innerHTML = `
             <div class="message bot">Hi! 👋 Welcome to my portfolio.</div>
             <div class="message bot">Choose an option below to get started:</div>
         `;
         contactStatus.textContent = '';
-        document.querySelectorAll('.chat-messages:not(#chatMessages):not(#aiMessages)').forEach(el => {
-            // clear
-        });
     }
 
     // ===== AI MODE =====
@@ -472,22 +452,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const msg = aiInput.value.trim();
         if (!msg) return;
 
-        // Add user message
         aiMessages.innerHTML += `<div class="message user">${msg}</div>`;
         aiInput.value = '';
         aiInput.focus();
         aiSend.disabled = true;
-
-        // Auto-scroll
         aiMessages.scrollTop = aiMessages.scrollHeight;
 
-        // Get AI reply
         setTimeout(() => {
             const reply = getAIResponse(msg);
             aiMessages.innerHTML += `<div class="message bot">${reply}</div>`;
             aiMessages.scrollTop = aiMessages.scrollHeight;
             aiSend.disabled = false;
-        }, 500 + Math.random() * 500); // Simulate typing delay
+        }, 500 + Math.random() * 500);
     }
 
     aiSend.addEventListener('click', sendAIMessage);
@@ -516,7 +492,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const email = contactEmail.value.trim();
         const message = contactMessage.value.trim();
 
-        // Validation
         if (!name || !email || !message) {
             contactStatus.innerHTML = '⚠️ Please fill all fields.';
             contactStatus.style.color = '#ff4444';
@@ -529,14 +504,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Sending...
         contactSend.disabled = true;
         contactStatus.innerHTML = '⏳ Sending your message...';
         contactStatus.style.color = '#ff9800';
 
-        // Simulate send (replace with EmailJS later)
         setTimeout(() => {
-            // Success
             contactStatus.innerHTML = '✅ Message sent successfully! I\'ll reply within 24 hours.';
             contactStatus.style.color = '#00ff88';
             contactSend.disabled = false;
@@ -544,13 +516,11 @@ document.addEventListener('DOMContentLoaded', function() {
             contactEmail.value = '';
             contactMessage.value = '';
 
-            // Add to chat
             chatMessages.innerHTML += `
-                <div class="message system">📧 Message sent! I'll reply within 24 hours.</div>
+                <div class="message system">📧 Message sent! I\'ll reply within 24 hours.</div>
             `;
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // Reset after 5 seconds
             setTimeout(() => {
                 if (currentMode === 'contact') {
                     resetToModeSelection();
