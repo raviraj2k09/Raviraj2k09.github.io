@@ -1,6 +1,6 @@
 // ============================================================
 // AUTOBOIOGRAPHY.JS — COMPLETE EBOOK GENERATOR
-// WITH LANGUAGE SELECTION · ALL 12 CHAPTERS · PROFESSIONAL
+// WITH LANGUAGE SELECTION · COVER IMAGE · ALL 12 CHAPTERS
 // ============================================================
 
 // ---- GLOBAL VARIABLES ----
@@ -344,7 +344,7 @@ function showToast(message, type = '') {
 }
 
 // ============================================================
-// 14. DOWNLOAD MODAL — WITH LANGUAGE OPTIONS
+// 14. DOWNLOAD MODAL
 // ============================================================
 function openModal() {
     const modal = document.getElementById('downloadModal');
@@ -397,11 +397,9 @@ function loadPDFLibrary() {
 // 16. MAKE ALL CHAPTERS VISIBLE (FOR SELECTED LANGUAGE ONLY)
 // ============================================================
 function makeAllChaptersVisible(lang) {
-    // Hide both containers first
     const enContainer = document.getElementById('chaptersEn');
     const hiContainer = document.getElementById('chaptersHi');
     
-    // Show only the selected language container
     if (lang === 'en') {
         enContainer.style.display = 'block';
         hiContainer.style.display = 'none';
@@ -410,7 +408,6 @@ function makeAllChaptersVisible(lang) {
         hiContainer.style.display = 'block';
     }
     
-    // Now make all chapters in the visible container display:block
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const container = document.getElementById(containerId);
     const chapters = container.querySelectorAll('.chapter');
@@ -441,7 +438,6 @@ function restoreChapterVisibility(lang, activeIndex) {
         }
     });
     
-    // Restore other container's display based on current language
     const enContainer = document.getElementById('chaptersEn');
     const hiContainer = document.getElementById('chaptersHi');
     if (lang === 'en') {
@@ -458,31 +454,44 @@ function restoreChapterVisibility(lang, activeIndex) {
 // ============================================================
 function waitForRender() {
     return new Promise((resolve) => {
-        // Force multiple render cycles for complete content
+        // Multiple render cycles for complete content
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                setTimeout(resolve, 1200);
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        // Force reflow
+                        document.body.offsetHeight;
+                        setTimeout(resolve, 2800);
+                    });
+                });
             });
         });
     });
 }
 
 // ============================================================
-// 18. DOWNLOAD EBOOK — ENGLISH
+// 18. GET COVER IMAGE (base64 or path)
+// ============================================================
+function getCoverImage() {
+    return 'bookcover.jpg';
+}
+
+// ============================================================
+// 19. DOWNLOAD EBOOK — ENGLISH
 // ============================================================
 async function downloadEnglishEbook() {
     await downloadEbook('en', 'English');
 }
 
 // ============================================================
-// 19. DOWNLOAD EBOOK — HINGLISH
+// 20. DOWNLOAD EBOOK — HINGLISH
 // ============================================================
 async function downloadHinglishEbook() {
     await downloadEbook('hi', 'Hinglish');
 }
 
 // ============================================================
-// 20. MAIN EBOOK GENERATOR
+// 21. MAIN EBOOK GENERATOR (WITH COVER IMAGE)
 // ============================================================
 async function downloadEbook(lang, langLabel) {
     const wrapper = document.querySelector('.autobio-wrapper');
@@ -498,19 +507,13 @@ async function downloadEbook(lang, langLabel) {
     
     showToast(`📄 Generating ${langLabel} ebook...`, 'success');
     
-    // ---- STEP 1: Make ONLY selected language chapters visible ----
     const activeIndex = makeAllChaptersVisible(lang);
-    
-    // ---- STEP 2: Wait for complete render ----
     await waitForRender();
     
-    // ---- STEP 3: Clone the page ----
     const clone = wrapper.cloneNode(true);
-    
-    // ---- STEP 4: Restore original visibility ----
     restoreChapterVisibility(lang, activeIndex);
     
-    // ---- STEP 5: Clean the clone ----
+    // Clean clone
     const removeSelectors = [
         '.lang-controls', '.download-actions', '.nav-buttons', 
         '.progress-dots', '.chapter-progress-info', '.copy-link-btn',
@@ -520,7 +523,7 @@ async function downloadEbook(lang, langLabel) {
         clone.querySelectorAll(selector).forEach(el => el.remove());
     });
     
-    // ---- STEP 6: Hide other language container in clone ----
+    // Hide other language container in clone
     const cloneEnContainer = clone.querySelector('#chaptersEn');
     const cloneHiContainer = clone.querySelector('#chaptersHi');
     if (lang === 'en') {
@@ -531,7 +534,7 @@ async function downloadEbook(lang, langLabel) {
         if (cloneHiContainer) cloneHiContainer.style.display = 'block';
     }
     
-    // ---- STEP 7: Make all chapters visible in clone for selected language ----
+    // Make all chapters visible in clone
     const cloneContainerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const cloneContainer = clone.querySelector('#' + cloneContainerId);
     if (cloneContainer) {
@@ -542,48 +545,26 @@ async function downloadEbook(lang, langLabel) {
         });
     }
     
-    // ---- STEP 8: Remove photo placeholder hints ----
+    // Remove photo placeholder hints
     clone.querySelectorAll('.upload-hint').forEach(el => {
         el.textContent = '📸 Photo';
     });
     
-    // ---- STEP 9: COVER PAGE ----
+    // ---- COVER PAGE (IMAGE) ----
     const cover = document.createElement('div');
     cover.style.cssText = `
         text-align: center;
-        padding: 80px 40px 70px 40px;
-        background: #0a0a0f;
-        border-bottom: 3px solid #DAA520;
-        margin-bottom: 30px;
+        padding: 0;
+        margin: 0;
         page-break-after: always;
+        background: #ffffff;
     `;
     cover.innerHTML = `
-        <div style="margin-bottom:30px;">
-            <span style="color:#DAA520;font-size:20px;letter-spacing:8px;">✦ ✦ ✦</span>
-        </div>
-        <div style="width:80px;height:3px;background:linear-gradient(90deg,#6c5ce7,#DAA520);margin:0 auto 30px;"></div>
-        <div style="font-size:64px;margin-bottom:20px;">📖</div>
-        <h1 style="font-size:48px;font-weight:700;font-family:'Space Grotesk',sans-serif;margin:10px 0;background:linear-gradient(135deg,#6c5ce7,#DAA520);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-            A BOY WHO NEVER THOUGHT
-        </h1>
-        <p style="font-size:20px;color:#DAA520;font-style:italic;margin:12px 0 8px 0;font-family:'Space Grotesk',sans-serif;">
-            "From a small village in Bihar to the world of code"
-        </p>
-        <div style="width:60px;height:2px;background:#DAA520;margin:20px auto;"></div>
-        <p style="font-size:18px;color:rgba(255,255,255,0.6);margin:10px 0 6px 0;font-family:'Space Grotesk',sans-serif;">By</p>
-        <p style="font-size:32px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">RAVI RAJ</p>
-        <div style="width:60px;height:2px;background:#DAA520;margin:20px auto;"></div>
-        <p style="font-size:18px;color:rgba(255,255,255,0.7);font-style:italic;font-family:'Space Grotesk',sans-serif;">
-            "Somewhere Between I Want It & I Got It"
-        </p>
-        <div style="width:80px;height:3px;background:linear-gradient(90deg,#6c5ce7,#DAA520);margin:30px auto 0;"></div>
-        <p style="font-size:16px;color:rgba(255,255,255,0.4);margin-top:20px;font-family:'Space Grotesk',sans-serif;">
-            ${new Date().getFullYear()}
-        </p>
+        <img src="bookcover.jpg" alt="Book Cover" style="width:100%;height:auto;max-width:100%;display:block;margin:0 auto;">
     `;
     clone.insertBefore(cover, clone.firstChild);
     
-    // ---- STEP 10: TITLE PAGE ----
+    // ---- TITLE PAGE ----
     const titlePage = document.createElement('div');
     titlePage.style.cssText = `
         text-align: center;
@@ -603,7 +584,7 @@ async function downloadEbook(lang, langLabel) {
     `;
     clone.insertBefore(titlePage, cover.nextSibling);
     
-    // ---- STEP 11: TABLE OF CONTENTS ----
+    // ---- TABLE OF CONTENTS ----
     const toc = document.createElement('div');
     toc.style.cssText = `
         padding: 40px 40px 60px 40px;
@@ -632,7 +613,7 @@ async function downloadEbook(lang, langLabel) {
     toc.innerHTML = tocHTML;
     clone.insertBefore(toc, titlePage.nextSibling);
     
-    // ---- STEP 12: ABOUT THE AUTHOR ----
+    // ---- ABOUT THE AUTHOR ----
     const about = document.createElement('div');
     about.style.cssText = `
         padding: 40px 40px 50px 40px;
@@ -669,7 +650,7 @@ async function downloadEbook(lang, langLabel) {
     `;
     clone.insertBefore(about, toc.nextSibling);
     
-    // ---- STEP 13: OVERVIEW ----
+    // ---- OVERVIEW ----
     const overview = document.createElement('div');
     overview.style.cssText = `
         padding: 40px 40px 50px 40px;
@@ -708,7 +689,7 @@ async function downloadEbook(lang, langLabel) {
     `;
     clone.insertBefore(overview, about.nextSibling);
     
-    // ---- STEP 14: LAST PAGE ----
+    // ---- LAST PAGE ----
     const lastPage = document.createElement('div');
     lastPage.style.cssText = `
         text-align: center;
@@ -731,18 +712,17 @@ async function downloadEbook(lang, langLabel) {
     `;
     clone.appendChild(lastPage);
     
-    // ---- STEP 15: GENERATE PDF ----
+    // ---- GENERATE PDF ----
     const opt = {
         margin: [15, 15, 15, 15],
         filename: `My_Autobiography_Ravi_Raj_${langLabel}.pdf`,
         image: { type: 'jpeg', quality: 0.95 },
         html2canvas: { 
-            scale: 1.5,
+            scale: 2,
             useCORS: true,
-            letterRendering: true,
+            letterRendering: false,
             backgroundColor: '#ffffff',
-            logging: false,
-            width: 800
+            logging: false
         },
         jsPDF: { 
             unit: 'mm', 
@@ -761,7 +741,7 @@ async function downloadEbook(lang, langLabel) {
 }
 
 // ============================================================
-// 21. HANDLE CHAPTER HASH IN URL
+// 22. HANDLE CHAPTER HASH IN URL
 // ============================================================
 function handleChapterHash() {
     const hash = window.location.hash;
@@ -793,7 +773,7 @@ function handleChapterHash() {
 }
 
 // ============================================================
-// 22. DOT CLICK NAVIGATION
+// 23. DOT CLICK NAVIGATION
 // ============================================================
 function setupDotNavigation() {
     const dots = document.querySelectorAll('.dot');
@@ -827,7 +807,7 @@ function setupDotNavigation() {
 }
 
 // ============================================================
-// 23. INITIALIZATION
+// 24. INITIALIZATION
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     currentLang = 'en';
@@ -842,7 +822,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================
-// 24. EXPOSE FUNCTIONS TO GLOBAL SCOPE
+// 25. EXPOSE FUNCTIONS TO GLOBAL SCOPE
 // ============================================================
 window.switchLang = switchLang;
 window.nextChapter = nextChapter;
