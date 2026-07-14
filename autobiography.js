@@ -1,6 +1,6 @@
 // ============================================================
-// AUTOBIOGRAPHY.JS — COMPLETE EBOOK GENERATOR
-// PROFESSIONAL COVER · ABOUT AUTHOR · ALL 12 CHAPTERS
+// AUTOBOIOGRAPHY.JS — COMPLETE EBOOK GENERATOR
+// WITH LANGUAGE SELECTION · ALL 12 CHAPTERS · PROFESSIONAL
 // ============================================================
 
 // ---- GLOBAL VARIABLES ----
@@ -344,13 +344,12 @@ function showToast(message, type = '') {
 }
 
 // ============================================================
-// 14. DOWNLOAD MODAL
+// 14. DOWNLOAD MODAL — WITH LANGUAGE OPTIONS
 // ============================================================
 function openModal() {
     const modal = document.getElementById('downloadModal');
     if (modal) {
         modal.classList.add('active');
-        updateModalChapterName(currentLang);
         document.body.style.overflow = 'hidden';
     }
 }
@@ -395,9 +394,23 @@ function loadPDFLibrary() {
 }
 
 // ============================================================
-// 16. MAKE ALL CHAPTERS VISIBLE
+// 16. MAKE ALL CHAPTERS VISIBLE (FOR SELECTED LANGUAGE ONLY)
 // ============================================================
 function makeAllChaptersVisible(lang) {
+    // Hide both containers first
+    const enContainer = document.getElementById('chaptersEn');
+    const hiContainer = document.getElementById('chaptersHi');
+    
+    // Show only the selected language container
+    if (lang === 'en') {
+        enContainer.style.display = 'block';
+        hiContainer.style.display = 'none';
+    } else {
+        enContainer.style.display = 'none';
+        hiContainer.style.display = 'block';
+    }
+    
+    // Now make all chapters in the visible container display:block
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const container = document.getElementById(containerId);
     const chapters = container.querySelectorAll('.chapter');
@@ -427,46 +440,77 @@ function restoreChapterVisibility(lang, activeIndex) {
             ch.classList.remove('active');
         }
     });
+    
+    // Restore other container's display based on current language
+    const enContainer = document.getElementById('chaptersEn');
+    const hiContainer = document.getElementById('chaptersHi');
+    if (lang === 'en') {
+        enContainer.style.display = 'block';
+        hiContainer.style.display = 'none';
+    } else {
+        enContainer.style.display = 'none';
+        hiContainer.style.display = 'block';
+    }
 }
 
 // ============================================================
-// 17. WAIT FOR RENDER
+// 17. WAIT FOR RENDER (LONGER FOR COMPLETE CONTENT)
 // ============================================================
 function waitForRender() {
     return new Promise((resolve) => {
+        // Force multiple render cycles for complete content
         requestAnimationFrame(() => {
-            setTimeout(resolve, 400);
+            requestAnimationFrame(() => {
+                setTimeout(resolve, 1200);
+            });
         });
     });
 }
 
 // ============================================================
-// 18. DOWNLOAD FULL EBOOK PDF
+// 18. DOWNLOAD EBOOK — ENGLISH
 // ============================================================
-async function downloadFullPDF() {
+async function downloadEnglishEbook() {
+    await downloadEbook('en', 'English');
+}
+
+// ============================================================
+// 19. DOWNLOAD EBOOK — HINGLISH
+// ============================================================
+async function downloadHinglishEbook() {
+    await downloadEbook('hi', 'Hinglish');
+}
+
+// ============================================================
+// 20. MAIN EBOOK GENERATOR
+// ============================================================
+async function downloadEbook(lang, langLabel) {
     const wrapper = document.querySelector('.autobio-wrapper');
     if (!wrapper) {
         showToast('❌ Error: Content not found', 'error');
         return;
     }
     
-    showToast('📄 Loading PDF library...', 'success');
+    showToast(`📄 Loading PDF library... (${langLabel})`, 'success');
     closeModal();
     
     await loadPDFLibrary();
     
-    showToast('📄 Generating ebook...', 'success');
+    showToast(`📄 Generating ${langLabel} ebook...`, 'success');
     
-    const lang = currentLang;
+    // ---- STEP 1: Make ONLY selected language chapters visible ----
     const activeIndex = makeAllChaptersVisible(lang);
     
+    // ---- STEP 2: Wait for complete render ----
     await waitForRender();
     
+    // ---- STEP 3: Clone the page ----
     const clone = wrapper.cloneNode(true);
     
+    // ---- STEP 4: Restore original visibility ----
     restoreChapterVisibility(lang, activeIndex);
     
-    // ---- CLEAN CLONE ----
+    // ---- STEP 5: Clean the clone ----
     const removeSelectors = [
         '.lang-controls', '.download-actions', '.nav-buttons', 
         '.progress-dots', '.chapter-progress-info', '.copy-link-btn',
@@ -476,7 +520,18 @@ async function downloadFullPDF() {
         clone.querySelectorAll(selector).forEach(el => el.remove());
     });
     
-    // Make all chapters visible in clone
+    // ---- STEP 6: Hide other language container in clone ----
+    const cloneEnContainer = clone.querySelector('#chaptersEn');
+    const cloneHiContainer = clone.querySelector('#chaptersHi');
+    if (lang === 'en') {
+        if (cloneEnContainer) cloneEnContainer.style.display = 'block';
+        if (cloneHiContainer) cloneHiContainer.style.display = 'none';
+    } else {
+        if (cloneEnContainer) cloneEnContainer.style.display = 'none';
+        if (cloneHiContainer) cloneHiContainer.style.display = 'block';
+    }
+    
+    // ---- STEP 7: Make all chapters visible in clone for selected language ----
     const cloneContainerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const cloneContainer = clone.querySelector('#' + cloneContainerId);
     if (cloneContainer) {
@@ -487,12 +542,12 @@ async function downloadFullPDF() {
         });
     }
     
-    // Remove photo placeholder hints
+    // ---- STEP 8: Remove photo placeholder hints ----
     clone.querySelectorAll('.upload-hint').forEach(el => {
         el.textContent = '📸 Photo';
     });
     
-    // ---- COVER PAGE ----
+    // ---- STEP 9: COVER PAGE ----
     const cover = document.createElement('div');
     cover.style.cssText = `
         text-align: center;
@@ -528,17 +583,18 @@ async function downloadFullPDF() {
     `;
     clone.insertBefore(cover, clone.firstChild);
     
-    // ---- TITLE PAGE ----
+    // ---- STEP 10: TITLE PAGE ----
     const titlePage = document.createElement('div');
     titlePage.style.cssText = `
         text-align: center;
         padding: 120px 40px;
         page-break-after: always;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
+        border-bottom: 1px solid #e0e0e0;
         margin-bottom: 30px;
+        background: #ffffff;
     `;
     titlePage.innerHTML = `
-        <h1 style="font-size:36px;font-weight:700;color:#6c5ce7;font-family:'Space Grotesk',sans-serif;margin-bottom:15px;">My Autobiography</h1>
+        <h1 style="font-size:36px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin-bottom:15px;">My Autobiography</h1>
         <p style="font-size:22px;color:#DAA520;font-family:'Space Grotesk',sans-serif;margin:10px 0;">Ravi Raj</p>
         <p style="font-size:16px;color:#666;font-style:italic;font-family:'Space Grotesk',sans-serif;margin:5px 0;">"A Boy Who Never Thought"</p>
         <p style="font-size:16px;color:#999;font-family:'Space Grotesk',sans-serif;margin:5px 0;">From Begusarai to the World</p>
@@ -547,16 +603,17 @@ async function downloadFullPDF() {
     `;
     clone.insertBefore(titlePage, cover.nextSibling);
     
-    // ---- TABLE OF CONTENTS ----
+    // ---- STEP 11: TABLE OF CONTENTS ----
     const toc = document.createElement('div');
     toc.style.cssText = `
         padding: 40px 40px 60px 40px;
         page-break-after: always;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
+        border-bottom: 1px solid #e0e0e0;
         margin-bottom: 30px;
+        background: #ffffff;
     `;
     let tocHTML = `
-        <h2 style="font-size:28px;font-weight:700;color:#6c5ce7;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:30px;">Table of Contents</h2>
+        <h2 style="font-size:28px;font-weight:700;color:#1a1a1a;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:30px;">Table of Contents</h2>
         <ul style="list-style:none;padding:0;font-family:'Space Grotesk',sans-serif;font-size:18px;line-height:2.4;max-width:600px;margin:0 auto;">
     `;
     const tocChapters = clone.querySelectorAll('.chapter');
@@ -575,24 +632,25 @@ async function downloadFullPDF() {
     toc.innerHTML = tocHTML;
     clone.insertBefore(toc, titlePage.nextSibling);
     
-    // ---- ABOUT THE AUTHOR ----
+    // ---- STEP 12: ABOUT THE AUTHOR ----
     const about = document.createElement('div');
     about.style.cssText = `
         padding: 40px 40px 50px 40px;
         page-break-after: always;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
+        border-bottom: 1px solid #e0e0e0;
         margin-bottom: 30px;
         text-align: center;
+        background: #ffffff;
     `;
     about.innerHTML = `
-        <h2 style="font-size:28px;font-weight:700;color:#6c5ce7;font-family:'Space Grotesk',sans-serif;margin-bottom:25px;">About the Author</h2>
+        <h2 style="font-size:28px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin-bottom:25px;">About the Author</h2>
         <div style="width:120px;height:120px;border-radius:50%;border:3px solid #DAA520;margin:0 auto 16px;overflow:hidden;box-shadow:0 0 30px rgba(218,165,32,0.15);">
             <img src="Singh_ravirajhere.jpeg" alt="Ravi Raj" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <p style="font-size:22px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin:4px 0;">Ravi Raj</p>
         <p style="font-size:16px;color:#DAA520;font-family:'Space Grotesk',sans-serif;margin-bottom:12px;">Author · Developer · Dreamer</p>
         <div style="max-width:580px;margin:0 auto;">
-            <p style="font-size:15px;line-height:1.8;color:#444;font-family:'Space Grotesk',sans-serif;text-align:justify;">
+            <p style="font-size:15px;line-height:1.8;color:#333;font-family:'Space Grotesk',sans-serif;text-align:justify;">
                 Ravi Raj was born on 13 March 2008 in Begusarai, Bihar. A self-taught developer, 
                 he discovered coding in 2020 and has since built over 5 projects. He is currently 
                 learning JavaScript and dreams of launching his own startup. When not coding, 
@@ -604,24 +662,25 @@ async function downloadFullPDF() {
             "Somewhere Between I Want It & I Got It"
         </p>
         <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:16px;">
-            <span style="background:#f0f0f0;padding:4px 14px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">💻 3+ Years Coding</span>
-            <span style="background:#f0f0f0;padding:4px 14px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">🚀 5+ Projects</span>
-            <span style="background:#f0f0f0;padding:4px 14px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">📚 Loves Novels</span>
+            <span style="background:#f5f5f5;padding:4px 14px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">💻 3+ Years Coding</span>
+            <span style="background:#f5f5f5;padding:4px 14px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">🚀 5+ Projects</span>
+            <span style="background:#f5f5f5;padding:4px 14px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">📚 Loves Novels</span>
         </div>
     `;
     clone.insertBefore(about, toc.nextSibling);
     
-    // ---- OVERVIEW ----
+    // ---- STEP 13: OVERVIEW ----
     const overview = document.createElement('div');
     overview.style.cssText = `
         padding: 40px 40px 50px 40px;
         page-break-after: always;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
+        border-bottom: 1px solid #e0e0e0;
         margin-bottom: 30px;
+        background: #ffffff;
     `;
     overview.innerHTML = `
-        <h2 style="font-size:28px;font-weight:700;color:#6c5ce7;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:20px;">Overview</h2>
-        <p style="font-size:16px;line-height:1.9;color:#444;text-align:center;max-width:600px;margin:0 auto;font-family:'Space Grotesk',sans-serif;">
+        <h2 style="font-size:28px;font-weight:700;color:#1a1a1a;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:20px;">Overview</h2>
+        <p style="font-size:16px;line-height:1.9;color:#333;text-align:center;max-width:600px;margin:0 auto;font-family:'Space Grotesk',sans-serif;">
             This autobiography takes you through the journey of Ravi Raj — from his humble beginnings in Begusarai, 
             Bihar, to becoming a passionate coder and dreamer. It covers childhood memories, school days, family, 
             friendships, struggles, and the joy of building something from nothing. A story of a boy who never 
@@ -629,19 +688,19 @@ async function downloadFullPDF() {
         </p>
         <div style="width:40px;height:2px;background:#DAA520;margin:24px auto;"></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:480px;margin:0 auto;">
-            <div style="background:#f9f9f9;padding:14px;border-radius:10px;text-align:center;">
+            <div style="background:#f5f5f5;padding:14px;border-radius:10px;text-align:center;">
                 <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">12</span>
                 <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Chapters</p>
             </div>
-            <div style="background:#f9f9f9;padding:14px;border-radius:10px;text-align:center;">
+            <div style="background:#f5f5f5;padding:14px;border-radius:10px;text-align:center;">
                 <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">2008</span>
                 <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Year of Birth</p>
             </div>
-            <div style="background:#f9f9f9;padding:14px;border-radius:10px;text-align:center;">
+            <div style="background:#f5f5f5;padding:14px;border-radius:10px;text-align:center;">
                 <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">3+</span>
                 <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Years Coding</p>
             </div>
-            <div style="background:#f9f9f9;padding:14px;border-radius:10px;text-align:center;">
+            <div style="background:#f5f5f5;padding:14px;border-radius:10px;text-align:center;">
                 <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">14</span>
                 <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Friends</p>
             </div>
@@ -649,7 +708,7 @@ async function downloadFullPDF() {
     `;
     clone.insertBefore(overview, about.nextSibling);
     
-    // ---- LAST PAGE ----
+    // ---- STEP 14: LAST PAGE ----
     const lastPage = document.createElement('div');
     lastPage.style.cssText = `
         text-align: center;
@@ -672,17 +731,18 @@ async function downloadFullPDF() {
     `;
     clone.appendChild(lastPage);
     
-    // ---- GENERATE PDF ----
+    // ---- STEP 15: GENERATE PDF ----
     const opt = {
         margin: [15, 15, 15, 15],
-        filename: 'My_Autobiography_Ravi_Raj_Ebook.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
+        filename: `My_Autobiography_Ravi_Raj_${langLabel}.pdf`,
+        image: { type: 'jpeg', quality: 0.95 },
         html2canvas: { 
-            scale: 2,
+            scale: 1.5,
             useCORS: true,
             letterRendering: true,
             backgroundColor: '#ffffff',
-            logging: false
+            logging: false,
+            width: 800
         },
         jsPDF: { 
             unit: 'mm', 
@@ -693,14 +753,15 @@ async function downloadFullPDF() {
     };
     
     html2pdf().set(opt).from(clone).save().then(() => {
-        showToast('✅ Ebook downloaded!', 'success');
-    }).catch(() => {
+        showToast(`✅ ${langLabel} ebook downloaded!`, 'success');
+    }).catch((err) => {
+        console.error('PDF Error:', err);
         showToast('❌ Download failed. Please try again.', 'error');
     });
 }
 
 // ============================================================
-// 19. HANDLE CHAPTER HASH IN URL
+// 21. HANDLE CHAPTER HASH IN URL
 // ============================================================
 function handleChapterHash() {
     const hash = window.location.hash;
@@ -732,7 +793,7 @@ function handleChapterHash() {
 }
 
 // ============================================================
-// 20. DOT CLICK NAVIGATION
+// 22. DOT CLICK NAVIGATION
 // ============================================================
 function setupDotNavigation() {
     const dots = document.querySelectorAll('.dot');
@@ -766,7 +827,7 @@ function setupDotNavigation() {
 }
 
 // ============================================================
-// 21. INITIALIZATION
+// 23. INITIALIZATION
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     currentLang = 'en';
@@ -781,7 +842,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================
-// 22. EXPOSE FUNCTIONS TO GLOBAL SCOPE
+// 24. EXPOSE FUNCTIONS TO GLOBAL SCOPE
 // ============================================================
 window.switchLang = switchLang;
 window.nextChapter = nextChapter;
@@ -791,5 +852,6 @@ window.openGoogleTranslate = openGoogleTranslate;
 window.toggleReadingMode = toggleReadingMode;
 window.openModal = openModal;
 window.closeModal = closeModal;
-window.downloadFullPDF = downloadFullPDF;
+window.downloadEnglishEbook = downloadEnglishEbook;
+window.downloadHinglishEbook = downloadHinglishEbook;
 window.showToast = showToast;
