@@ -1,7 +1,7 @@
 // ============================================================
-// EBOOK.JS — PROFESSIONAL BOOK GENERATOR (30+ YEAR PRO TOUCH)
-// NO DOM ATTACH · NO BLANK PAGES · BOOK STANDARD
-// FIXED: LANGUAGE ISOLATION (ENGLISH PDF = ONLY ENGLISH CHAPTERS)
+// EBOOK.JS — PROFESSIONAL BOOK GENERATOR (FINAL)
+// USING html2canvas + jsPDF DIRECT (NO html2pdf BUGS)
+// NO DOM ATTACH · NO BLANK PAGES · NO LANGUAGE MIX
 // ============================================================
 
 // ============================================================
@@ -32,18 +32,37 @@ function closeModal() {
 }
 
 // ============================================================
-// 3. LAZY LOAD PDF LIBRARY
+// 3. LAZY LOAD LIBRARIES
 // ============================================================
-function loadPDFLibrary() {
+function loadLibraries() {
     return new Promise((resolve) => {
-        if (typeof html2pdf !== 'undefined') {
-            resolve();
-            return;
+        let loaded = 0;
+        const total = 2;
+        
+        function checkDone() {
+            loaded++;
+            if (loaded === total) resolve();
         }
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-        script.onload = resolve;
-        document.head.appendChild(script);
+        
+        if (typeof html2canvas !== 'undefined') {
+            loaded++;
+        } else {
+            const script1 = document.createElement('script');
+            script1.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+            script1.onload = checkDone;
+            document.head.appendChild(script1);
+        }
+        
+        if (typeof jspdf !== 'undefined') {
+            loaded++;
+        } else {
+            const script2 = document.createElement('script');
+            script2.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+            script2.onload = checkDone;
+            document.head.appendChild(script2);
+        }
+        
+        if (loaded === total) resolve();
     });
 }
 
@@ -113,7 +132,27 @@ function waitForRender() {
 }
 
 // ============================================================
-// 6. APPLY PROFESSIONAL BOOK STYLES
+// 6. GENERATE SECTION IMAGE
+// ============================================================
+function generateSectionImage(element) {
+    return new Promise((resolve) => {
+        html2canvas(element, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: '#ffffff',
+            logging: false,
+            width: 595, // A4 width in points
+            height: 842 // A4 height in points
+        }).then(canvas => {
+            resolve(canvas);
+        }).catch(() => {
+            resolve(null);
+        });
+    });
+}
+
+// ============================================================
+// 7. APPLY PROFESSIONAL BOOK STYLES
 // ============================================================
 function applyProfessionalBookStyles(clone) {
     // Paragraphs
@@ -194,21 +233,21 @@ function applyProfessionalBookStyles(clone) {
 }
 
 // ============================================================
-// 7. DOWNLOAD EBOOK — ENGLISH
+// 8. DOWNLOAD EBOOK — ENGLISH
 // ============================================================
 async function downloadEnglishEbook() {
     await downloadEbook('en', 'English');
 }
 
 // ============================================================
-// 8. DOWNLOAD EBOOK — HINGLISH
+// 9. DOWNLOAD EBOOK — HINGLISH
 // ============================================================
 async function downloadHinglishEbook() {
     await downloadEbook('hi', 'Hinglish');
 }
 
 // ============================================================
-// 9. MAIN EBOOK GENERATOR (PROFESSIONAL BOOK)
+// 10. MAIN EBOOK GENERATOR (FINAL)
 // ============================================================
 async function downloadEbook(lang, langLabel) {
     const wrapper = document.querySelector('.autobio-wrapper');
@@ -217,10 +256,10 @@ async function downloadEbook(lang, langLabel) {
         return;
     }
     
-    showToast(`📄 Loading PDF library... (${langLabel})`, 'success');
+    showToast(`📄 Loading libraries... (${langLabel})`, 'success');
     closeModal();
     
-    await loadPDFLibrary();
+    await loadLibraries();
     
     showToast(`📄 Generating ${langLabel} ebook...`, 'success');
     
@@ -240,33 +279,19 @@ async function downloadEbook(lang, langLabel) {
         clone.querySelectorAll(selector).forEach(el => el.remove());
     });
     
-    // ---- LANGUAGE ISOLATION (CRITICAL FIX) ----
-    // Remove the other language container completely from clone
+    // ---- LANGUAGE ISOLATION (COMPLETE REMOVE) ----
     const cloneEnContainer = clone.querySelector('#chaptersEn');
     const cloneHiContainer = clone.querySelector('#chaptersHi');
     
     if (lang === 'en') {
-        // Remove Hinglish container completely
-        if (cloneHiContainer) {
-            cloneHiContainer.remove();
-        }
-        // Make English container visible
-        if (cloneEnContainer) {
-            cloneEnContainer.style.display = 'block';
-        }
+        if (cloneHiContainer) cloneHiContainer.remove();
+        if (cloneEnContainer) cloneEnContainer.style.display = 'block';
     } else {
-        // Remove English container completely
-        if (cloneEnContainer) {
-            cloneEnContainer.remove();
-        }
-        // Make Hinglish container visible
-        if (cloneHiContainer) {
-            cloneHiContainer.style.display = 'block';
-        }
+        if (cloneEnContainer) cloneEnContainer.remove();
+        if (cloneHiContainer) cloneHiContainer.style.display = 'block';
     }
     
     // ---- FORMAT CHAPTERS ----
-    // Get the container ID based on selected language
     const cloneContainerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const cloneContainer = clone.querySelector('#' + cloneContainerId);
     if (cloneContainer) {
@@ -280,7 +305,6 @@ async function downloadEbook(lang, langLabel) {
             ch.style.padding = '40px 50px';
             ch.style.marginTop = '0';
             ch.style.boxShadow = 'none';
-            ch.style.pageBreakInside = 'avoid';
         });
     }
     
@@ -292,25 +316,18 @@ async function downloadEbook(lang, langLabel) {
     // ---- APPLY PROFESSIONAL STYLES ----
     applyProfessionalBookStyles(clone);
     
-    // ---- CREATE PDF DOCUMENT ----
-    const pdfDoc = document.createElement('div');
-    pdfDoc.style.cssText = `
-        max-width: 100%;
-        margin: 0 auto;
-        background: #ffffff;
-        font-family: 'Georgia', 'Times New Roman', serif;
-        padding: 0;
-    `;
+    // ---- CREATE SECTIONS ----
+    const sections = [];
     
-    // ---- COVER PAGE ----
+    // 1. Cover
     const cover = document.createElement('div');
-    cover.style.cssText = `page-break-after: always;`;
+    cover.style.cssText = `padding:0;margin:0;background:#ffffff;`;
     cover.innerHTML = `<img src="bookcover.jpg" alt="Book Cover" style="width:100%;height:auto;display:block;">`;
-    pdfDoc.appendChild(cover);
+    sections.push(cover);
     
-    // ---- TITLE PAGE ----
+    // 2. Title Page
     const title = document.createElement('div');
-    title.style.cssText = `page-break-before: always; page-break-after: always; text-align: center; padding: 80px 50px;`;
+    title.style.cssText = `text-align:center;padding:80px 50px;background:#ffffff;`;
     title.innerHTML = `
         <h1 style="font-size:42px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin-bottom:10px;">My Autobiography</h1>
         <p style="font-size:18px;color:#999;font-family:'Space Grotesk',sans-serif;margin:10px 0;">—</p>
@@ -320,11 +337,11 @@ async function downloadEbook(lang, langLabel) {
         <div style="width:80px;height:2px;background:#DAA520;margin:30px auto;"></div>
         <p style="font-size:15px;color:#aaa;font-family:'Space Grotesk',sans-serif;">${new Date().getFullYear()}</p>
     `;
-    pdfDoc.appendChild(title);
+    sections.push(title);
     
-    // ---- TABLE OF CONTENTS ----
+    // 3. Table of Contents
     const toc = document.createElement('div');
-    toc.style.cssText = `page-break-before: always; page-break-after: always; padding: 60px 50px;`;
+    toc.style.cssText = `padding:60px 50px;background:#ffffff;`;
     let tocHTML = `
         <h2 style="font-size:32px;font-weight:700;color:#1a1a1a;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:30px;">Table of Contents</h2>
         <ul style="list-style:none;padding:0;font-family:'Georgia',serif;font-size:16px;line-height:2.8;max-width:550px;margin:0 auto;">
@@ -344,11 +361,11 @@ async function downloadEbook(lang, langLabel) {
     });
     tocHTML += `</ul>`;
     toc.innerHTML = tocHTML;
-    pdfDoc.appendChild(toc);
+    sections.push(toc);
     
-    // ---- ABOUT THE AUTHOR ----
+    // 4. About the Author
     const about = document.createElement('div');
-    about.style.cssText = `page-break-before: always; page-break-after: always; text-align: center; padding: 60px 50px;`;
+    about.style.cssText = `text-align:center;padding:60px 50px;background:#ffffff;`;
     about.innerHTML = `
         <h2 style="font-size:32px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin-bottom:20px;">About the Author</h2>
         <div style="width:120px;height:120px;border-radius:50%;border:3px solid #DAA520;margin:0 auto 16px;overflow:hidden;">
@@ -374,11 +391,11 @@ async function downloadEbook(lang, langLabel) {
             <span style="background:#f5f5f5;padding:4px 16px;border-radius:20px;font-size:13px;color:#333;">📚 Loves Novels</span>
         </div>
     `;
-    pdfDoc.appendChild(about);
+    sections.push(about);
     
-    // ---- OVERVIEW ----
+    // 5. Overview
     const overview = document.createElement('div');
-    overview.style.cssText = `page-break-before: always; page-break-after: always; padding: 60px 50px;`;
+    overview.style.cssText = `padding:60px 50px;background:#ffffff;`;
     overview.innerHTML = `
         <h2 style="font-size:32px;font-weight:700;color:#1a1a1a;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:20px;">Overview</h2>
         <p style="font-size:17px;line-height:1.9;color:#2d2d2d;text-align:justify;max-width:550px;margin:0 auto;font-family:'Georgia',serif;">
@@ -407,13 +424,13 @@ async function downloadEbook(lang, langLabel) {
             </div>
         </div>
     `;
-    pdfDoc.appendChild(overview);
+    sections.push(overview);
     
-    // ---- ALL CHAPTERS ----
+    // 6. Chapters
     const chapterElements = clone.querySelectorAll('.chapter');
-    chapterElements.forEach((ch, index) => {
+    chapterElements.forEach((ch) => {
         const section = document.createElement('div');
-        section.style.cssText = `page-break-before: always; page-break-after: always; padding: 40px 50px; background: #ffffff;`;
+        section.style.cssText = `padding:40px 50px;background:#ffffff;`;
         
         const chapterClone = ch.cloneNode(true);
         chapterClone.querySelectorAll('.copy-link-btn').forEach(el => el.remove());
@@ -423,12 +440,12 @@ async function downloadEbook(lang, langLabel) {
         });
         
         section.appendChild(chapterClone);
-        pdfDoc.appendChild(section);
+        sections.push(section);
     });
     
-    // ---- EMOTIONAL MESSAGE ----
+    // 7. Emotional Message
     const emotional = document.createElement('div');
-    emotional.style.cssText = `page-break-before: always; text-align: center; padding: 80px 50px; background: #fafafa;`;
+    emotional.style.cssText = `text-align:center;padding:80px 50px;background:#fafafa;`;
     emotional.innerHTML = `
         <div style="font-size:48px;margin-bottom:20px;">❤️</div>
         <p style="font-size:22px;font-weight:400;color:#1a1a1a;font-family:'Georgia',serif;max-width:500px;margin:0 auto;line-height:1.8;font-style:italic;">
@@ -443,36 +460,66 @@ async function downloadEbook(lang, langLabel) {
         <p style="font-size:13px;color:#999;margin-top:6px;font-family:'Space Grotesk',sans-serif;">Ravi Raj · March ${new Date().getFullYear()}</p>
         <p style="font-size:13px;color:#aaa;margin-top:4px;font-family:'Space Grotesk',sans-serif;">📖 From Begusarai to the World</p>
     `;
-    pdfDoc.appendChild(emotional);
+    sections.push(emotional);
     
-    // ---- GENERATE PDF ----
-    const opt = {
-        margin: [20, 25, 20, 25],
-        filename: `My_Autobiography_Ravi_Raj_${langLabel}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
+    // ---- GENERATE PDF USING jsPDF + html2canvas ----
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'portrait'
+    });
+    
+    const pageWidth = 210;
+    const pageHeight = 297;
+    const margin = 10;
+    const contentWidth = pageWidth - (margin * 2);
+    const contentHeight = pageHeight - (margin * 2);
+    
+    let isFirstPage = true;
+    
+    for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
+        
+        // Append to body temporarily for rendering
+        section.style.position = 'absolute';
+        section.style.left = '-9999px';
+        section.style.top = '0';
+        section.style.width = contentWidth + 'mm';
+        section.style.background = '#ffffff';
+        document.body.appendChild(section);
+        
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        const canvas = await html2canvas(section, {
             scale: 2,
             useCORS: true,
             backgroundColor: '#ffffff',
-            logging: false
-        },
-        jsPDF: { 
-            unit: 'mm', 
-            format: 'a4', 
-            orientation: 'portrait' 
+            logging: false,
+            width: contentWidth * 3.78,
+            height: contentHeight * 3.78
+        });
+        
+        document.body.removeChild(section);
+        
+        if (canvas) {
+            if (!isFirstPage) {
+                pdf.addPage();
+            }
+            isFirstPage = false;
+            
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, contentHeight);
         }
-    };
+    }
     
-    html2pdf().set(opt).from(pdfDoc).save().then(() => {
-        showToast(`✅ ${langLabel} ebook downloaded!`, 'success');
-    }).catch((err) => {
-        console.error('PDF Error:', err);
-        showToast('❌ Download failed. Please try again.', 'error');
-    });
+    // ---- SAVE PDF ----
+    pdf.save(`My_Autobiography_Ravi_Raj_${langLabel}.pdf`);
+    showToast(`✅ ${langLabel} ebook downloaded!`, 'success');
 }
 
 // ============================================================
-// 10. EXPOSE FUNCTIONS TO GLOBAL SCOPE
+// 11. EXPOSE FUNCTIONS TO GLOBAL SCOPE
 // ============================================================
 window.downloadEnglishEbook = downloadEnglishEbook;
 window.downloadHinglishEbook = downloadHinglishEbook;
