@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         /* ============================================================
-           AUTOBIOGRAPHY PAGE — STYLING
+           ROOT VARIABLES — WEBSITE MATCH
            ============================================================ */
         :root {
             --bg: #0a0a0f;
@@ -19,6 +20,7 @@
             --border: rgba(255, 255, 255, 0.08);
             --accent: #6c5ce7;
             --accent2: #a29bfe;
+            --gold: #DAA520;
             --grad: linear-gradient(135deg, #6c5ce7, #a29bfe);
             --radius: 16px;
             --radius2: 12px;
@@ -26,11 +28,7 @@
             --shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: var(--font);
@@ -42,56 +40,141 @@
             justify-content: center;
             padding: 40px 20px;
             -webkit-font-smoothing: antialiased;
+            background-image: radial-gradient(ellipse at 50% 0%, rgba(0, 217, 255, 0.05) 0%, transparent 70%);
         }
 
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
         .autobio-wrapper {
-            max-width: 820px;
+            max-width: 880px;
             width: 100%;
             background: var(--bg3);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 40px 35px;
+            padding: 45px 40px;
             box-shadow: var(--shadow);
             animation: fadeIn 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .autobio-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(108, 92, 231, 0.03) 0%, transparent 60%);
+            pointer-events: none;
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ---- HERO ---- */
         .autobio-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-photo {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 4px solid var(--gold);
+            object-fit: cover;
+            margin-bottom: 16px;
+            box-shadow: 0 0 40px rgba(218, 165, 32, 0.2);
+            transition: 0.4s;
+        }
+        .profile-photo:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 60px rgba(218, 165, 32, 0.4);
         }
 
         .autobio-header h1 {
-            font-size: 32px;
+            font-size: 36px;
+            font-weight: 700;
             background: var(--grad);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 6px;
+            margin-bottom: 2px;
         }
 
-        .autobio-header p {
+        .autobio-header .intro-line {
+            font-size: 20px;
+            font-style: italic;
+            color: var(--gold);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            opacity: 0.9;
+        }
+
+        .autobio-header .sub-line {
             color: var(--text3);
             font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+        .autobio-header .bio-line {
+            color: var(--text2);
+            font-size: 14px;
+            margin-top: 8px;
         }
 
-        /* ---- Language Buttons ---- */
+        /* ---- STATS ---- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 30px 0 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius2);
+            padding: 18px 12px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .stat-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: var(--text3);
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* ---- LANGUAGE TOGGLE ---- */
         .lang-controls {
             display: flex;
             gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
-            margin: 18px 0 10px;
+            margin: 10px 0 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .lang-btn {
@@ -106,13 +189,11 @@
             transition: 0.3s;
             font-family: var(--font);
         }
-
         .lang-btn:hover {
             background: var(--accent);
             color: #fff;
             box-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
         }
-
         .lang-btn.active {
             background: var(--accent);
             color: #fff;
@@ -123,56 +204,175 @@
             color: #fff;
             border: none;
         }
-
         .translate-btn:hover {
             transform: scale(1.03);
             box-shadow: 0 8px 30px rgba(108, 92, 231, 0.4);
         }
 
-        /* ---- Content Box ---- */
-        .autobio-content {
+        /* ---- BOOK CHAPTERS ---- */
+        .chapter {
+            display: none;
             background: var(--bg2);
             border-radius: var(--radius);
             padding: 30px 28px;
             border: 1px solid var(--border);
             margin-top: 10px;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 0.5s ease;
+        }
+        .chapter.active {
+            display: block;
         }
 
-        .autobio-content h3 {
+        .chapter h3 {
             color: var(--accent2);
             font-size: 20px;
-            margin-top: 28px;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+        .chapter h3 .emoji-big { font-size: 26px; }
 
-        .autobio-content h3:first-of-type {
-            margin-top: 0;
-        }
-
-        .autobio-content p {
+        .chapter p {
             color: var(--text2);
             line-height: 1.9;
             font-size: 16px;
             margin-bottom: 10px;
         }
+        .chapter p strong { color: var(--text); }
 
-        .autobio-content ul {
+        .chapter ul {
             color: var(--text2);
             padding-left: 20px;
             list-style: none;
         }
-
-        .autobio-content ul li {
+        .chapter ul li {
             margin-bottom: 6px;
             padding-left: 6px;
         }
-
-        .autobio-content ul li::before {
+        .chapter ul li::before {
             content: "▸ ";
             color: var(--accent2);
         }
 
-        /* ---- Back Link ---- */
+        /* ---- QUOTE BOXES ---- */
+        .quote-box {
+            background: rgba(218, 165, 32, 0.06);
+            border-left: 4px solid var(--gold);
+            border-radius: var(--radius2);
+            padding: 18px 22px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text2);
+            font-size: 17px;
+            line-height: 1.7;
+        }
+        .quote-box .author {
+            display: block;
+            margin-top: 6px;
+            font-size: 14px;
+            color: var(--gold);
+            font-style: normal;
+            font-weight: 500;
+        }
+        .quote-box.purple {
+            border-left-color: var(--accent2);
+        }
+
+        /* ---- TEACHER TRIBUTE ---- */
+        .teacher-tribute {
+            background: rgba(108, 92, 231, 0.06);
+            border-radius: var(--radius2);
+            padding: 18px 22px;
+            margin: 16px 0;
+            border: 1px solid rgba(108, 92, 231, 0.15);
+        }
+        .teacher-tribute h4 {
+            color: var(--gold);
+            font-size: 17px;
+            margin-bottom: 4px;
+        }
+        .teacher-tribute p {
+            margin-bottom: 0;
+            font-size: 15px;
+        }
+
+        /* ---- FAMILY GRID ---- */
+        .family-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 12px 0 6px;
+        }
+        .family-item {
+            background: var(--bg3);
+            border-radius: var(--radius2);
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+        }
+        .family-item .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text3);
+            letter-spacing: 0.5px;
+        }
+        .family-item .value {
+            font-size: 15px;
+            color: var(--text);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        /* ---- FRIEND MEMORY PDF ---- */
+        .friend-memory-pdf {
+            background: rgba(255, 215, 0, 0.04);
+            border: 1px dashed rgba(218, 165, 32, 0.3);
+            border-radius: var(--radius2);
+            padding: 20px 24px;
+            margin: 16px 0;
+            color: var(--text2);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+        .friend-memory-pdf strong {
+            color: var(--gold);
+        }
+        .friend-memory-pdf .pdf-label {
+            display: inline-block;
+            background: var(--gold);
+            color: #0a0a0f;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 14px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        /* ---- NEXT BUTTON ---- */
+        .next-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 32px;
+            background: var(--grad);
+            color: #0a0a0f;
+            font-weight: 700;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: var(--font);
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+        }
+        .next-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.5);
+        }
+
+        /* ---- BACK LINK ---- */
         .back-link {
             display: inline-block;
             margin-top: 30px;
@@ -181,28 +381,33 @@
             font-size: 15px;
             font-weight: 500;
             transition: 0.3s;
+            position: relative;
+            z-index: 1;
         }
-
         .back-link:hover {
             color: var(--text);
             transform: translateX(-4px);
         }
 
-        /* ---- Responsive ---- */
-        @media (max-width: 600px) {
-            .autobio-wrapper {
-                padding: 24px 16px;
-            }
-            .autobio-header h1 {
-                font-size: 24px;
-            }
-            .autobio-content {
-                padding: 20px 16px;
-            }
-            .lang-btn {
-                padding: 8px 18px;
-                font-size: 13px;
-            }
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 700px) {
+            .autobio-wrapper { padding: 28px 18px; }
+            .autobio-header h1 { font-size: 28px; }
+            .autobio-header .intro-line { font-size: 17px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .family-grid { grid-template-columns: 1fr; }
+            .chapter { padding: 20px 16px; }
+            .profile-photo { width: 100px; height: 100px; }
+        }
+
+        @media (max-width: 480px) {
+            .autobio-wrapper { padding: 20px 14px; }
+            .autobio-header h1 { font-size: 24px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .stat-number { font-size: 22px; }
+            .lang-btn { padding: 6px 16px; font-size: 12px; }
+            .quote-box { font-size: 15px; padding: 14px 16px; }
+            .next-btn { padding: 10px 24px; font-size: 14px; }
         }
     </style>
 </head>
@@ -210,98 +415,265 @@
 
     <div class="autobio-wrapper">
 
-        <!-- HEADER -->
+        <!-- ===== HERO ===== -->
         <div class="autobio-header">
+            <img src="Singh_ravirajhere.jpeg" alt="Ravi Raj" class="profile-photo" />
             <h1>📖 My Autobiography</h1>
-            <p>From Bandwar to the World — My Life Story</p>
+            <div class="intro-line">"A Boy Who Never Thought"</div>
+            <div class="sub-line">From Begusarai to the World</div>
+            <div class="bio-line">13 March 2008 · Patna, India</div>
+        </div>
 
-            <div class="lang-controls">
-                <button class="lang-btn active" id="btnEn" onclick="switchLang('en')">🇬🇧 English</button>
-                <button class="lang-btn" id="btnHi" onclick="switchLang('hi')">🗣️ Hinglish</button>
-                <button class="lang-btn translate-btn" onclick="openGoogleTranslate()">🌐 Translate</button>
+        <!-- ===== STATS ===== -->
+        <div class="stats-grid">
+            <div class="stat-card"><span class="stat-number">3+</span><span class="stat-label">Years of Coding</span></div>
+            <div class="stat-card"><span class="stat-number">5+</span><span class="stat-label">Projects Built</span></div>
+            <div class="stat-card"><span class="stat-number">10K+</span><span class="stat-label">Lines of Code</span></div>
+            <div class="stat-card"><span class="stat-number">14</span><span class="stat-label">Friends</span></div>
+        </div>
+
+        <!-- ===== LANGUAGE CONTROLS ===== -->
+        <div class="lang-controls">
+            <button class="lang-btn active" id="btnEn" onclick="switchLang('en')">🇬🇧 English</button>
+            <button class="lang-btn" id="btnHi" onclick="switchLang('hi')">🗣️ Hinglish</button>
+            <button class="lang-btn translate-btn" onclick="openGoogleTranslate()">🌐 Translate</button>
+        </div>
+
+        <!-- =============================================================
+        CHAPTERS — ENGLISH
+        ============================================================= -->
+        <div id="chaptersEn">
+
+            <div class="chapter active" data-chapter="1">
+                <h3><span class="emoji-big">🌅</span> Chapter 1: The Beginning (2008–2012)</h3>
+                <p>I was born on 13 March 2008 in Begusarai, Bihar. My father told me that when I was born, my mother said, <em>"Name him Ravi, because he will bring light to this house."</em> Since then, I have been the light of my family.</p>
+                <p>My childhood memories are as many as any child from a small village could have. Cycling in the courtyard, sitting on the roof in the evening, and eating food cooked by my mother — all of these are still alive in my mind.</p>
+                <p>One day, I stole my sister's cycle and joined a race — and fell straight into a gutter! My father picked me up and said, <em>"Beta, pehle balance seekh, phir speed."</em> Today, I still love cycling — but I avoid gutters.</p>
+                <button class="next-btn" onclick="nextChapter('en')">→ Next Chapter</button>
             </div>
+
+            <div class="chapter" data-chapter="2">
+                <h3><span class="emoji-big">🏫</span> Chapter 2: School Days Begin (2013–2019)</h3>
+                <p>My first school was <strong>Gautam Buddha Global School</strong>. But the day I still remember is 2019 — when I took admission in Class 6 at <strong>Mother's Pride International School</strong>. The first day was nerve-wracking. New school, new faces, new class. But slowly, everything became normal.</p>
+                <p><strong>First friend:</strong> Ayush Singh — the one who made me feel like a new person.</p>
+                <p><strong>Unforgettable teacher:</strong> Binod Sir — he taught Hindi and gave me a new way to see life.</p>
+                <button class="next-btn" onclick="nextChapter('en')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="3">
+                <h3><span class="emoji-big">📚</span> Chapter 3: Middle School & Discoveries (2016–2019)</h3>
+                <p><strong>Favorite subjects:</strong> Science (with my mind) and Hindi Literature (with my heart).</p>
+                <p><strong>Favorite teacher:</strong> Binod Sir — he taught me that Hindi is not just a language, it's an emotion.</p>
+                <p><strong>Achievement:</strong> Passed 12th grade — a result of years of hard work.</p>
+                <p><strong>Failures:</strong> Many — but each one taught me something.</p>
+                <button class="next-btn" onclick="nextChapter('en')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="4">
+                <h3><span class="emoji-big">💻</span> Chapter 4: Coding Discovery (2020–2022)</h3>
+                <p><strong>First phone at home:</strong> 2019. <strong>My personal phone and laptop:</strong> 2024.</p>
+                <p><strong>First coding experience:</strong> I wrote my first HTML tag — "Hello World" — and felt like I had done magic.</p>
+                <p><strong>New hobby:</strong> Reading novels and literature.</p>
+                <p><strong>Important friends:</strong> Sudhanshu, Rohit, Sitanashu — they never let me feel alone.</p>
+                <button class="next-btn" onclick="nextChapter('en')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="5">
+                <h3><span class="emoji-big">🚀</span> Chapter 5: Coding Journey Begins (2023–2024)</h3>
+                <p><strong>First coding day:</strong> I wrote "Hello World" and that day I knew — this is what I want to do.</p>
+                <p><strong>First project:</strong> My portfolio — simple, but my own.</p>
+                <p><strong>Struggle:</strong> CSS alignment, responsiveness — but every problem had a solution.</p>
+                <p><strong>First success:</strong> When something I built appeared on the screen — that joy was different.</p>
+                <button class="next-btn" onclick="nextChapter('en')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="6">
+                <h3><span class="emoji-big">🎯</span> Chapter 6: The Present (2025–2026)</h3>
+                <p><strong>JavaScript struggle:</strong> Still learning — functions, arrays, objects — it's an ongoing journey.</p>
+                <p><strong>Portfolio launch:</strong> Glitches at first, but now it's my new home on the internet.</p>
+                <p><strong>Current feeling:</strong> Confident and curious — I know there's so much more to learn.</p>
+                <p><strong>Future plan:</strong> Master backend & databases, build real-world projects, and one day launch my own startup.</p>
+                <button class="next-btn" onclick="nextChapter('en')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="7">
+                <h3><span class="emoji-big">👨‍👩‍👧</span> Chapter 7: Family — My Anchor</h3>
+                <p><strong>Parents' teaching:</strong> Honesty, hard work, and helping others.</p>
+                <p><strong>Siblings:</strong> 2 elder sisters and 2 younger brothers — each one has taught me patience and love.</p>
+                <p><strong>Family memory:</strong> Diwali nights when the whole family is together — that peace is unmatched.</p>
+                <button class="next-btn" onclick="nextChapter('en')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="8">
+                <h3><span class="emoji-big">💬</span> Chapter 8: Friends & Relationships</h3>
+                <p><strong>Closest friends:</strong> Ayush, Sudhanshu, Rohit, Sitanashu.</p>
+                <p><strong>Memorable moment:</strong> The first time I showed my project to my friends — their appreciation gave me confidence.</p>
+                <p><strong>What friends changed:</strong> They pulled me out of loneliness and taught me that success feels better when shared.</p>
+                <button class="next-btn" onclick="nextChapter('en')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="9">
+                <h3><span class="emoji-big">💪</span> Chapter 9: Biggest Struggle</h3>
+                <p>Not knowing what to become, how to become — it was confusing. But I took it step by step, one chapter at a time.</p>
+                <button class="next-btn" onclick="nextChapter('en')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="10">
+                <h3><span class="emoji-big">😊</span> Chapter 10: Biggest Happiness</h3>
+                <p>When someone saw my website for the first time and said — <em>"Bhai, yeh tune banaya?"</em> That moment was pure joy.</p>
+                <button class="next-btn" onclick="nextChapter('en')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="11">
+                <h3><span class="emoji-big">🌍</span> Chapter 11: Message & Motto</h3>
+                <div class="quote-box gold">
+                    "Humi hum hain to kya hum hain! Tumhi tum ho to kya tum ho!!"
+                    <span class="author">— Ravi Raj</span>
+                </div>
+                <div class="quote-box purple">
+                    "Somewhere Between I Want It & I Got It"
+                    <span class="author">— Ravi Raj's Motto</span>
+                </div>
+                <button class="next-btn" onclick="nextChapter('en')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="12">
+                <h3><span class="emoji-big">📖</span> Chapter 12: The Friend Memory — 12th Ke Last Pages</h3>
+                <div class="friend-memory-pdf">
+                    <span class="pdf-label">📄 PDF — Friend Memory</span>
+                    <p><strong>12th ke aakhri din...</strong></p>
+                    <p>School khatam hone ka ehsaas... woh doston ke saath bitaye pal... woh class ke aakhri lecture ki silence... aur woh smile jo kehti thi — <em>"abhi toh shuruat hai."</em></p>
+                    <p>Woh din, woh yaadein, woh dosti — sab kuch alag tha. Kuch khatam ho raha tha, kuch shuru ho raha tha.</p>
+                    <p style="margin-top:10px;"><strong>Yeh sirf memory nahi, ek ehsaas hai.</strong></p>
+                </div>
+                <p style="margin-top:20px; color:var(--text3); font-size:14px; text-align:center; border-top:1px solid var(--border); padding-top:18px;">
+                    No regrets in life — that's my biggest achievement.
+                </p>
+                <a href="index.html#achieve" class="back-link">← Back to Achieve</a>
+            </div>
+
         </div>
 
-        <!-- ===== ENGLISH CONTENT ===== -->
-        <div class="autobio-content" id="contentEn">
-            <h3>🌅 Born in Bandwar, Begusarai — 13 March 2008</h3>
-            <p>I was born on 13 March 2008 in Bandwar, Begusarai, Bihar. My father told me that when I was born, my mother said, <em>"Name him Ravi, because he will bring light to this house."</em> Since then, I have been the light of my family.</p>
+        <!-- =============================================================
+        CHAPTERS — HINGLISH
+        ============================================================= -->
+        <div id="chaptersHi" style="display:none;">
 
-            <h3>🏏 Childhood — Cricket, School & Papa's Cycle</h3>
-            <p>My childhood was simple and beautiful. Waking up at 6 AM, cycling to school with friends — this was my daily routine. I loved cricket. Once I played for the school team but got out early. That day my father said, <em>"Getting out is not a big deal, keep playing."</em> I still remember that line whenever I fail in coding.</p>
+            <div class="chapter active" data-chapter="1">
+                <h3><span class="emoji-big">🌅</span> Chapter 1: Shuruaat (2008–2012)</h3>
+                <p>Mera janam 13 March 2008 ko Begusarai, Bihar mein hua. Papa ne bataya ki jab main paida hua, toh mummy ne kaha, <em>"Iska naam Ravi rakho, kyunki yeh ghar mein roshni layega."</em> Tab se main apni family ki roshni ban gaya.</p>
+                <p>Ek baar maine apni sister ki cycle chura kar race lagayi — aur gutter mein gir gaya! Papa ne mujhe uthaya aur bola, <em>"Beta, pehle balance seekh, phir speed."</em> Aaj bhi main cycle chalata hoon, but gutter avoid karta hoon!</p>
+                <button class="next-btn" onclick="nextChapter('hi')">→ Next Chapter</button>
+            </div>
 
-            <h3>📚 School Days — Where Coding Started</h3>
-            <p>My favorite subject in school was Computer Science. I also loved Maths because it had logic — and coding is all about logic. In 8th grade, I saw HTML code for the first time in the computer lab. I thought, <em>"This is magic!"</em> My teacher said this is called coding. I wanted to build my first webpage that very day. In 10th grade, I built my first webpage — just a "Hello World." But when it appeared on screen, I felt pure joy. That day I decided — <em>"This is my career."</em></p>
+            <div class="chapter" data-chapter="2">
+                <h3><span class="emoji-big">🏫</span> Chapter 2: School Days (2013–2019)</h3>
+                <p>Mera pehla school <strong>Gautam Buddha Global School</strong> tha. Par 2019 mein <strong>Mother's Pride International School</strong> mein Class 6 mein admission hua — pehla din bahut nervous tha.</p>
+                <p><strong>Pehle dost:</strong> Ayush Singh.</p>
+                <p><strong>Yaadgar teacher:</strong> Binod Sir — unhone Hindi padhaya aur zindagi dekhne ka nazariya diya.</p>
+                <button class="next-btn" onclick="nextChapter('hi')">→ Next Chapter</button>
+            </div>
 
-            <h3>👨‍👩‍👧 Family — My Biggest Strength</h3>
-            <p>My father is my role model. He taught me, <em>"Keep working hard, results will follow."</em> My mother taught me, <em>"Help others, it always comes back."</em> My younger sister calls me "bhaiya" with so much love. For me, family is the people who motivate me. Whenever I feel frustrated with coding, my mother says, <em>"Learn slowly, no one asks how much time you took."</em></p>
+            <div class="chapter" data-chapter="3">
+                <h3><span class="emoji-big">📚</span> Chapter 3: Middle School (2016–2019)</h3>
+                <p><strong>Favorite subjects:</strong> Science (dimag se) aur Hindi Literature (dil se).</p>
+                <p><strong>Favorite teacher:</strong> Binod Sir — unhone sikhaya ki Hindi sirf bhasha nahi, bhaavna hai.</p>
+                <p><strong>Achievement:</strong> 12th pass — saalon ki mehnat ka result.</p>
+                <p><strong>Failures:</strong> Bahut saare — par har failure ne kuch na kuch sikhaya.</p>
+                <button class="next-btn" onclick="nextChapter('hi')">→ Next Chapter</button>
+            </div>
 
-            <h3>💻 Coding Journey — From 2023 to Today</h3>
-            <p>I started coding in 2023 with HTML and CSS. In 2024, I learned JavaScript and Python. In 2025, I explored React, Node.js, and backend. In 2024, I built my first portfolio website. It was simple, but it gave me the confidence that I can do something. In 2026, I launched this professional website that you are seeing now.</p>
+            <div class="chapter" data-chapter="4">
+                <h3><span class="emoji-big">💻</span> Chapter 4: Coding Discovery (2020–2022)</h3>
+                <p><strong>Ghar mein pehla phone:</strong> 2019. <strong>Mera personal phone aur laptop:</strong> 2024.</p>
+                <p><strong>Pehli coding:</strong> HTML ka "Hello World" — mujhe laga jaise maine jaadu kar diya!</p>
+                <p><strong>Naya hobby:</strong> Novel aur literature padhna.</p>
+                <p><strong>Important dost:</strong> Sudhanshu, Rohit, Sitanashu — unhone kabhi akela feel nahi hone diya.</p>
+                <button class="next-btn" onclick="nextChapter('hi')">→ Next Chapter</button>
+            </div>
 
-            <h3>🎯 My Dream — Full-Stack Developer</h3>
-            <p>I want to become a Full-Stack Developer — someone who builds real solutions. My next goals are: strengthen backend & databases, build real-world projects, and one day launch my own startup.</p>
+            <div class="chapter" data-chapter="5">
+                <h3><span class="emoji-big">🚀</span> Chapter 5: Coding Journey (2023–2024)</h3>
+                <p><strong>Pehla coding din:</strong> "Hello World" likha — aur usi din pata chal gaya ki yeh mera cheez hai.</p>
+                <p><strong>Pehla project:</strong> Portfolio — simple, par apna.</p>
+                <p><strong>Struggle:</strong> CSS align, responsive — par har problem ka solution mila.</p>
+                <p><strong>Pehli success:</strong> Jab screen par kuch dikha — woh alag khushi thi.</p>
+                <button class="next-btn" onclick="nextChapter('hi')">→ Next Chapter</button>
+            </div>
 
-            <h3>❤️ Friends, Love & Life</h3>
-            <p>My friends — Sudhanshu, Rohit, Sitanashu — have never let me feel alone. I believe life is boring without friends. No love life yet, but I believe <em>"everything happens at the right time."</em></p>
+            <div class="chapter" data-chapter="6">
+                <h3><span class="emoji-big">🎯</span> Chapter 6: Aaj Ka Safar (2025–2026)</h3>
+                <p><strong>JavaScript struggle:</strong> Abhi bhi seekh raha hoon — functions, arrays, objects — yeh safar jari hai.</p>
+                <p><strong>Portfolio launch:</strong> Glitches the, par ab yeh mera naya ghar hai.</p>
+                <p><strong>Abhi ka feeling:</strong> Confident aur curious — bahut kuch seekhna baaki hai.</p>
+                <p><strong>Aage ka plan:</strong> Backend aur databases strong karna, real-world projects banana, aur ek din apna startup launch karna.</p>
+                <button class="next-btn" onclick="nextChapter('hi')">→ Next Chapter</button>
+            </div>
 
-            <h3>🌍 My Message For Everyone</h3>
-            <p>If you come from a small village, don't think you can't achieve anything. I started from zero — with just one HTML tag. Today, I am writing my own website that can be seen from anywhere in the world. <strong>No struggle is permanent. Consistency and patience make everything possible.</strong></p>
+            <div class="chapter" data-chapter="7">
+                <h3><span class="emoji-big">👨‍👩‍👧</span> Chapter 7: Family — Meri Anchor</h3>
+                <p><strong>Parents ne sikhaya:</strong> Honesty, mehnat, aur dusron ki help.</p>
+                <p><strong>Siblings:</strong> 2 badi behenein aur 2 chhote bhai — sab ne sabar aur pyaar sikhaya.</p>
+                <p><strong>Family memory:</strong> Diwali ki raat jab poori family saath hoti hai — woh peace alag hai.</p>
+                <button class="next-btn" onclick="nextChapter('hi')">→ Next Chapter</button>
+            </div>
 
-            <h3>📌 18 Years Journey — Summary</h3>
-            <ul>
-                <li><strong>0–5:</strong> Born in Bandwar, happiness with family</li>
-                <li><strong>6–10:</strong> School, friends, cricket, cycle</li>
-                <li><strong>11–14:</strong> First coding in computer lab</li>
-                <li><strong>15–16:</strong> Learned HTML/CSS, first webpage</li>
-                <li><strong>17:</strong> Learned JavaScript & Python</li>
-                <li><strong>18:</strong> Portfolio launch, professional journey begins</li>
-            </ul>
+            <div class="chapter" data-chapter="8">
+                <h3><span class="emoji-big">💬</span> Chapter 8: Friends</h3>
+                <p><strong>Sabse close dost:</strong> Ayush, Sudhanshu, Rohit, Sitanashu.</p>
+                <p><strong>Yaadgar moment:</strong> Pehla project doston ko dikhaya — unki taarif ne confidence diya.</p>
+                <p><strong>Friends ne kya change kiya:</strong> Tanhaai se nikaala, aur sikhaya ki success share karne par aur achhi lagti hai.</p>
+                <button class="next-btn" onclick="nextChapter('hi')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="9">
+                <h3><span class="emoji-big">💪</span> Chapter 9: Biggest Struggle</h3>
+                <p>Kya banna hai, kaise banna hai — samajh nahi aata tha. Par ek step, ek chapter ke saath aage badhta raha.</p>
+                <button class="next-btn" onclick="nextChapter('hi')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="10">
+                <h3><span class="emoji-big">😊</span> Chapter 10: Biggest Happiness</h3>
+                <p>Jab kisi ne pehli baar mera website dekha aur bola — <em>"Bhai, yeh tune banaya?"</em> Woh moment priceless tha.</p>
+                <button class="next-btn" onclick="nextChapter('hi')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="11">
+                <h3><span class="emoji-big">🌍</span> Chapter 11: Message</h3>
+                <div class="quote-box gold">
+                    "Humi hum hain to kya hum hain! Tumhi tum ho to kya tum ho!!"
+                    <span class="author">— Ravi Raj</span>
+                </div>
+                <div class="quote-box purple">
+                    "Somewhere Between I Want It & I Got It"
+                    <span class="author">— Ravi Raj's Motto</span>
+                </div>
+                <button class="next-btn" onclick="nextChapter('hi')">→ Next Chapter</button>
+            </div>
+
+            <div class="chapter" data-chapter="12">
+                <h3><span class="emoji-big">📖</span> Chapter 12: Friend Memory — 12th Ke Last Pages</h3>
+                <div class="friend-memory-pdf">
+                    <span class="pdf-label">📄 PDF — Friend Memory</span>
+                    <p><strong>12th ke aakhri din...</strong></p>
+                    <p>School khatam hone ka ehsaas... woh doston ke saath bitaye pal... woh class ki aakhri lecture... aur woh smile jo kehti thi — <em>"abhi toh shuruat hai."</em></p>
+                    <p>Woh din, woh yaadein, woh dosti — sab kuch alag tha. Kuch khatam ho raha tha, kuch shuru ho raha tha.</p>
+                    <p style="margin-top:10px;"><strong>Yeh sirf memory nahi, ek ehsaas hai.</strong></p>
+                </div>
+                <p style="margin-top:20px; color:var(--text3); font-size:14px; text-align:center; border-top:1px solid var(--border); padding-top:18px;">
+                    Life mein koi regret nahi — yeh meri sabse badi achievement hai.
+                </p>
+                <a href="index.html#achieve" class="back-link">← Back to Achieve</a>
+            </div>
+
         </div>
-
-        <!-- ===== HINGLISH CONTENT ===== -->
-        <div class="autobio-content" id="contentHi" style="display:none;">
-            <h3>🌅 Janam — Bandwar, Begusarai — 13 March 2008</h3>
-            <p>Mera janam 13 March 2008 ko Bandwar, Begusarai, Bihar mein hua. Papa ne bataya ki jab main paida hua, toh mummy ne kaha, <em>"Iska naam Ravi rakho, kyunki yeh ghar mein roshni layega."</em> Tab se main apni family ki roshni ban gaya.</p>
-
-            <h3>🏏 Bachpan — Cricket, School aur Papa Ki Cycle</h3>
-            <p>Mera bachpan bahut simple aur beautiful tha. Subah 6 baje uthna, cycle nikalna, aur doston ke saath school jaana — yeh mera daily routine tha. Mujhe cricket bahut pasand thi. Ek baar maine school team ke liye match khela tha, lekin main jaldi out ho gaya. Us din papa ne mujhe kaha, <em>"Out hona koi badi baat nahi, khelte rehna."</em> Aaj bhi main jab coding mein fail hota hoon, toh papa ki woh baat yaad aati hai.</p>
-
-            <h3>📚 School Days — Jahaan Coding Ki Shuruaat Hui</h3>
-            <p>School mein mera favourite subject Computer Science tha. Mujhe Maths bhi pasand thi, kyunki usme logic tha — aur coding bhi logic hi hai. 8th class mein maine pehli baar computer lab mein HTML code dekha. Mujhe laga — <em>"Yeh toh magic hai!"</em> Teacher ne bataya ki isko coding kehte hain. Main usi din apna pehla webpage banana chahta tha. 10th class mein maine apna pehla webpage banaya — bas ek "Hello World" tha. Lekin jab screen par aaya, toh mujhe bahut khushi mili. Tab se maine soch liya — <em>"Yahi mera career hai."</em></p>
-
-            <h3>👨‍👩‍👧 Family — Meri Sabse Badi Strength</h3>
-            <p>Papa mere role model hain. Unhone mujhe sikhaya — <em>"Mehnat karte raho, result apne aap aayega."</em> Mummy ne mujhe sikhaya — <em>"Dusron ki help karo, uska fal milta hai."</em> Meri chhoti behen mujhe "bhaiya" kehkar bahut pyaar karti hai. Mere liye family woh log hain jo mujhe motivate karte hain. Jab main coding mein frustrate hota hoon, toh mummy kehti hain — <em>"Dheere dheere seekho, koi nahi poochhta ki tumne kitna time liya."</em></p>
-
-            <h3>💻 Coding Journey — 2023 Se Lekar Aaj Tak</h3>
-            <p>Maine 2023 mein coding seekhna shuru kiya — HTML aur CSS. 2024 mein JavaScript aur Python seekha. 2025 mein React, Node.js, aur backend explore kiya. 2024 mein maine apna pehla portfolio website banaya. Woh simple tha, lekin usne mujhe confidence diya ki main kuch kar sakta hoon. 2026 mein maine yeh professional website launch ki — jo aap dekh rahe hain.</p>
-
-            <h3>🎯 Mera Sapna — Full-Stack Developer</h3>
-            <p>Main Full-Stack Developer banna chahta hoon — jo real problems solve kare. Mere next goals hain: backend aur databases strong karna, real-world projects banana, aur ek din apna startup launch karna.</p>
-
-            <h3>❤️ Friends, Love aur Life</h3>
-            <p>Mere dost hain — Sudhanshu, Rohit, Sitanashu. Unhone mujhe kabhi akela feel nahi karne diya. Main maanta hoon ki doston ke bina life boring hai. Abhi tak love life nahi hai, lekin main believe karta hoon — <em>"Sab kuch apne time pe hota hai."</em></p>
-
-            <h3>🌍 Mera Message — Sabhi Ke Liye</h3>
-            <p>Agar aap bhi kisi chhote gaon se hain, toh yeh mat sochiye ki aap kuch nahi kar sakte. Maine bhi zero se shuru kiya tha — ek HTML tag se. Aaj main apni website likh raha hoon, jo duniya ke kisi bhi kone se dekhi ja sakti hai. <strong>Koi bhi struggle permanent nahi hai. Consistency aur patience se sab kuch possible hai.</strong></p>
-
-            <h3>📌 18 Saal Ka Safar — Summary</h3>
-            <ul>
-                <li><strong>0–5:</strong> Bandwar mein janam, family ke saath khushiyan</li>
-                <li><strong>6–10:</strong> School, dost, cricket, cycle</li>
-                <li><strong>11–14:</strong> Computer lab mein pehli baar coding</li>
-                <li><strong>15–16:</strong> HTML/CSS seekha, pehla webpage</li>
-                <li><strong>17:</strong> JavaScript aur Python seekha</li>
-                <li><strong>18:</strong> Portfolio launch, professional journey shuru</li>
-            </ul>
-        </div>
-
-        <!-- BACK LINK -->
-        <a href="index.html#achieve" class="back-link">← Back to Achieve</a>
 
     </div>
 
-    <!-- ===== JAVASCRIPT ===== -->
+    <!-- =============================================================
+    JAVASCRIPT (autobiography.js)
+    ============================================================= -->
     <script src="autobiography.js"></script>
+
 </body>
 </html>
