@@ -400,90 +400,6 @@
     }
 
     /* ============================================
-       PORTFOLIO PDF DOWNLOAD (CV STYLE)
-       ============================================ */
-    function downloadPortfolioPDF() {
-        const content = document.createElement('div');
-        content.innerHTML = `
-        <div style="padding:50px;font-family:'Segoe UI',Arial,sans-serif;max-width:900px;margin:auto;color:#000;background:#fff;line-height:1.6;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.05);">
-
-            <!-- Header -->
-            <div style="text-align:center;border-bottom:3px solid #0055aa;padding-bottom:20px;">
-                <h1 style="color:#0055aa;font-size:36px;margin:0;">Ravi Raj</h1>
-                <p style="font-size:18px;color:#333;margin:4px 0;">Student | Web Developer</p>
-                <p style="font-size:14px;color:#555;">Begusarai, Bihar | rravirajhere@gmail.com</p>
-            </div>
-
-            <!-- About -->
-            <div style="margin-top:20px;">
-                <h2 style="color:#0055aa;border-bottom:2px solid #0055aa;padding-bottom:6px;">📌 About Me</h2>
-                <p style="font-size:15px;color:#222;">Passionate 12th-grade student building modern web experiences with HTML, CSS, and Python. I turn ideas into code and love learning new technologies every day.</p>
-            </div>
-
-            <!-- Education -->
-            <div style="margin-top:20px;">
-                <h2 style="color:#0055aa;border-bottom:2px solid #0055aa;padding-bottom:6px;">🎓 Education</h2>
-                <ul style="font-size:15px;color:#222;padding-left:20px;">
-                    <li><strong>12th (2024–2026):</strong> Udaan International School, Begusarai — Physics, Chemistry, Maths</li>
-                    <li><strong>10th (2019–2024):</strong> Mother's Pride International School, Begusarai</li>
-                    <li><strong>Primary (2014–2019):</strong> Gautam Buddha Global School, Begusarai</li>
-                </ul>
-            </div>
-
-            <!-- Skills -->
-            <div style="margin-top:20px;">
-                <h2 style="color:#0055aa;border-bottom:2px solid #0055aa;padding-bottom:6px;">💻 Skills</h2>
-                <ul style="font-size:15px;color:#222;padding-left:20px;">
-                    <li><strong>HTML5:</strong> 75%</li>
-                    <li><strong>CSS3:</strong> 80%</li>
-                    <li><strong>JavaScript:</strong> 50%</li>
-                    <li><strong>Python:</strong> 50%</li>
-                    <li><strong>Responsive Design:</strong> 70%</li>
-                    <li><strong>Tools:</strong> VS Code, Git & GitHub, Chrome DevTools</li>
-                </ul>
-            </div>
-
-            <!-- Projects -->
-            <div style="margin-top:20px;">
-                <h2 style="color:#0055aa;border-bottom:2px solid #0055aa;padding-bottom:6px;">🚀 Projects</h2>
-                <ul style="font-size:15px;color:#222;padding-left:20px;">
-                    <li><strong>Portfolio v2.0:</strong> Modern, responsive portfolio website with Matrix animation, smooth scrolling, and dark/light theme.</li>
-                    <li><strong>Modern Landing Page:</strong> Responsive design with smooth animations, gradient effects, and optimized performance.</li>
-                </ul>
-            </div>
-
-            <!-- Achievements -->
-            <div style="margin-top:20px;">
-                <h2 style="color:#0055aa;border-bottom:2px solid #0055aa;padding-bottom:6px;">🏆 Achievements</h2>
-                <ul style="font-size:15px;color:#222;padding-left:20px;">
-                    <li>Built first portfolio website at 17</li>
-                    <li>100+ hours of coding practice</li>
-                    <li>Completed HTML, CSS, JavaScript courses</li>
-                    <li>Helped 10+ friends learn coding</li>
-                </ul>
-            </div>
-
-            <!-- Contact -->
-            <div style="margin-top:20px;padding-top:10px;border-top:2px solid #0055aa;text-align:center;font-size:14px;color:#555;">
-                <p>📧 rravirajhere@gmail.com | 🐦 @Raviraj2k09 | 💼 linkedin.com/in/Ravirajhere</p>
-                <p style="margin-top:4px;">© 2026 Ravi Raj — Built with ❤️</p>
-            </div>
-
-        </div>
-        `;
-
-        const win = window.open('', '_blank');
-        if (win) {
-            win.document.write(content.innerHTML);
-            win.document.close();
-            win.focus();
-            win.print();
-        } else {
-            alert('Popup blocked! Please allow popups for this site.');
-        }
-    }
-
-    /* ============================================
        INITIALIZATION
        ============================================ */
     document.addEventListener('DOMContentLoaded', function() {
@@ -615,7 +531,7 @@ function openAchieveModal(type) {
     `;
 }
 
-// Close modal on outside click
+// Close RJ Modal on outside click
 document.addEventListener('click', function(e) {
     const modal = document.getElementById('rjModal');
     if (modal && e.target === modal) {
@@ -623,7 +539,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// Close modal on Escape key
+// Close RJ Modal on Escape key
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeRJModal();
@@ -666,22 +582,30 @@ function openChatbox() {
 }
 
 /* ============================================
-   CONTACT OPTIONS FUNCTIONS
+   CONTACT MODAL FUNCTIONS (Same as RJ Achieve)
    ============================================ */
 
 function showContactOptions() {
-    document.getElementById('contactOptionsModal').style.display = 'flex';
+    const modal = document.getElementById('contactModal');
+    if (modal) modal.classList.add('active');
 }
 
-function closeContactOptions() {
-    document.getElementById('contactOptionsModal').style.display = 'none';
+function closeContactModal() {
+    const modal = document.getElementById('contactModal');
+    if (modal) modal.classList.remove('active');
 }
 
-function openEmailForm() {
-    closeContactOptions();
-    document.getElementById('emailFormModal').style.display = 'flex';
-}
+// Close Contact Modal on outside click
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('contactModal');
+    if (modal && e.target === modal) {
+        closeContactModal();
+    }
+});
 
-function closeEmailForm() {
-    document.getElementById('emailFormModal').style.display = 'none';
-}
+// Close Contact Modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeContactModal();
+    }
+});
