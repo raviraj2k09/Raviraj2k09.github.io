@@ -1,6 +1,7 @@
 // ============================================================
 // AUTOBOIOGRAPHY.JS — COMPLETE EBOOK GENERATOR
-// WITH LANGUAGE SELECTION · COVER IMAGE · ALL 12 CHAPTERS
+// WITH LANGUAGE SELECTION · COVER IMAGE · SIGNATURE · ALL 12 CHAPTERS
+// FIXED: TEXT COLOR FOR INSIDE PAGES (BLACK ON WHITE)
 // ============================================================
 
 // ---- GLOBAL VARIABLES ----
@@ -394,7 +395,7 @@ function loadPDFLibrary() {
 }
 
 // ============================================================
-// 16. MAKE ALL CHAPTERS VISIBLE (FOR SELECTED LANGUAGE ONLY)
+// 16. MAKE ALL CHAPTERS VISIBLE
 // ============================================================
 function makeAllChaptersVisible(lang) {
     const enContainer = document.getElementById('chaptersEn');
@@ -450,16 +451,14 @@ function restoreChapterVisibility(lang, activeIndex) {
 }
 
 // ============================================================
-// 17. WAIT FOR RENDER (LONGER FOR COMPLETE CONTENT)
+// 17. WAIT FOR RENDER
 // ============================================================
 function waitForRender() {
     return new Promise((resolve) => {
-        // Multiple render cycles for complete content
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
-                        // Force reflow
                         document.body.offsetHeight;
                         setTimeout(resolve, 2800);
                     });
@@ -470,10 +469,106 @@ function waitForRender() {
 }
 
 // ============================================================
-// 18. GET COVER IMAGE (base64 or path)
+// 18. FIX TEXT COLOR FOR PDF (INSIDE PAGES)
 // ============================================================
-function getCoverImage() {
-    return 'bookcover.jpg';
+function fixTextColorsForPDF(clone) {
+    clone.querySelectorAll('.chapter p').forEach(el => {
+        el.style.color = '#333333';
+        el.style.fontFamily = "'Space Grotesk', sans-serif";
+        el.style.fontSize = '15px';
+        el.style.lineHeight = '1.8';
+    });
+    
+    clone.querySelectorAll('.chapter h3').forEach(el => {
+        el.style.color = '#1a1a1a';
+        el.style.fontFamily = "'Space Grotesk', sans-serif";
+        el.style.fontSize = '20px';
+        el.style.fontWeight = '700';
+    });
+    
+    clone.querySelectorAll('.chapter strong').forEach(el => {
+        el.style.color = '#1a1a1a';
+        el.style.fontWeight = '700';
+    });
+    
+    clone.querySelectorAll('.chapter ul li').forEach(el => {
+        el.style.color = '#333333';
+        el.style.fontFamily = "'Space Grotesk', sans-serif";
+    });
+    
+    clone.querySelectorAll('.quote-box').forEach(el => {
+        el.style.color = '#333333';
+        el.style.fontFamily = "'Space Grotesk', sans-serif";
+        el.style.fontSize = '17px';
+        el.style.lineHeight = '1.7';
+        el.style.background = 'rgba(0,0,0,0.02)';
+        el.style.borderLeft = '4px solid #DAA520';
+        el.style.padding = '18px 22px';
+    });
+    
+    clone.querySelectorAll('.quote-box .author').forEach(el => {
+        el.style.color = '#DAA520';
+        el.style.fontWeight = '500';
+    });
+    
+    clone.querySelectorAll('.friend-memory-pdf').forEach(el => {
+        el.style.color = '#333333';
+        el.style.fontFamily = "'Space Grotesk', sans-serif";
+        el.style.background = 'rgba(0,0,0,0.02)';
+        el.style.border = '1px dashed #DAA520';
+        el.style.borderRadius = '12px';
+        el.style.padding = '20px 24px';
+    });
+    
+    clone.querySelectorAll('.friend-memory-pdf strong').forEach(el => {
+        el.style.color = '#DAA520';
+    });
+    
+    clone.querySelectorAll('.reading-time').forEach(el => {
+        el.style.color = '#999999';
+        el.style.fontFamily = "'Space Grotesk', sans-serif";
+        el.style.fontSize = '13px';
+    });
+    
+    clone.querySelectorAll('.reading-time span').forEach(el => {
+        el.style.color = '#6c5ce7';
+    });
+    
+    clone.querySelectorAll('.family-item').forEach(el => {
+        el.style.background = 'rgba(0,0,0,0.02)';
+        el.style.border = '1px solid #e0e0e0';
+        el.style.borderRadius = '12px';
+        el.style.padding = '12px 16px';
+    });
+    
+    clone.querySelectorAll('.family-item .label').forEach(el => {
+        el.style.color = '#999999';
+        el.style.fontSize = '11px';
+        el.style.textTransform = 'uppercase';
+    });
+    
+    clone.querySelectorAll('.family-item .value').forEach(el => {
+        el.style.color = '#1a1a1a';
+        el.style.fontSize = '15px';
+        el.style.fontWeight = '500';
+    });
+    
+    clone.querySelectorAll('.teacher-tribute').forEach(el => {
+        el.style.background = 'rgba(108,92,231,0.04)';
+        el.style.border = '1px solid rgba(108,92,231,0.1)';
+        el.style.borderRadius = '12px';
+        el.style.padding = '18px 22px';
+    });
+    
+    clone.querySelectorAll('.teacher-tribute h4').forEach(el => {
+        el.style.color = '#DAA520';
+        el.style.fontSize = '17px';
+    });
+    
+    clone.querySelectorAll('.teacher-tribute p').forEach(el => {
+        el.style.color = '#333333';
+        el.style.fontSize = '15px';
+    });
 }
 
 // ============================================================
@@ -491,7 +586,7 @@ async function downloadHinglishEbook() {
 }
 
 // ============================================================
-// 21. MAIN EBOOK GENERATOR (WITH COVER IMAGE)
+// 21. MAIN EBOOK GENERATOR
 // ============================================================
 async function downloadEbook(lang, langLabel) {
     const wrapper = document.querySelector('.autobio-wrapper');
@@ -513,7 +608,6 @@ async function downloadEbook(lang, langLabel) {
     const clone = wrapper.cloneNode(true);
     restoreChapterVisibility(lang, activeIndex);
     
-    // Clean clone
     const removeSelectors = [
         '.lang-controls', '.download-actions', '.nav-buttons', 
         '.progress-dots', '.chapter-progress-info', '.copy-link-btn',
@@ -523,7 +617,6 @@ async function downloadEbook(lang, langLabel) {
         clone.querySelectorAll(selector).forEach(el => el.remove());
     });
     
-    // Hide other language container in clone
     const cloneEnContainer = clone.querySelector('#chaptersEn');
     const cloneHiContainer = clone.querySelector('#chaptersHi');
     if (lang === 'en') {
@@ -534,7 +627,6 @@ async function downloadEbook(lang, langLabel) {
         if (cloneHiContainer) cloneHiContainer.style.display = 'block';
     }
     
-    // Make all chapters visible in clone
     const cloneContainerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const cloneContainer = clone.querySelector('#' + cloneContainerId);
     if (cloneContainer) {
@@ -542,13 +634,19 @@ async function downloadEbook(lang, langLabel) {
         cloneChapters.forEach(ch => {
             ch.style.display = 'block';
             ch.classList.add('active');
+            ch.style.background = '#ffffff';
+            ch.style.border = '1px solid #f0f0f0';
+            ch.style.borderRadius = '12px';
+            ch.style.padding = '30px 28px';
+            ch.style.marginTop = '10px';
         });
     }
     
-    // Remove photo placeholder hints
     clone.querySelectorAll('.upload-hint').forEach(el => {
         el.textContent = '📸 Photo';
     });
+    
+    fixTextColorsForPDF(clone);
     
     // ---- COVER PAGE (IMAGE) ----
     const cover = document.createElement('div');
@@ -689,7 +787,7 @@ async function downloadEbook(lang, langLabel) {
     `;
     clone.insertBefore(overview, about.nextSibling);
     
-    // ---- LAST PAGE ----
+    // ---- LAST PAGE (WITH SIGNATURE) ----
     const lastPage = document.createElement('div');
     lastPage.style.cssText = `
         text-align: center;
@@ -704,7 +802,10 @@ async function downloadEbook(lang, langLabel) {
         <p style="font-size:22px;font-weight:500;color:#1a1a1a;font-style:italic;font-family:'Space Grotesk',sans-serif;max-width:500px;margin:0 auto;">
             "No regrets in life — that's my biggest achievement."
         </p>
-        <p style="font-size:18px;color:#DAA520;margin:16px 0;font-family:'Space Grotesk',sans-serif;">— Ravi Raj</p>
+        <div style="margin:20px auto 10px auto;max-width:250px;">
+            <img src="signature.jpg" alt="Ravi Raj Signature" style="width:100%;height:auto;display:block;">
+        </div>
+        <p style="font-size:18px;color:#DAA520;margin:8px 0 16px 0;font-family:'Space Grotesk',sans-serif;">— Ravi Raj</p>
         <div style="width:40px;height:2px;background:#DAA520;margin:20px auto;"></div>
         <p style="font-size:15px;color:#666;font-family:'Space Grotesk',sans-serif;">Thank you for reading</p>
         <p style="font-size:13px;color:#999;margin-top:8px;font-family:'Space Grotesk',sans-serif;">Ravi Raj · March ${new Date().getFullYear()}</p>
