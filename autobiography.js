@@ -1,6 +1,6 @@
 // ============================================================
-// AUTOBIOGRAPHY.JS — SIMPLIFIED & MOBILE-OPTIMIZED
-// FIX: Ebook download includes ALL 12 chapters with FULL content
+// AUTOBIOGRAPHY.JS — COMPLETE EBOOK GENERATOR
+// PROFESSIONAL COVER · ABOUT AUTHOR · ALL 12 CHAPTERS
 // ============================================================
 
 // ---- GLOBAL VARIABLES ----
@@ -55,7 +55,7 @@ function resetChapters(lang) {
 }
 
 // ============================================================
-// 3. SCROLL TO CHAPTER HEADING (Helper Function)
+// 3. SCROLL TO CHAPTER HEADING
 // ============================================================
 function scrollToChapterHeading(lang) {
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
@@ -363,7 +363,6 @@ function closeModal() {
     }
 }
 
-// Close modal on backdrop click
 document.addEventListener('click', function(e) {
     const modal = document.getElementById('downloadModal');
     if (modal && modal.classList.contains('active')) {
@@ -373,7 +372,6 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// Close modal on Escape key
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeModal();
@@ -397,7 +395,7 @@ function loadPDFLibrary() {
 }
 
 // ============================================================
-// 16. MAKE ALL CHAPTERS VISIBLE (Helper for Ebook)
+// 16. MAKE ALL CHAPTERS VISIBLE
 // ============================================================
 function makeAllChaptersVisible(lang) {
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
@@ -409,7 +407,6 @@ function makeAllChaptersVisible(lang) {
         if (ch.classList.contains('active')) {
             activeIndex = index;
         }
-        // Make all chapters visible for PDF
         ch.style.display = 'block';
     });
     
@@ -433,20 +430,18 @@ function restoreChapterVisibility(lang, activeIndex) {
 }
 
 // ============================================================
-// 17. WAIT FOR RENDER (Fix for missing content)
+// 17. WAIT FOR RENDER
 // ============================================================
 function waitForRender() {
     return new Promise((resolve) => {
-        // Force browser to reflow and render all content
         requestAnimationFrame(() => {
-            // Small extra delay to ensure everything is painted
-            setTimeout(resolve, 300);
+            setTimeout(resolve, 400);
         });
     });
 }
 
 // ============================================================
-// 18. DOWNLOAD FULL EBOOK PDF (FIXED — All 12 Chapters with FULL content)
+// 18. DOWNLOAD FULL EBOOK PDF
 // ============================================================
 async function downloadFullPDF() {
     const wrapper = document.querySelector('.autobio-wrapper');
@@ -462,20 +457,16 @@ async function downloadFullPDF() {
     
     showToast('📄 Generating ebook...', 'success');
     
-    // ---- STEP 1: Make ALL chapters visible for the current language ----
     const lang = currentLang;
     const activeIndex = makeAllChaptersVisible(lang);
     
-    // ---- STEP 2: WAIT for browser to render all content (CRITICAL FIX!) ----
     await waitForRender();
     
-    // ---- STEP 3: Clone the page (now with all content properly rendered) ----
     const clone = wrapper.cloneNode(true);
     
-    // ---- STEP 4: Restore original visibility on the LIVE page ----
     restoreChapterVisibility(lang, activeIndex);
     
-    // ---- STEP 5: Clean up the clone ----
+    // ---- CLEAN CLONE ----
     const removeSelectors = [
         '.lang-controls', '.download-actions', '.nav-buttons', 
         '.progress-dots', '.chapter-progress-info', '.copy-link-btn',
@@ -485,7 +476,7 @@ async function downloadFullPDF() {
         clone.querySelectorAll(selector).forEach(el => el.remove());
     });
     
-    // ---- STEP 6: Make all chapters visible in clone too ----
+    // Make all chapters visible in clone
     const cloneContainerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const cloneContainer = clone.querySelector('#' + cloneContainerId);
     if (cloneContainer) {
@@ -496,160 +487,192 @@ async function downloadFullPDF() {
         });
     }
     
-    // ---- STEP 7: Remove photo placeholder hints ----
+    // Remove photo placeholder hints
     clone.querySelectorAll('.upload-hint').forEach(el => {
         el.textContent = '📸 Photo';
     });
     
-    // ---- STEP 8: Add Cover Page ----
+    // ---- COVER PAGE ----
     const cover = document.createElement('div');
     cover.style.cssText = `
         text-align: center;
-        padding: 80px 40px 60px 40px;
-        border-bottom: 2px solid #DAA520;
+        padding: 80px 40px 70px 40px;
+        background: #0a0a0f;
+        border-bottom: 3px solid #DAA520;
         margin-bottom: 30px;
         page-break-after: always;
     `;
     cover.innerHTML = `
-        <h1 style="font-size:48px;color:#6c5ce7;font-family:'Space Grotesk',sans-serif;margin-bottom:20px;">📖 My Autobiography</h1>
-        <p style="font-size:28px;color:#DAA520;font-style:italic;margin:10px 0;">"A Boy Who Never Thought"</p>
-        <p style="font-size:20px;color:#666;margin:10px 0;">Ravi Raj</p>
-        <p style="font-size:18px;color:#999;margin:6px 0;">From Begusarai to the World</p>
-        <hr style="margin:40px auto;width:50%;border-color:#DAA520;">
-        <p style="font-size:16px;color:#999;margin:6px 0;">March 2008 · Patna, India</p>
-        <p style="font-size:14px;color:#aaa;margin-top:20px;">Complete Autobiography · ${new Date().getFullYear()}</p>
+        <div style="margin-bottom:30px;">
+            <span style="color:#DAA520;font-size:20px;letter-spacing:8px;">✦ ✦ ✦</span>
+        </div>
+        <div style="width:80px;height:3px;background:linear-gradient(90deg,#6c5ce7,#DAA520);margin:0 auto 30px;"></div>
+        <div style="font-size:64px;margin-bottom:20px;">📖</div>
+        <h1 style="font-size:48px;font-weight:700;font-family:'Space Grotesk',sans-serif;margin:10px 0;background:linear-gradient(135deg,#6c5ce7,#DAA520);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+            A BOY WHO NEVER THOUGHT
+        </h1>
+        <p style="font-size:20px;color:#DAA520;font-style:italic;margin:12px 0 8px 0;font-family:'Space Grotesk',sans-serif;">
+            "From a small village in Bihar to the world of code"
+        </p>
+        <div style="width:60px;height:2px;background:#DAA520;margin:20px auto;"></div>
+        <p style="font-size:18px;color:rgba(255,255,255,0.6);margin:10px 0 6px 0;font-family:'Space Grotesk',sans-serif;">By</p>
+        <p style="font-size:32px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">RAVI RAJ</p>
+        <div style="width:60px;height:2px;background:#DAA520;margin:20px auto;"></div>
+        <p style="font-size:18px;color:rgba(255,255,255,0.7);font-style:italic;font-family:'Space Grotesk',sans-serif;">
+            "Somewhere Between I Want It & I Got It"
+        </p>
+        <div style="width:80px;height:3px;background:linear-gradient(90deg,#6c5ce7,#DAA520);margin:30px auto 0;"></div>
+        <p style="font-size:16px;color:rgba(255,255,255,0.4);margin-top:20px;font-family:'Space Grotesk',sans-serif;">
+            ${new Date().getFullYear()}
+        </p>
     `;
     clone.insertBefore(cover, clone.firstChild);
     
-    // ---- STEP 9: Add Title Page ----
+    // ---- TITLE PAGE ----
     const titlePage = document.createElement('div');
     titlePage.style.cssText = `
         text-align: center;
-        padding: 100px 40px;
+        padding: 120px 40px;
         page-break-after: always;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
         margin-bottom: 30px;
     `;
     titlePage.innerHTML = `
-        <h1 style="font-size:36px;color:#6c5ce7;font-family:'Space Grotesk',sans-serif;">My Autobiography</h1>
-        <p style="font-size:22px;color:#DAA520;margin:15px 0;">Ravi Raj</p>
-        <p style="font-size:16px;color:#666;margin:5px 0;">"A Boy Who Never Thought"</p>
-        <p style="font-size:16px;color:#666;margin:5px 0;">From Begusarai to the World</p>
-        <hr style="margin:30px auto;width:30%;border-color:#DAA520;">
-        <p style="font-size:14px;color:#999;">Published in ${new Date().getFullYear()}</p>
+        <h1 style="font-size:36px;font-weight:700;color:#6c5ce7;font-family:'Space Grotesk',sans-serif;margin-bottom:15px;">My Autobiography</h1>
+        <p style="font-size:22px;color:#DAA520;font-family:'Space Grotesk',sans-serif;margin:10px 0;">Ravi Raj</p>
+        <p style="font-size:16px;color:#666;font-style:italic;font-family:'Space Grotesk',sans-serif;margin:5px 0;">"A Boy Who Never Thought"</p>
+        <p style="font-size:16px;color:#999;font-family:'Space Grotesk',sans-serif;margin:5px 0;">From Begusarai to the World</p>
+        <div style="width:40px;height:2px;background:#DAA520;margin:20px auto;"></div>
+        <p style="font-size:14px;color:#aaa;font-family:'Space Grotesk',sans-serif;">${new Date().getFullYear()}</p>
     `;
     clone.insertBefore(titlePage, cover.nextSibling);
     
-    // ---- STEP 10: Add Table of Contents ----
+    // ---- TABLE OF CONTENTS ----
     const toc = document.createElement('div');
     toc.style.cssText = `
-        padding: 40px 40px;
+        padding: 40px 40px 60px 40px;
         page-break-after: always;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
         margin-bottom: 30px;
     `;
-    let tocHTML = `<h2 style="font-size:28px;color:#6c5ce7;font-family:'Space Grotesk',sans-serif;text-align:center;margin-bottom:30px;">Table of Contents</h2><ul style="list-style:none;padding:0;font-size:18px;line-height:2.2;">`;
+    let tocHTML = `
+        <h2 style="font-size:28px;font-weight:700;color:#6c5ce7;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:30px;">Table of Contents</h2>
+        <ul style="list-style:none;padding:0;font-family:'Space Grotesk',sans-serif;font-size:18px;line-height:2.4;max-width:600px;margin:0 auto;">
+    `;
     const tocChapters = clone.querySelectorAll('.chapter');
     tocChapters.forEach((ch, idx) => {
         const h3 = ch.querySelector('h3');
         const title = h3 ? h3.textContent.trim() : `Chapter ${idx+1}`;
-        tocHTML += `<li style="border-bottom:1px solid #f0f0f0;padding:6px 0;display:flex;justify-content:space-between;">`;
-        tocHTML += `<span style="color:#333;">${title}</span>`;
-        tocHTML += `<span style="color:#999;">Page ${idx+7}</span>`;
-        tocHTML += `</li>`;
+        const pageNum = idx + 8;
+        tocHTML += `
+            <li style="border-bottom:1px solid #f0f0f0;padding:6px 0;display:flex;justify-content:space-between;color:#333;">
+                <span style="color:#333;">${title}</span>
+                <span style="color:#999;">${pageNum}</span>
+            </li>
+        `;
     });
     tocHTML += `</ul>`;
     toc.innerHTML = tocHTML;
     clone.insertBefore(toc, titlePage.nextSibling);
     
-    // ---- STEP 11: Add About the Author ----
+    // ---- ABOUT THE AUTHOR ----
     const about = document.createElement('div');
     about.style.cssText = `
-        padding: 40px 40px;
+        padding: 40px 40px 50px 40px;
         page-break-after: always;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
         margin-bottom: 30px;
         text-align: center;
     `;
     about.innerHTML = `
-        <h2 style="font-size:28px;color:#6c5ce7;font-family:'Space Grotesk',sans-serif;margin-bottom:20px;">About the Author</h2>
-        <div style="width:120px;height:120px;border-radius:50%;border:3px solid #DAA520;margin:0 auto 20px;overflow:hidden;">
+        <h2 style="font-size:28px;font-weight:700;color:#6c5ce7;font-family:'Space Grotesk',sans-serif;margin-bottom:25px;">About the Author</h2>
+        <div style="width:120px;height:120px;border-radius:50%;border:3px solid #DAA520;margin:0 auto 16px;overflow:hidden;box-shadow:0 0 30px rgba(218,165,32,0.15);">
             <img src="Singh_ravirajhere.jpeg" alt="Ravi Raj" style="width:100%;height:100%;object-fit:cover;">
         </div>
-        <p style="font-size:20px;font-weight:600;color:#333;">Ravi Raj</p>
-        <p style="font-size:16px;color:#666;margin:4px 0;">Born: 13 March 2008 · Begusarai, Bihar</p>
-        <p style="font-size:16px;color:#666;margin:4px 0;">From: Patna, India</p>
-        <p style="font-size:16px;color:#666;margin:4px 0;font-style:italic;">"A boy who turned his dreams into code."</p>
-        <hr style="margin:20px auto;width:30%;border-color:#DAA520;">
-        <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:15px;">
-            <span style="background:#f0f0f0;padding:6px 16px;border-radius:20px;font-size:14px;color:#333;">💻 3+ Years Coding</span>
-            <span style="background:#f0f0f0;padding:6px 16px;border-radius:20px;font-size:14px;color:#333;">🚀 5+ Projects</span>
-            <span style="background:#f0f0f0;padding:6px 16px;border-radius:20px;font-size:14px;color:#333;">📚 Loves Novels</span>
+        <p style="font-size:22px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin:4px 0;">Ravi Raj</p>
+        <p style="font-size:16px;color:#DAA520;font-family:'Space Grotesk',sans-serif;margin-bottom:12px;">Author · Developer · Dreamer</p>
+        <div style="max-width:580px;margin:0 auto;">
+            <p style="font-size:15px;line-height:1.8;color:#444;font-family:'Space Grotesk',sans-serif;text-align:justify;">
+                Ravi Raj was born on 13 March 2008 in Begusarai, Bihar. A self-taught developer, 
+                he discovered coding in 2020 and has since built over 5 projects. He is currently 
+                learning JavaScript and dreams of launching his own startup. When not coding, 
+                he enjoys reading novels and cycling.
+            </p>
+        </div>
+        <div style="width:40px;height:2px;background:#DAA520;margin:18px auto;"></div>
+        <p style="font-size:16px;font-style:italic;color:#6c5ce7;font-family:'Space Grotesk',sans-serif;">
+            "Somewhere Between I Want It & I Got It"
+        </p>
+        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:16px;">
+            <span style="background:#f0f0f0;padding:4px 14px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">💻 3+ Years Coding</span>
+            <span style="background:#f0f0f0;padding:4px 14px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">🚀 5+ Projects</span>
+            <span style="background:#f0f0f0;padding:4px 14px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">📚 Loves Novels</span>
         </div>
     `;
     clone.insertBefore(about, toc.nextSibling);
     
-    // ---- STEP 12: Add Overview ----
+    // ---- OVERVIEW ----
     const overview = document.createElement('div');
     overview.style.cssText = `
-        padding: 40px 40px;
+        padding: 40px 40px 50px 40px;
         page-break-after: always;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
         margin-bottom: 30px;
     `;
     overview.innerHTML = `
-        <h2 style="font-size:28px;color:#6c5ce7;font-family:'Space Grotesk',sans-serif;text-align:center;margin-bottom:20px;">Overview</h2>
-        <p style="font-size:18px;line-height:1.8;color:#444;text-align:center;max-width:600px;margin:0 auto;">
+        <h2 style="font-size:28px;font-weight:700;color:#6c5ce7;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:20px;">Overview</h2>
+        <p style="font-size:16px;line-height:1.9;color:#444;text-align:center;max-width:600px;margin:0 auto;font-family:'Space Grotesk',sans-serif;">
             This autobiography takes you through the journey of Ravi Raj — from his humble beginnings in Begusarai, 
             Bihar, to becoming a passionate coder and dreamer. It covers childhood memories, school days, family, 
             friendships, struggles, and the joy of building something from nothing. A story of a boy who never 
             thought he would, but did.
         </p>
-        <hr style="margin:30px auto;width:30%;border-color:#DAA520;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:500px;margin:0 auto;">
-            <div style="background:#f9f9f9;padding:12px;border-radius:8px;text-align:center;">
-                <span style="font-size:22px;font-weight:700;color:#DAA520;">12</span>
-                <p style="font-size:14px;color:#666;margin:2px 0;">Chapters</p>
+        <div style="width:40px;height:2px;background:#DAA520;margin:24px auto;"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:480px;margin:0 auto;">
+            <div style="background:#f9f9f9;padding:14px;border-radius:10px;text-align:center;">
+                <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">12</span>
+                <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Chapters</p>
             </div>
-            <div style="background:#f9f9f9;padding:12px;border-radius:8px;text-align:center;">
-                <span style="font-size:22px;font-weight:700;color:#DAA520;">2008</span>
-                <p style="font-size:14px;color:#666;margin:2px 0;">Year of Birth</p>
+            <div style="background:#f9f9f9;padding:14px;border-radius:10px;text-align:center;">
+                <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">2008</span>
+                <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Year of Birth</p>
             </div>
-            <div style="background:#f9f9f9;padding:12px;border-radius:8px;text-align:center;">
-                <span style="font-size:22px;font-weight:700;color:#DAA520;">3+</span>
-                <p style="font-size:14px;color:#666;margin:2px 0;">Years Coding</p>
+            <div style="background:#f9f9f9;padding:14px;border-radius:10px;text-align:center;">
+                <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">3+</span>
+                <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Years Coding</p>
             </div>
-            <div style="background:#f9f9f9;padding:12px;border-radius:8px;text-align:center;">
-                <span style="font-size:22px;font-weight:700;color:#DAA520;">14</span>
-                <p style="font-size:14px;color:#666;margin:2px 0;">Friends</p>
+            <div style="background:#f9f9f9;padding:14px;border-radius:10px;text-align:center;">
+                <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">14</span>
+                <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Friends</p>
             </div>
         </div>
     `;
     clone.insertBefore(overview, about.nextSibling);
     
-    // ---- STEP 13: Add Last Page ----
+    // ---- LAST PAGE ----
     const lastPage = document.createElement('div');
     lastPage.style.cssText = `
         text-align: center;
-        padding: 60px 40px;
+        padding: 60px 40px 50px 40px;
         border-top: 2px solid #DAA520;
         margin-top: 30px;
         page-break-before: always;
+        background: #fafafa;
     `;
     lastPage.innerHTML = `
-        <h2 style="font-size:28px;color:#6c5ce7;font-family:'Space Grotesk',sans-serif;margin-bottom:20px;">🌟</h2>
-        <p style="font-size:22px;font-weight:500;color:#333;font-style:italic;">
+        <div style="font-size:48px;margin-bottom:16px;">🌟</div>
+        <p style="font-size:22px;font-weight:500;color:#1a1a1a;font-style:italic;font-family:'Space Grotesk',sans-serif;max-width:500px;margin:0 auto;">
             "No regrets in life — that's my biggest achievement."
         </p>
-        <p style="font-size:18px;color:#DAA520;margin:20px 0;">— Ravi Raj</p>
-        <hr style="margin:40px auto;width:30%;border-color:#DAA520;">
-        <p style="font-size:16px;color:#666;">Thank you for reading</p>
-        <p style="font-size:14px;color:#999;margin-top:10px;">Ravi Raj · March ${new Date().getFullYear()}</p>
-        <p style="font-size:14px;color:#999;margin-top:6px;">📖 From Begusarai to the World</p>
+        <p style="font-size:18px;color:#DAA520;margin:16px 0;font-family:'Space Grotesk',sans-serif;">— Ravi Raj</p>
+        <div style="width:40px;height:2px;background:#DAA520;margin:20px auto;"></div>
+        <p style="font-size:15px;color:#666;font-family:'Space Grotesk',sans-serif;">Thank you for reading</p>
+        <p style="font-size:13px;color:#999;margin-top:8px;font-family:'Space Grotesk',sans-serif;">Ravi Raj · March ${new Date().getFullYear()}</p>
+        <p style="font-size:13px;color:#aaa;margin-top:4px;font-family:'Space Grotesk',sans-serif;">📖 From Begusarai to the World</p>
     `;
     clone.appendChild(lastPage);
     
-    // ---- STEP 14: Generate PDF ----
+    // ---- GENERATE PDF ----
     const opt = {
         margin: [15, 15, 15, 15],
         filename: 'My_Autobiography_Ravi_Raj_Ebook.pdf',
@@ -659,9 +682,7 @@ async function downloadFullPDF() {
             useCORS: true,
             letterRendering: true,
             backgroundColor: '#ffffff',
-            logging: false,
-            width: 800,
-            height: 1130
+            logging: false
         },
         jsPDF: { 
             unit: 'mm', 
