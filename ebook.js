@@ -1,23 +1,18 @@
 // ============================================================
-// EBOOK.JS — PROFESSIONAL EBOOK GENERATOR
-// 30+ YEAR PRO TOUCH · CLEAN PAGE BREAKS · NO BLANK PAGES
-// COVER · TITLE · TOC · ABOUT · OVERVIEW · 12 CHAPTERS · EMOTIONAL MESSAGE
+// EBOOK.JS — SIMPLE & PROFESSIONAL EBOOK GENERATOR
+// EACH SECTION NEW PAGE · NO BLANK PAGES · BOOK STANDARD
 // ============================================================
 
 // ============================================================
-// 1. SHOW TOAST (Global Access)
+// 1. SHOW TOAST
 // ============================================================
 function showToast(message, type = '') {
     const toast = document.getElementById('toast');
     if (!toast) return;
-    
     toast.textContent = message;
     toast.className = 'toast';
-    if (type) {
-        toast.classList.add(type);
-    }
+    if (type) toast.classList.add(type);
     toast.classList.add('show');
-    
     clearTimeout(toast._timeout);
     toast._timeout = setTimeout(() => {
         toast.classList.remove('show');
@@ -25,7 +20,7 @@ function showToast(message, type = '') {
 }
 
 // ============================================================
-// 2. CLOSE MODAL (Global Access)
+// 2. CLOSE MODAL
 // ============================================================
 function closeModal() {
     const modal = document.getElementById('downloadModal');
@@ -112,23 +107,15 @@ function restoreChapterVisibility(lang, activeIndex) {
 // ============================================================
 function waitForRender() {
     return new Promise((resolve) => {
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        document.body.offsetHeight;
-                        setTimeout(resolve, 3000);
-                    });
-                });
-            });
-        });
+        setTimeout(resolve, 3000);
     });
 }
 
 // ============================================================
-// 6. APPLY PROFESSIONAL BOOK STYLES
+// 6. APPLY BOOK STYLES
 // ============================================================
-function applyProfessionalStyles(clone) {
+function applyBookStyles(clone) {
+    // Paragraphs
     clone.querySelectorAll('.chapter p').forEach(el => {
         el.style.color = '#2d2d2d';
         el.style.fontFamily = "'Georgia', 'Times New Roman', serif";
@@ -136,9 +123,9 @@ function applyProfessionalStyles(clone) {
         el.style.lineHeight = '1.9';
         el.style.textAlign = 'justify';
         el.style.marginBottom = '14px';
-        el.style.textIndent = '0px';
     });
     
+    // Headings
     clone.querySelectorAll('.chapter h3').forEach(el => {
         el.style.color = '#1a1a1a';
         el.style.fontFamily = "'Space Grotesk', 'Arial', sans-serif";
@@ -146,38 +133,29 @@ function applyProfessionalStyles(clone) {
         el.style.fontWeight = '700';
         el.style.textAlign = 'center';
         el.style.marginTop = '0';
-        el.style.marginBottom = '8px';
+        el.style.marginBottom = '10px';
         el.style.letterSpacing = '1.5px';
-        el.style.textTransform = 'uppercase';
-        
-        const text = el.textContent;
-        el.textContent = text.replace(/[^\w\s\-\.]/g, '').trim();
     });
     
+    // Gold line under heading
     clone.querySelectorAll('.chapter h3').forEach(el => {
         const line = document.createElement('div');
         line.style.cssText = `
-            width: 100px;
+            width: 80px;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #DAA520, transparent);
-            margin: 12px auto 25px auto;
+            background: #DAA520;
+            margin: 8px auto 20px auto;
         `;
         el.parentNode.insertBefore(line, el.nextSibling);
     });
     
+    // Strong
     clone.querySelectorAll('.chapter strong').forEach(el => {
         el.style.color = '#1a1a1a';
         el.style.fontWeight = '700';
     });
     
-    clone.querySelectorAll('.chapter ul li').forEach(el => {
-        el.style.color = '#2d2d2d';
-        el.style.fontFamily = "'Georgia', 'Times New Roman', serif";
-        el.style.fontSize = '14px';
-        el.style.lineHeight = '1.9';
-        el.style.marginBottom = '6px';
-    });
-    
+    // Quotes
     clone.querySelectorAll('.quote-box').forEach(el => {
         el.style.color = '#2d2d2d';
         el.style.fontFamily = "'Georgia', 'Times New Roman', serif";
@@ -186,10 +164,8 @@ function applyProfessionalStyles(clone) {
         el.style.fontStyle = 'italic';
         el.style.background = 'rgba(218,165,32,0.04)';
         el.style.borderLeft = '4px solid #DAA520';
-        el.style.padding = '20px 28px';
-        el.style.margin = '24px 0';
-        el.style.borderRadius = '4px';
-        el.style.textAlign = 'justify';
+        el.style.padding = '18px 24px';
+        el.style.margin = '20px 0';
     });
     
     clone.querySelectorAll('.quote-box .author').forEach(el => {
@@ -197,80 +173,22 @@ function applyProfessionalStyles(clone) {
         el.style.fontWeight = '500';
         el.style.fontStyle = 'normal';
         el.style.textAlign = 'right';
-        el.style.marginTop = '10px';
+        el.style.marginTop = '8px';
         el.style.fontFamily = "'Space Grotesk', sans-serif";
     });
     
-    clone.querySelectorAll('.friend-memory-pdf').forEach(el => {
-        el.style.color = '#2d2d2d';
-        el.style.fontFamily = "'Georgia', 'Times New Roman', serif";
-        el.style.background = 'rgba(218,165,32,0.04)';
-        el.style.border = '1px dashed #DAA520';
-        el.style.borderRadius = '8px';
-        el.style.padding = '24px 28px';
-        el.style.margin = '24px 0';
-    });
-    
-    clone.querySelectorAll('.friend-memory-pdf strong').forEach(el => {
-        el.style.color = '#DAA520';
-    });
-    
+    // Reading time
     clone.querySelectorAll('.reading-time').forEach(el => {
         el.style.color = '#999999';
         el.style.fontFamily = "'Space Grotesk', sans-serif";
         el.style.fontSize = '13px';
         el.style.textAlign = 'right';
-        el.style.marginTop = '16px';
+        el.style.marginTop = '12px';
         el.style.fontStyle = 'italic';
     });
     
     clone.querySelectorAll('.reading-time span').forEach(el => {
         el.style.color = '#6c5ce7';
-    });
-    
-    clone.querySelectorAll('.family-item').forEach(el => {
-        el.style.background = 'rgba(0,0,0,0.02)';
-        el.style.border = '1px solid #e8e8e8';
-        el.style.borderRadius = '8px';
-        el.style.padding = '14px 18px';
-        el.style.marginBottom = '6px';
-    });
-    
-    clone.querySelectorAll('.family-item .label').forEach(el => {
-        el.style.color = '#999999';
-        el.style.fontSize = '11px';
-        el.style.textTransform = 'uppercase';
-        el.style.letterSpacing = '0.8px';
-        el.style.fontFamily = "'Space Grotesk', sans-serif";
-    });
-    
-    clone.querySelectorAll('.family-item .value').forEach(el => {
-        el.style.color = '#1a1a1a';
-        el.style.fontSize = '15px';
-        el.style.fontWeight = '500';
-        el.style.fontFamily = "'Space Grotesk', sans-serif";
-    });
-    
-    clone.querySelectorAll('.teacher-tribute').forEach(el => {
-        el.style.background = 'rgba(108,92,231,0.04)';
-        el.style.border = '1px solid rgba(108,92,231,0.12)';
-        el.style.borderRadius = '8px';
-        el.style.padding = '20px 24px';
-        el.style.margin = '18px 0';
-    });
-    
-    clone.querySelectorAll('.teacher-tribute h4').forEach(el => {
-        el.style.color = '#DAA520';
-        el.style.fontSize = '17px';
-        el.style.fontWeight = '600';
-        el.style.fontFamily = "'Space Grotesk', sans-serif";
-    });
-    
-    clone.querySelectorAll('.teacher-tribute p').forEach(el => {
-        el.style.color = '#2d2d2d';
-        el.style.fontSize = '15px';
-        el.style.lineHeight = '1.8';
-        el.style.fontFamily = "'Georgia', 'Times New Roman', serif";
     });
 }
 
@@ -289,7 +207,7 @@ async function downloadHinglishEbook() {
 }
 
 // ============================================================
-// 9. MAIN EBOOK GENERATOR (30+ YEAR PRO TOUCH)
+// 9. MAIN EBOOK GENERATOR (SIMPLE & PROFESSIONAL)
 // ============================================================
 async function downloadEbook(lang, langLabel) {
     const wrapper = document.querySelector('.autobio-wrapper');
@@ -343,7 +261,7 @@ async function downloadEbook(lang, langLabel) {
             ch.style.background = '#ffffff';
             ch.style.border = 'none';
             ch.style.borderRadius = '0';
-            ch.style.padding = '50px 70px';
+            ch.style.padding = '40px 50px';
             ch.style.marginTop = '0';
             ch.style.boxShadow = 'none';
         });
@@ -354,8 +272,8 @@ async function downloadEbook(lang, langLabel) {
         el.textContent = '📸 Photo';
     });
     
-    // ---- APPLY PROFESSIONAL STYLES ----
-    applyProfessionalStyles(clone);
+    // ---- APPLY BOOK STYLES ----
+    applyBookStyles(clone);
     
     // ---- CREATE PDF DOCUMENT ----
     const pdfDoc = document.createElement('div');
@@ -368,179 +286,117 @@ async function downloadEbook(lang, langLabel) {
     `;
     
     // ---- COVER PAGE ----
-    const coverSection = document.createElement('div');
-    coverSection.style.cssText = `
-        page-break-after: always;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #ffffff;
-        padding: 0;
-        margin: 0;
-    `;
-    coverSection.innerHTML = `
-        <img src="bookcover.jpg" alt="Book Cover" style="width:100%;height:auto;max-width:100%;display:block;margin:0 auto;">
-    `;
-    pdfDoc.appendChild(coverSection);
+    const cover = document.createElement('div');
+    cover.style.cssText = `page-break-after: always;`;
+    cover.innerHTML = `<img src="bookcover.jpg" alt="Book Cover" style="width:100%;height:auto;display:block;">`;
+    pdfDoc.appendChild(cover);
     
     // ---- TITLE PAGE ----
-    const titleSection = document.createElement('div');
-    titleSection.style.cssText = `
-        page-break-before: always;
-        page-break-after: always;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: #ffffff;
-        padding: 60px;
-        text-align: center;
-    `;
-    titleSection.innerHTML = `
-        <div style="width:100px;height:2px;background:linear-gradient(90deg,transparent,#DAA520,transparent);margin:0 auto 30px auto;"></div>
-        <h1 style="font-size:46px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin-bottom:8px;letter-spacing:2px;">My Autobiography</h1>
-        <p style="font-size:18px;color:#999;font-family:'Space Grotesk',sans-serif;margin:15px 0;">—</p>
-        <p style="font-size:28px;color:#DAA520;font-family:'Space Grotesk',sans-serif;margin:10px 0;font-weight:500;">Ravi Raj</p>
+    const title = document.createElement('div');
+    title.style.cssText = `page-break-before: always; page-break-after: always; text-align: center; padding: 80px 50px;`;
+    title.innerHTML = `
+        <h1 style="font-size:42px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin-bottom:10px;">My Autobiography</h1>
+        <p style="font-size:18px;color:#999;font-family:'Space Grotesk',sans-serif;margin:10px 0;">—</p>
+        <p style="font-size:28px;color:#DAA520;font-family:'Space Grotesk',sans-serif;margin:10px 0;">Ravi Raj</p>
         <p style="font-size:17px;color:#666;font-style:italic;font-family:'Georgia',serif;margin:10px 0;">"A Boy Who Never Thought"</p>
         <p style="font-size:16px;color:#999;font-family:'Space Grotesk',sans-serif;margin:6px 0;">From Begusarai to the World</p>
-        <div style="width:100px;height:2px;background:linear-gradient(90deg,transparent,#DAA520,transparent);margin:35px auto 0 auto;"></div>
-        <p style="font-size:15px;color:#aaa;font-family:'Space Grotesk',sans-serif;margin-top:25px;">${new Date().getFullYear()}</p>
+        <div style="width:80px;height:2px;background:#DAA520;margin:30px auto;"></div>
+        <p style="font-size:15px;color:#aaa;font-family:'Space Grotesk',sans-serif;">${new Date().getFullYear()}</p>
     `;
-    pdfDoc.appendChild(titleSection);
+    pdfDoc.appendChild(title);
     
     // ---- TABLE OF CONTENTS ----
-    const tocSection = document.createElement('div');
-    tocSection.style.cssText = `
-        page-break-before: always;
-        page-break-after: always;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: #ffffff;
-        padding: 60px 70px;
-    `;
+    const toc = document.createElement('div');
+    toc.style.cssText = `page-break-before: always; page-break-after: always; padding: 60px 50px;`;
     let tocHTML = `
-        <h2 style="font-size:34px;font-weight:700;color:#1a1a1a;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:40px;letter-spacing:3px;">Table of Contents</h2>
-        <ul style="list-style:none;padding:0;font-family:'Georgia',serif;font-size:16px;line-height:3;max-width:600px;margin:0 auto;width:100%;">
+        <h2 style="font-size:32px;font-weight:700;color:#1a1a1a;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:30px;">Table of Contents</h2>
+        <ul style="list-style:none;padding:0;font-family:'Georgia',serif;font-size:16px;line-height:2.8;max-width:550px;margin:0 auto;">
     `;
     const tocChapters = clone.querySelectorAll('.chapter');
     tocChapters.forEach((ch, idx) => {
         const h3 = ch.querySelector('h3');
-        let title = h3 ? h3.textContent.trim() : `Chapter ${idx+1}`;
+        let titleText = h3 ? h3.textContent.trim() : `Chapter ${idx+1}`;
+        titleText = titleText.replace(/[^\w\s\-\.]/g, '').trim();
         const pageNum = idx + 8;
         tocHTML += `
-            <li style="border-bottom:1px solid #f0f0f0;padding:4px 0;display:flex;justify-content:space-between;color:#333;">
-                <span style="color:#333;font-family:'Space Grotesk',sans-serif;font-size:15px;">${title}</span>
-                <span style="color:#999;font-family:'Space Grotesk',sans-serif;font-size:14px;">${pageNum}</span>
+            <li style="border-bottom:1px solid #f0f0f0;padding:4px 0;display:flex;justify-content:space-between;">
+                <span style="color:#333;font-family:'Space Grotesk',sans-serif;">${titleText}</span>
+                <span style="color:#999;font-family:'Space Grotesk',sans-serif;">${pageNum}</span>
             </li>
         `;
     });
     tocHTML += `</ul>`;
-    tocSection.innerHTML = tocHTML;
-    pdfDoc.appendChild(tocSection);
+    toc.innerHTML = tocHTML;
+    pdfDoc.appendChild(toc);
     
     // ---- ABOUT THE AUTHOR ----
-    const aboutSection = document.createElement('div');
-    aboutSection.style.cssText = `
-        page-break-before: always;
-        page-break-after: always;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: #ffffff;
-        padding: 60px 70px;
-        text-align: center;
-    `;
-    aboutSection.innerHTML = `
-        <h2 style="font-size:34px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin-bottom:30px;letter-spacing:3px;">About the Author</h2>
-        <div style="width:130px;height:130px;border-radius:50%;border:3px solid #DAA520;margin:0 auto 18px;overflow:hidden;box-shadow:0 0 40px rgba(218,165,32,0.15);">
+    const about = document.createElement('div');
+    about.style.cssText = `page-break-before: always; page-break-after: always; text-align: center; padding: 60px 50px;`;
+    about.innerHTML = `
+        <h2 style="font-size:32px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin-bottom:20px;">About the Author</h2>
+        <div style="width:120px;height:120px;border-radius:50%;border:3px solid #DAA520;margin:0 auto 16px;overflow:hidden;">
             <img src="Singh_ravirajhere.jpeg" alt="Ravi Raj" style="width:100%;height:100%;object-fit:cover;">
         </div>
-        <p style="font-size:26px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin:4px 0;">Ravi Raj</p>
-        <p style="font-size:17px;color:#DAA520;font-family:'Space Grotesk',sans-serif;margin-bottom:18px;letter-spacing:1px;">Author · Developer · Dreamer</p>
-        <div style="max-width:600px;margin:0 auto;">
-            <p style="font-size:16px;line-height:1.9;color:#2d2d2d;font-family:'Georgia',serif;text-align:justify;">
+        <p style="font-size:24px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin:4px 0;">Ravi Raj</p>
+        <p style="font-size:16px;color:#DAA520;font-family:'Space Grotesk',sans-serif;margin-bottom:14px;">Author · Developer · Dreamer</p>
+        <div style="max-width:550px;margin:0 auto;">
+            <p style="font-size:16px;line-height:1.8;color:#2d2d2d;font-family:'Georgia',serif;text-align:justify;">
                 Ravi Raj was born on 13 March 2008 in Begusarai, Bihar. A self-taught developer, 
                 he discovered coding in 2020 and has since built over 5 projects. He is currently 
                 learning JavaScript and dreams of launching his own startup. When not coding, 
                 he enjoys reading novels and cycling.
             </p>
         </div>
-        <div style="width:60px;height:2px;background:linear-gradient(90deg,transparent,#DAA520,transparent);margin:22px auto;"></div>
+        <div style="width:60px;height:2px;background:#DAA520;margin:20px auto;"></div>
         <p style="font-size:18px;font-style:italic;color:#6c5ce7;font-family:'Georgia',serif;">
             "Somewhere Between I Want It & I Got It"
         </p>
-        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:20px;">
-            <span style="background:#f5f5f5;padding:6px 18px;border-radius:25px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">💻 3+ Years Coding</span>
-            <span style="background:#f5f5f5;padding:6px 18px;border-radius:25px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">🚀 5+ Projects</span>
-            <span style="background:#f5f5f5;padding:6px 18px;border-radius:25px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">📚 Loves Novels</span>
+        <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:16px;">
+            <span style="background:#f5f5f5;padding:4px 16px;border-radius:20px;font-size:13px;color:#333;">💻 3+ Years Coding</span>
+            <span style="background:#f5f5f5;padding:4px 16px;border-radius:20px;font-size:13px;color:#333;">🚀 5+ Projects</span>
+            <span style="background:#f5f5f5;padding:4px 16px;border-radius:20px;font-size:13px;color:#333;">📚 Loves Novels</span>
         </div>
     `;
-    pdfDoc.appendChild(aboutSection);
+    pdfDoc.appendChild(about);
     
     // ---- OVERVIEW ----
-    const overviewSection = document.createElement('div');
-    overviewSection.style.cssText = `
-        page-break-before: always;
-        page-break-after: always;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: #ffffff;
-        padding: 60px 70px;
-    `;
-    overviewSection.innerHTML = `
-        <h2 style="font-size:34px;font-weight:700;color:#1a1a1a;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:30px;letter-spacing:3px;">Overview</h2>
-        <p style="font-size:17px;line-height:2;color:#2d2d2d;text-align:justify;max-width:600px;margin:0 auto;font-family:'Georgia',serif;">
+    const overview = document.createElement('div');
+    overview.style.cssText = `page-break-before: always; page-break-after: always; padding: 60px 50px;`;
+    overview.innerHTML = `
+        <h2 style="font-size:32px;font-weight:700;color:#1a1a1a;text-align:center;font-family:'Space Grotesk',sans-serif;margin-bottom:20px;">Overview</h2>
+        <p style="font-size:17px;line-height:1.9;color:#2d2d2d;text-align:justify;max-width:550px;margin:0 auto;font-family:'Georgia',serif;">
             This autobiography takes you through the journey of Ravi Raj — from his humble beginnings in Begusarai, 
             Bihar, to becoming a passionate coder and dreamer. It covers childhood memories, school days, family, 
             friendships, struggles, and the joy of building something from nothing. A story of a boy who never 
             thought he would, but did.
         </p>
-        <div style="width:60px;height:2px;background:linear-gradient(90deg,transparent,#DAA520,transparent);margin:35px auto;"></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:500px;margin:0 auto;width:100%;">
-            <div style="background:#f5f5f5;padding:18px;border-radius:12px;text-align:center;">
-                <span style="font-size:28px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">12</span>
-                <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Chapters</p>
+        <div style="width:60px;height:2px;background:#DAA520;margin:30px auto;"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:450px;margin:0 auto;">
+            <div style="background:#f5f5f5;padding:14px;border-radius:10px;text-align:center;">
+                <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">12</span>
+                <p style="font-size:13px;color:#666;margin:2px 0;">Chapters</p>
             </div>
-            <div style="background:#f5f5f5;padding:18px;border-radius:12px;text-align:center;">
-                <span style="font-size:28px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">2008</span>
-                <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Year of Birth</p>
+            <div style="background:#f5f5f5;padding:14px;border-radius:10px;text-align:center;">
+                <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">2008</span>
+                <p style="font-size:13px;color:#666;margin:2px 0;">Year of Birth</p>
             </div>
-            <div style="background:#f5f5f5;padding:18px;border-radius:12px;text-align:center;">
-                <span style="font-size:28px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">3+</span>
-                <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Years Coding</p>
+            <div style="background:#f5f5f5;padding:14px;border-radius:10px;text-align:center;">
+                <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">3+</span>
+                <p style="font-size:13px;color:#666;margin:2px 0;">Years Coding</p>
             </div>
-            <div style="background:#f5f5f5;padding:18px;border-radius:12px;text-align:center;">
-                <span style="font-size:28px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">14</span>
-                <p style="font-size:13px;color:#666;margin:2px 0;font-family:'Space Grotesk',sans-serif;">Friends</p>
+            <div style="background:#f5f5f5;padding:14px;border-radius:10px;text-align:center;">
+                <span style="font-size:24px;font-weight:700;color:#DAA520;font-family:'Space Grotesk',sans-serif;">14</span>
+                <p style="font-size:13px;color:#666;margin:2px 0;">Friends</p>
             </div>
         </div>
     `;
-    pdfDoc.appendChild(overviewSection);
+    pdfDoc.appendChild(overview);
     
     // ---- ALL CHAPTERS ----
     const chapterElements = clone.querySelectorAll('.chapter');
     chapterElements.forEach((ch, index) => {
-        const chapterSection = document.createElement('div');
-        chapterSection.style.cssText = `
-            page-break-before: always;
-            page-break-after: always;
-            min-height: 100vh;
-            background: #ffffff;
-            padding: 50px 70px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        `;
+        const section = document.createElement('div');
+        section.style.cssText = `page-break-before: always; page-break-after: always; padding: 40px 50px; background: #ffffff;`;
         
         const chapterClone = ch.cloneNode(true);
         chapterClone.querySelectorAll('.copy-link-btn').forEach(el => el.remove());
@@ -549,51 +405,40 @@ async function downloadEbook(lang, langLabel) {
             el.textContent = '📸 Photo';
         });
         
-        chapterSection.appendChild(chapterClone);
-        pdfDoc.appendChild(chapterSection);
+        section.appendChild(chapterClone);
+        pdfDoc.appendChild(section);
     });
     
-    // ---- EMOTIONAL MESSAGE PAGE ----
-    const emotionalSection = document.createElement('div');
-    emotionalSection.style.cssText = `
-        page-break-before: always;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: #fafafa;
-        padding: 60px 70px;
-        text-align: center;
-    `;
-    emotionalSection.innerHTML = `
-        <div style="font-size:56px;margin-bottom:25px;">❤️</div>
-        <p style="font-size:24px;font-weight:400;color:#1a1a1a;font-family:'Georgia',serif;max-width:550px;margin:0 auto;line-height:1.8;font-style:italic;">
+    // ---- EMOTIONAL MESSAGE ----
+    const emotional = document.createElement('div');
+    emotional.style.cssText = `page-break-before: always; text-align: center; padding: 80px 50px; background: #fafafa;`;
+    emotional.innerHTML = `
+        <div style="font-size:48px;margin-bottom:20px;">❤️</div>
+        <p style="font-size:22px;font-weight:400;color:#1a1a1a;font-family:'Georgia',serif;max-width:500px;margin:0 auto;line-height:1.8;font-style:italic;">
             "Thank you for reading my story. Every chapter of this book is a piece of my heart. I hope my journey inspires you to chase your own dreams."
         </p>
-        <div style="margin:28px auto 12px auto;max-width:220px;">
+        <div style="margin:24px auto 10px auto;max-width:200px;">
             <img src="signature.jpg" alt="Ravi Raj Signature" style="width:100%;height:auto;display:block;">
         </div>
-        <p style="font-size:20px;color:#DAA520;margin:8px 0 10px 0;font-family:'Space Grotesk',sans-serif;font-weight:500;">— Ravi Raj</p>
-        <div style="width:60px;height:2px;background:linear-gradient(90deg,transparent,#DAA520,transparent);margin:20px auto;"></div>
-        <p style="font-size:15px;color:#666;font-family:'Space Grotesk',sans-serif;margin-top:8px;">With love & gratitude ❤️</p>
-        <p style="font-size:14px;color:#999;margin-top:6px;font-family:'Space Grotesk',sans-serif;">Ravi Raj · March ${new Date().getFullYear()}</p>
-        <p style="font-size:14px;color:#aaa;margin-top:4px;font-family:'Space Grotesk',sans-serif;">📖 From Begusarai to the World</p>
+        <p style="font-size:18px;color:#DAA520;margin:6px 0 12px 0;font-family:'Space Grotesk',sans-serif;">— Ravi Raj</p>
+        <div style="width:60px;height:2px;background:#DAA520;margin:16px auto;"></div>
+        <p style="font-size:14px;color:#666;font-family:'Space Grotesk',sans-serif;">With love & gratitude ❤️</p>
+        <p style="font-size:13px;color:#999;margin-top:6px;font-family:'Space Grotesk',sans-serif;">Ravi Raj · March ${new Date().getFullYear()}</p>
+        <p style="font-size:13px;color:#aaa;margin-top:4px;font-family:'Space Grotesk',sans-serif;">📖 From Begusarai to the World</p>
     `;
-    pdfDoc.appendChild(emotionalSection);
+    pdfDoc.appendChild(emotional);
     
     // ---- ATTACH TO DOM ----
     document.body.appendChild(pdfDoc);
     
     // ---- GENERATE PDF ----
     const opt = {
-        margin: [20, 20, 20, 20],
+        margin: [15, 15, 15, 15],
         filename: `My_Autobiography_Ravi_Raj_${langLabel}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { type: 'jpeg', quality: 0.95 },
         html2canvas: { 
             scale: 2,
             useCORS: true,
-            letterRendering: false,
             backgroundColor: '#ffffff',
             logging: false
         },
@@ -601,8 +446,7 @@ async function downloadEbook(lang, langLabel) {
             unit: 'mm', 
             format: 'a4', 
             orientation: 'portrait' 
-        },
-        pagebreak: { mode: ['css', 'legacy'] }
+        }
     };
     
     html2pdf().set(opt).from(pdfDoc).save().then(() => {
