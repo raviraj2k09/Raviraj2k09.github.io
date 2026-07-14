@@ -1,6 +1,6 @@
 // ============================================
 // FRIENDS CORNER — PROFESSIONAL JS (FINAL)
-// Version: 12.0 | Production Ready | Error Free
+// Version: 13.0 | Advanced Landscape PDF | Website Match
 // Author: Ravi Raj
 // ============================================
 
@@ -13,169 +13,155 @@ const friendsData = [
     {
         firstName: "Sitanashu",
         personalName: "",
-        connection: "🤝 Best Friend",
-        experience: "We've been friends since Class 1 — same bench, same lunch, same mischief! 😂 He taught me how to ride a bicycle. We still meet every Sunday to play cricket.",
+        connection: "Best Friend",
+        experience: "We've been friends since Class 1 — same bench, same lunch, same mischief! He taught me how to ride a bicycle. We still meet every Sunday to play cricket.",
         age: 18,
         school: "GBGS",
         sinceClass: 1,
         hobby: "Cricket, Coding",
-        rating: 5,
         tag: "Oldest Friend"
     },
     {
         firstName: "Rohit",
         personalName: "",
-        connection: "🤝 Best Friend",
-        experience: "Class 1 se saath — we've seen each other grow up! ❤️ We started our coding journey together in Class 6. Best partner in crime!",
+        connection: "Best Friend",
+        experience: "Class 1 se saath — we've seen each other grow up! We started our coding journey together in Class 6. Best partner in crime!",
         age: 18,
         school: "GBGS",
         sinceClass: 1,
         hobby: "Cricket, Music",
-        rating: 5,
         tag: "Day One Friend"
     },
     {
         firstName: "Suraj",
         personalName: "",
-        connection: "🏏 Cricket Partner",
-        experience: "We played in the school cricket team — he hit the winning six in the final match! 🏆 He's the most aggressive batsman I've ever seen.",
+        connection: "Cricket Partner",
+        experience: "We played in the school cricket team — he hit the winning six in the final match! He's the most aggressive batsman I've ever seen.",
         age: 17,
         school: "Mother's Pride",
         sinceClass: 6,
         hobby: "Cricket, Music",
-        rating: 4,
         tag: "Sports Buddy"
     },
     {
         firstName: "Shresth",
         personalName: "Ramlal",
-        connection: "🎮 Gaming Buddy",
-        experience: "We played PUBG & Free Fire all night during lockdown. He taught me how to snipe! 🎯 He's the most chill person I know.",
+        connection: "Gaming Buddy",
+        experience: "We played PUBG & Free Fire all night during lockdown. He taught me how to snipe! He's the most chill person I know.",
         age: 17,
         school: "Mother's Pride",
         sinceClass: 6,
         hobby: "Gaming, Tech",
-        rating: 4,
         tag: "Gamer Friend"
     },
     {
         firstName: "Ayush",
         personalName: "",
-        connection: "🎭 Drama Partner",
-        experience: "We performed together in school annual function — he forgot his lines and I saved him! 😂 He can dance, act, and make anyone laugh.",
+        connection: "Drama Partner",
+        experience: "We performed together in school annual function — he forgot his lines and I saved him! He can dance, act, and make anyone laugh.",
         age: 17,
         school: "Mother's Pride",
         sinceClass: 6,
         hobby: "Acting, Dancing",
-        rating: 5,
         tag: "Funniest Friend"
     },
     {
         firstName: "Rishidev",
         personalName: "Karait",
-        connection: "📚 Study Partner",
-        experience: "We sat together in Class 10, shared notes, and helped each other pass exams! 📖 He's the most disciplined person I know.",
+        connection: "Study Partner",
+        experience: "We sat together in Class 10, shared notes, and helped each other pass exams! He's the most disciplined person I know.",
         age: 18,
         school: "Mother's Pride",
         sinceClass: 6,
         hobby: "Reading, Chess",
-        rating: 5,
         tag: "Scholar Friend"
     },
     {
         firstName: "Jigyasha",
         personalName: "",
-        connection: "📖 Classmate",
-        experience: "She sits next to me in class. We share notes, gossip, and laugh at bad jokes! 😄 She's the most positive person I've ever met.",
+        connection: "Classmate",
+        experience: "She sits next to me in class. We share notes, gossip, and laugh at bad jokes! She's the most positive person I've ever met.",
         age: 17,
         school: "Mother's Pride",
         sinceClass: 6,
         hobby: "Reading, Art",
-        rating: 4,
         tag: "Positive Vibes"
     },
     {
         firstName: "Sudhanshu",
         personalName: "",
-        connection: "🤝 Best Friend",
-        experience: "We grew up together, played cricket every evening, and copied each other's homework 😂 He's the most loyal friend I have. We've shared our deepest secrets.",
+        connection: "Best Friend",
+        experience: "We grew up together, played cricket every evening, and copied each other's homework He's the most loyal friend I have. We've shared our deepest secrets.",
         age: 18,
         school: "Mother's Pride",
         sinceClass: 7,
         hobby: "Cricket, Coding",
-        rating: 5,
         tag: "Most Loyal"
     },
     {
         firstName: "Priyam",
         personalName: "Chota Gandhi",
-        connection: "🧑‍💻 Coding Buddy",
-        experience: "We learned HTML together in Class 6. He's the reason I started coding! 💻 He's incredibly smart and always comes up with creative solutions.",
+        connection: "Coding Buddy",
+        experience: "We learned HTML together in Class 6. He's the reason I started coding! He's incredibly smart and always comes up with creative solutions.",
         age: 17,
         school: "Mother's Pride",
         sinceClass: 8,
         hobby: "Coding, Gaming",
-        rating: 5,
         tag: "Tech Genius"
     },
     {
         firstName: "Harsh",
         personalName: "Constant",
-        connection: "🎸 Music Partner",
-        experience: "We started a band together in Class 9 — he plays guitar, I sing (badly)! 😂 He practices 6 hours a day.",
+        connection: "Music Partner",
+        experience: "We started a band together in Class 9 — he plays guitar, I sing (badly)! He practices 6 hours a day.",
         age: 18,
         school: "Mother's Pride",
         sinceClass: 8,
         hobby: "Music, Guitar",
-        rating: 4,
         tag: "Rockstar Friend"
     },
     {
         firstName: "Keshav",
         personalName: "Sin r (Keshav Khatoon)",
-        connection: "♟️ Chess Rival",
-        experience: "We played chess every break. He beat me 20 times, I beat him once and celebrated! 🏆 He can calculate 5 moves ahead.",
+        connection: "Chess Rival",
+        experience: "We played chess every break. He beat me 20 times, I beat him once and celebrated! He can calculate 5 moves ahead.",
         age: 17,
         school: "Mother's Pride",
         sinceClass: 9,
         hobby: "Chess, Tech",
-        rating: 4,
         tag: "Smartest Friend"
     },
     {
         firstName: "Rani",
         personalName: "",
-        connection: "👯‍♀️ Childhood Friend",
-        experience: "We've been friends since we were 5 — she's like a sister to me! ❤️ She knows all my secrets and still loves me. She bakes the best cakes.",
+        connection: "Childhood Friend",
+        experience: "We've been friends since we were 5 — she's like a sister to me! She knows all my secrets and still loves me. She bakes the best cakes.",
         age: 17,
         school: "PW Iskon Vidypeeth, Patna",
         sinceClass: 12,
         hobby: "Dancing, Cooking",
-        rating: 5,
         tag: "Sweetest Friend"
     },
     {
         firstName: "Sneha",
         personalName: "",
-        connection: "🎭 Drama Partner",
-        experience: "We performed together in school annual function — I forgot my lines but she saved me! 😂 She's the most confident person I know.",
+        connection: "Drama Partner",
+        experience: "We performed together in school annual function — I forgot my lines but she saved me! She's the most confident person I know.",
         age: 18,
         school: "PW Iskon Vidypeeth, Patna",
         sinceClass: 12,
         hobby: "Dance, Poetry",
-        rating: 4,
         tag: "Confident Friend"
     },
     {
         firstName: "Rohini",
         personalName: "",
-        connection: "🎨 Art Partner",
-        experience: "We painted posters for school events together. She taught me how to draw! 🖌️ We've won several inter-school competitions together.",
+        connection: "Art Partner",
+        experience: "We painted posters for school events together. She taught me how to draw! We've won several inter-school competitions together.",
         age: 18,
         school: "PW Iskon Vidypeeth, Patna",
         sinceClass: 12,
         hobby: "Art, Poetry",
-        rating: 5,
         tag: "Creative Friend"
     }
 ];
@@ -191,7 +177,7 @@ let isDatabaseFriend = false;
 let recognition = null;
 
 // ============================================
-// DOM REFERENCES (Sirf jo HTML mein hain)
+// DOM REFERENCES
 // ============================================
 const DOM = {
     searchArea: document.getElementById('searchArea'),
@@ -239,7 +225,7 @@ const DOM = {
 // INITIALIZATION
 // ============================================
 function init() {
-    console.log('👥 Friends Corner JS loaded!');
+    console.log('Friends Corner JS loaded!');
     
     if (DOM.friendSearch) {
         DOM.friendSearch.addEventListener('keydown', function(e) {
@@ -248,8 +234,8 @@ function init() {
     }
     
     loadJSPDF();
-    console.log('✅ Friends Corner initialized successfully!');
-    console.log('📊 ' + friendsData.length + ' friends in database');
+    console.log('Friends Corner initialized successfully!');
+    console.log(friendsData.length + ' friends in database');
 }
 
 // ============================================
@@ -260,7 +246,7 @@ function searchFriend() {
     hideAllScreens();
     
     if (!input) {
-        alert('Please enter a first name! 🔍');
+        alert('Please enter a first name!');
         return;
     }
     
@@ -273,7 +259,6 @@ function searchFriend() {
         currentFriend = {
             firstName: input,
             sinceClass: 'new',
-            rating: 3,
             tag: 'New Friend'
         };
         isDatabaseFriend = false;
@@ -311,7 +296,7 @@ function toggleVoiceSearch() {
         if (DOM.voiceBtn) DOM.voiceBtn.classList.add('listening');
         if (DOM.voiceStatus) {
             DOM.voiceStatus.classList.add('show');
-            DOM.voiceStatus.textContent = '🎤 Listening... Speak name';
+            DOM.voiceStatus.textContent = 'Listening... Speak name';
         }
     };
     
@@ -319,7 +304,7 @@ function toggleVoiceSearch() {
         const transcript = event.results[0][0].transcript.trim();
         if (DOM.friendSearch) DOM.friendSearch.value = transcript;
         if (DOM.voiceStatus) {
-            DOM.voiceStatus.textContent = '✅ Heard: "' + transcript + '" — Searching...';
+            DOM.voiceStatus.textContent = 'Heard: "' + transcript + '" — Searching...';
         }
         if (DOM.voiceBtn) DOM.voiceBtn.classList.remove('listening');
         setTimeout(function() {
@@ -331,7 +316,7 @@ function toggleVoiceSearch() {
     recognition.onerror = function() {
         if (DOM.voiceBtn) DOM.voiceBtn.classList.remove('listening');
         if (DOM.voiceStatus) {
-            DOM.voiceStatus.textContent = '❌ Could not hear. Try again.';
+            DOM.voiceStatus.textContent = 'Could not hear. Try again.';
             setTimeout(function() {
                 DOM.voiceStatus.classList.remove('show');
             }, 1500);
@@ -405,7 +390,7 @@ function retryCamera() {
 // ============================================
 function captureFriendPhoto() {
     if (!webcamActive || !DOM.webcamVideo) {
-        alert('⚠️ Camera not active! Please allow camera access.');
+        alert('Camera not active! Please allow camera access.');
         return;
     }
     
@@ -476,7 +461,7 @@ function updateTimeline(prefix) {
     const bar = document.getElementById(barId);
     const text = document.getElementById(textId);
     if (bar) bar.style.width = percent + '%';
-    if (text) text.textContent = 'Since Class ' + currentFriend.sinceClass + ' — ' + years + ' Years of Friendship ❤️';
+    if (text) text.textContent = 'Since Class ' + currentFriend.sinceClass + ' — ' + years + ' Years of Friendship';
 }
 
 // ============================================
@@ -526,7 +511,7 @@ function proceedToDetails() {
     if (DOM.displaySchool) DOM.displaySchool.textContent = currentFriend.school || '';
     if (DOM.displayHobby) DOM.displayHobby.textContent = currentFriend.hobby || '';
     if (DOM.displaySinceClass) DOM.displaySinceClass.textContent = currentFriend.sinceClass || '';
-    if (DOM.displaySchoolClass) DOM.displaySchoolClass.textContent = '📚 ' + (currentFriend.school || '') + ' — Since Class ' + (currentFriend.sinceClass || '');
+    if (DOM.displaySchoolClass) DOM.displaySchoolClass.textContent = 'School: ' + (currentFriend.school || '') + ' — Since Class ' + (currentFriend.sinceClass || '');
     
     updateTimeline('details');
     updateLiveStats();
@@ -552,7 +537,7 @@ function downloadFriendCard() {
 }
 
 // ============================================
-// FRIEND CARD PDF (WITH REAL SIGNATURE)
+// FRIEND CARD PDF — ADVANCED LANDSCAPE
 // ============================================
 function generateFriendCardPDF(isDBFriend) {
     if (!capturedPhotoData) {
@@ -565,11 +550,9 @@ function generateFriendCardPDF(isDBFriend) {
         return;
     }
     
-    // Load Photo
     const img = new Image();
     img.crossOrigin = 'anonymous';
     
-    // Load Signature
     const signImg = new Image();
     signImg.crossOrigin = 'anonymous';
     
@@ -591,137 +574,176 @@ function generateFriendCardPDF(isDBFriend) {
     };
     
     signImg.onerror = function() {
-        console.warn('⚠️ Signature not found, using text fallback.');
         signLoaded = true;
         if (photoLoaded) generatePDF();
     };
     
     function generatePDF() {
         const jsPDF = window.jspdf ? window.jspdf.jsPDF : window.jsPDF;
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const pw = 210;
-        const ph = 297;
+        const pdf = new jsPDF('l', 'mm', 'a4');
+        const pw = 297;
+        const ph = 210;
         
-        // Background
-        pdf.setFillColor('#FFFEF7');
+        // Background — Dark Theme
+        pdf.setFillColor('#0a0a0f');
         pdf.rect(0, 0, pw, ph, 'F');
         
-        // Indian Flag Border
-        pdf.setFillColor('#FF9933'); pdf.rect(0, 0, pw, 3, 'F');
-        pdf.setFillColor('#FFFFFF'); pdf.rect(0, 3, pw, 3, 'F');
-        pdf.setFillColor('#138808'); pdf.rect(0, 6, pw, 3, 'F');
-        pdf.setFillColor('#FF9933'); pdf.rect(0, ph - 9, pw, 3, 'F');
-        pdf.setFillColor('#FFFFFF'); pdf.rect(0, ph - 6, pw, 3, 'F');
-        pdf.setFillColor('#138808'); pdf.rect(0, ph - 3, pw, 3, 'F');
+        // Gradient Overlay
+        pdf.setFillColor('#1a0a2e');
+        pdf.rect(0, 0, pw, ph, 'F');
+        
+        // Gold Border
+        pdf.setDrawColor('#DAA520');
+        pdf.setLineWidth(2);
+        pdf.rect(5, 5, pw - 10, ph - 10);
+        
+        // Cyan Inner Border
+        pdf.setDrawColor('#00d9ff');
+        pdf.setLineWidth(0.5);
+        pdf.rect(10, 10, pw - 20, ph - 20);
         
         // Header
-        pdf.setFillColor('#1a1a2e');
-        pdf.rect(0, 9, pw, 22, 'F');
+        pdf.setTextColor('#DAA520');
+        pdf.setFontSize(38);
+        pdf.setFont(undefined, 'bold');
+        pdf.text('RAVI RAJ', pw / 2, 32, { align: 'center' });
+        
         pdf.setTextColor('#ffffff');
-        pdf.setFontSize(20);
-        pdf.text('RAVI RAJ', pw / 2, 22, { align: 'center' });
+        pdf.setFontSize(14);
+        pdf.setFont(undefined, 'normal');
+        pdf.text('OFFICIAL FRIEND CARD', pw / 2, 42, { align: 'center' });
+        
+        pdf.setTextColor('#00d9ff');
         pdf.setFontSize(10);
-        pdf.text('OFFICIAL FRIEND CARD', pw / 2, 28, { align: 'center' });
-        
-        // Verified Badge
-        pdf.setTextColor('#00ff64');
-        pdf.setFontSize(8);
-        pdf.text('✅ Verified by Ravi Raj', pw / 2, 34, { align: 'center' });
-        
-        // Photo (Circular)
-        const cx = pw / 2;
-        const cy = 68;
-        const radius = 30;
+        pdf.text('Verified by Ravi Raj', pw / 2, 50, { align: 'center' });
         
         pdf.setDrawColor('#DAA520');
-        pdf.setLineWidth(1.5);
-        pdf.circle(cx, cy, radius, 'D');
+        pdf.setLineWidth(0.5);
+        pdf.line(30, 56, pw - 30, 56);
+        
+        // Photo — Left Side
+        const cx = 95;
+        const cy = 110;
+        const radius = 42;
+        
+        pdf.setDrawColor('#DAA520');
+        pdf.setLineWidth(3);
+        pdf.circle(cx, cy, radius + 4, 'D');
+        
         pdf.addImage(img, 'PNG', cx - radius, cy - radius, radius * 2, radius * 2);
         
-        // "LIVE PHOTO" label
-        pdf.setTextColor('#666666');
-        pdf.setFontSize(8);
-        pdf.text('LIVE PHOTO', cx, cy + radius + 6, { align: 'center' });
-        pdf.text('#friends', cx, cy + radius + 12, { align: 'center' });
+        pdf.setTextColor('#00ff88');
+        pdf.setFontSize(9);
+        pdf.text('LIVE PHOTO', cx, cy + radius + 10, { align: 'center' });
+        pdf.text('Captured on: ' + new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }), cx, cy + radius + 16, { align: 'center' });
         
-        // Friend Info
-        let yPos = 110;
+        // Friend Info — Right Side
+        let xPos = 165;
+        let yPos = 80;
+        
         pdf.setTextColor('#DAA520');
-        pdf.setFontSize(24);
-        pdf.text(currentFriend.firstName.toUpperCase(), cx, yPos, { align: 'center' });
-        yPos += 10;
+        pdf.setFontSize(32);
+        pdf.setFont(undefined, 'bold');
+        pdf.text(currentFriend.firstName.toUpperCase(), xPos, yPos);
+        yPos += 14;
         
-        pdf.setTextColor('#1a1a2e');
-        pdf.setFontSize(14);
-        pdf.text(currentFriend.connection || '', cx, yPos, { align: 'center' });
-        yPos += 8;
-        
-        if (currentFriend.tag) {
-            pdf.setTextColor('#6c5ce7');
-            pdf.setFontSize(12);
-            pdf.text('"' + currentFriend.tag + '"', cx, yPos, { align: 'center' });
+        if (isDBFriend && currentFriend.connection) {
+            pdf.setTextColor('#ffffff');
+            pdf.setFontSize(16);
+            pdf.setFont(undefined, 'normal');
+            pdf.text(currentFriend.connection, xPos, yPos);
             yPos += 10;
         }
         
-        // Experience
-        if (currentFriend.experience) {
-            pdf.setFillColor('#f0edff');
-            pdf.roundedRect(25, yPos, pw - 50, 28, 3, 3, 'F');
-            pdf.setTextColor('#333333');
-            pdf.setFontSize(9);
-            const lines = pdf.splitTextToSize(currentFriend.experience, pw - 64);
-            pdf.text(lines, cx, yPos + 6, { align: 'center' });
-            yPos += 34;
+        if (isDBFriend && currentFriend.tag) {
+            pdf.setTextColor('#7c3aed');
+            pdf.setFontSize(14);
+            pdf.setFont(undefined, 'italic');
+            pdf.text('"' + currentFriend.tag + '"', xPos, yPos);
+            yPos += 12;
         } else {
-            yPos += 8;
+            yPos += 6;
+        }
+        
+        if (isDBFriend && currentFriend.experience) {
+            pdf.setFillColor('rgba(124, 58, 237, 0.1)');
+            pdf.roundedRect(xPos - 2, yPos - 4, 110, 38, 4, 4, 'F');
+            pdf.setTextColor('#e0e0e0');
+            pdf.setFontSize(9);
+            pdf.setFont(undefined, 'italic');
+            const lines = pdf.splitTextToSize(currentFriend.experience, 105);
+            pdf.text(lines, xPos, yPos + 4);
+            yPos += 44;
+        } else {
+            pdf.setFillColor('rgba(0, 217, 255, 0.08)');
+            pdf.roundedRect(xPos - 2, yPos - 4, 110, 20, 4, 4, 'F');
+            pdf.setTextColor('#00d9ff');
+            pdf.setFontSize(11);
+            pdf.setFont(undefined, 'italic');
+            pdf.text('A new friend of Ravi Raj', xPos, yPos + 6);
+            yPos += 26;
+        }
+        
+        if (isDBFriend && currentFriend.sinceClass !== 'new') {
+            pdf.setFont(undefined, 'normal');
+            pdf.setFontSize(9);
+            pdf.setTextColor('#a0a0b0');
+            
+            const metrics = [
+                'Since: Class ' + currentFriend.sinceClass + ' (2019)',
+                'Age: ' + currentFriend.age + ' Years',
+                'School: ' + currentFriend.school,
+                'Hobby: ' + currentFriend.hobby
+            ];
+            
+            metrics.forEach(function(m) {
+                pdf.text(m, xPos, yPos);
+                yPos += 7;
+            });
         }
         
         // Certificate Text
+        yPos = 170;
         pdf.setDrawColor('#DAA520');
         pdf.setLineWidth(0.3);
         pdf.line(30, yPos, pw - 30, yPos);
-        yPos += 6;
+        yPos += 8;
         
-        pdf.setTextColor('#555555');
+        pdf.setTextColor('#c0c0c0');
         pdf.setFontSize(9);
-        pdf.text('This certifies that the person above is a verified friend of Ravi Raj.', cx, yPos, { align: 'center' });
-        yPos += 6;
-        pdf.text('Issued on: ' + new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }), cx, yPos, { align: 'center' });
-        yPos += 6;
-        pdf.text('Location: Begusarai, Bihar, India', cx, yPos, { align: 'center' });
-        yPos += 12;
+        pdf.setFont(undefined, 'normal');
+        const certText = 'This is to certify that the above person is a verified friend of Ravi Raj. This card is issued on ' + new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) + ' at Begusarai, Bihar, India.';
+        const certLines = pdf.splitTextToSize(certText, pw - 60);
+        pdf.text(certLines, pw / 2, yPos, { align: 'center' });
+        yPos += certLines.length * 6 + 6;
         
-        // Real Signature
-        const signY = yPos;
+        // Signature
+        pdf.setDrawColor('#DAA520');
+        pdf.setLineWidth(0.5);
+        pdf.line(pw - 100, yPos, pw - 20, yPos);
+        
         if (signImg.src && signImg.src !== '' && signImg.width > 0) {
-            pdf.setDrawColor('#DAA520');
-            pdf.setLineWidth(0.5);
-            pdf.line(50, signY, pw - 50, signY);
-            
-            const signWidth = 70;
-            const signHeight = (signImg.height / signImg.width) * signWidth;
-            pdf.addImage(signImg, 'PNG', (pw - signWidth) / 2, signY + 2, signWidth, signHeight);
-            
-            pdf.setTextColor('#333333');
+            const sW = 65;
+            const sH = (signImg.height / signImg.width) * sW;
+            pdf.addImage(signImg, 'PNG', pw - 85, yPos + 2, sW, sH);
+            pdf.setTextColor('#ffffff');
             pdf.setFontSize(9);
-            pdf.text('(Ravi Raj) — Founder, Friends Corner', cx, signY + signHeight + 8, { align: 'center' });
+            pdf.text('Ravi Raj', pw - 45, yPos + sH + 8, { align: 'center' });
+            pdf.text('Founder, Friends Corner', pw - 45, yPos + sH + 14, { align: 'center' });
         } else {
-            // Fallback: Text Signature
-            pdf.setDrawColor('#DAA520');
-            pdf.setLineWidth(0.5);
-            pdf.line(50, signY, pw - 50, signY);
-            pdf.setTextColor('#1a1a2e');
+            pdf.setTextColor('#ffffff');
             pdf.setFontSize(12);
-            pdf.text('Ravi Raj', cx, signY + 6, { align: 'center' });
+            pdf.text('Ravi Raj', pw - 45, yPos + 8, { align: 'center' });
             pdf.setFontSize(9);
-            pdf.text('Founder, Friends Corner', cx, signY + 14, { align: 'center' });
+            pdf.text('Founder, Friends Corner', pw - 45, yPos + 16, { align: 'center' });
         }
         
         // Footer
-        pdf.setTextColor('#999999');
+        pdf.setTextColor('#b8960f');
         pdf.setFontSize(7);
-        pdf.text('This is a digitally verified Friend Card.', cx, ph - 15, { align: 'center' });
-        pdf.text('© 2026 Ravi Raj | #friends', cx, ph - 10, { align: 'center' });
+        pdf.text('Certificate ID: FR-2026-001', 20, ph - 10);
+        pdf.text('2026 Ravi Raj — All Rights Reserved', pw / 2, ph - 10, { align: 'center' });
+        pdf.text('Powered by Friends Corner', pw - 20, ph - 10, { align: 'right' });
         
         pdf.save('FriendCard-' + currentFriend.firstName + '.pdf');
     }
@@ -742,11 +764,11 @@ function loadJSPDF(callback) {
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
     script.onload = function() {
-        console.log('✅ jsPDF loaded');
+        console.log('jsPDF loaded');
         if (callback) callback();
     };
     script.onerror = function() {
-        console.error('❌ Failed to load jsPDF');
+        console.error('Failed to load jsPDF');
         alert('Failed to load PDF library. Please check internet connection.');
     };
     document.head.appendChild(script);
