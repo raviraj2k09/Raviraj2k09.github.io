@@ -1,6 +1,6 @@
 // ============================================================
 // AUTOBIOGRAPHY.JS — SIMPLIFIED & MOBILE-OPTIMIZED
-// FIX: Ebook download includes ALL 12 chapters
+// FIX: Ebook download includes ALL 12 chapters with FULL content
 // ============================================================
 
 // ---- GLOBAL VARIABLES ----
@@ -404,7 +404,6 @@ function makeAllChaptersVisible(lang) {
     const container = document.getElementById(containerId);
     const chapters = container.querySelectorAll('.chapter');
     
-    // Store current active chapter to restore later
     let activeIndex = -1;
     chapters.forEach((ch, index) => {
         if (ch.classList.contains('active')) {
@@ -423,7 +422,6 @@ function restoreChapterVisibility(lang, activeIndex) {
     const chapters = container.querySelectorAll('.chapter');
     
     chapters.forEach((ch, index) => {
-        // Restore display based on active state
         if (index === activeIndex) {
             ch.style.display = 'block';
             ch.classList.add('active');
@@ -435,7 +433,20 @@ function restoreChapterVisibility(lang, activeIndex) {
 }
 
 // ============================================================
-// 17. DOWNLOAD FULL EBOOK PDF (FIXED — All 12 Chapters)
+// 17. WAIT FOR RENDER (Fix for missing content)
+// ============================================================
+function waitForRender() {
+    return new Promise((resolve) => {
+        // Force browser to reflow and render all content
+        requestAnimationFrame(() => {
+            // Small extra delay to ensure everything is painted
+            setTimeout(resolve, 300);
+        });
+    });
+}
+
+// ============================================================
+// 18. DOWNLOAD FULL EBOOK PDF (FIXED — All 12 Chapters with FULL content)
 // ============================================================
 async function downloadFullPDF() {
     const wrapper = document.querySelector('.autobio-wrapper');
@@ -455,13 +466,16 @@ async function downloadFullPDF() {
     const lang = currentLang;
     const activeIndex = makeAllChaptersVisible(lang);
     
-    // ---- STEP 2: Clone the page ----
+    // ---- STEP 2: WAIT for browser to render all content (CRITICAL FIX!) ----
+    await waitForRender();
+    
+    // ---- STEP 3: Clone the page (now with all content properly rendered) ----
     const clone = wrapper.cloneNode(true);
     
-    // ---- STEP 3: Restore original visibility on the LIVE page ----
+    // ---- STEP 4: Restore original visibility on the LIVE page ----
     restoreChapterVisibility(lang, activeIndex);
     
-    // ---- STEP 4: Clean up the clone ----
+    // ---- STEP 5: Clean up the clone ----
     const removeSelectors = [
         '.lang-controls', '.download-actions', '.nav-buttons', 
         '.progress-dots', '.chapter-progress-info', '.copy-link-btn',
@@ -471,7 +485,7 @@ async function downloadFullPDF() {
         clone.querySelectorAll(selector).forEach(el => el.remove());
     });
     
-    // ---- STEP 5: Make all chapters visible in clone too ----
+    // ---- STEP 6: Make all chapters visible in clone too ----
     const cloneContainerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const cloneContainer = clone.querySelector('#' + cloneContainerId);
     if (cloneContainer) {
@@ -482,12 +496,12 @@ async function downloadFullPDF() {
         });
     }
     
-    // ---- STEP 6: Remove photo placeholder hints ----
+    // ---- STEP 7: Remove photo placeholder hints ----
     clone.querySelectorAll('.upload-hint').forEach(el => {
         el.textContent = '📸 Photo';
     });
     
-    // ---- STEP 7: Add Cover Page ----
+    // ---- STEP 8: Add Cover Page ----
     const cover = document.createElement('div');
     cover.style.cssText = `
         text-align: center;
@@ -507,7 +521,7 @@ async function downloadFullPDF() {
     `;
     clone.insertBefore(cover, clone.firstChild);
     
-    // ---- STEP 8: Add Title Page ----
+    // ---- STEP 9: Add Title Page ----
     const titlePage = document.createElement('div');
     titlePage.style.cssText = `
         text-align: center;
@@ -526,7 +540,7 @@ async function downloadFullPDF() {
     `;
     clone.insertBefore(titlePage, cover.nextSibling);
     
-    // ---- STEP 9: Add Table of Contents ----
+    // ---- STEP 10: Add Table of Contents ----
     const toc = document.createElement('div');
     toc.style.cssText = `
         padding: 40px 40px;
@@ -548,7 +562,7 @@ async function downloadFullPDF() {
     toc.innerHTML = tocHTML;
     clone.insertBefore(toc, titlePage.nextSibling);
     
-    // ---- STEP 10: Add About the Author ----
+    // ---- STEP 11: Add About the Author ----
     const about = document.createElement('div');
     about.style.cssText = `
         padding: 40px 40px;
@@ -575,7 +589,7 @@ async function downloadFullPDF() {
     `;
     clone.insertBefore(about, toc.nextSibling);
     
-    // ---- STEP 11: Add Overview ----
+    // ---- STEP 12: Add Overview ----
     const overview = document.createElement('div');
     overview.style.cssText = `
         padding: 40px 40px;
@@ -613,7 +627,7 @@ async function downloadFullPDF() {
     `;
     clone.insertBefore(overview, about.nextSibling);
     
-    // ---- STEP 12: Add Last Page ----
+    // ---- STEP 13: Add Last Page ----
     const lastPage = document.createElement('div');
     lastPage.style.cssText = `
         text-align: center;
@@ -635,7 +649,7 @@ async function downloadFullPDF() {
     `;
     clone.appendChild(lastPage);
     
-    // ---- STEP 13: Generate PDF ----
+    // ---- STEP 14: Generate PDF ----
     const opt = {
         margin: [15, 15, 15, 15],
         filename: 'My_Autobiography_Ravi_Raj_Ebook.pdf',
@@ -644,7 +658,10 @@ async function downloadFullPDF() {
             scale: 2,
             useCORS: true,
             letterRendering: true,
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
+            logging: false,
+            width: 800,
+            height: 1130
         },
         jsPDF: { 
             unit: 'mm', 
@@ -662,7 +679,7 @@ async function downloadFullPDF() {
 }
 
 // ============================================================
-// 18. HANDLE CHAPTER HASH IN URL
+// 19. HANDLE CHAPTER HASH IN URL
 // ============================================================
 function handleChapterHash() {
     const hash = window.location.hash;
@@ -694,7 +711,7 @@ function handleChapterHash() {
 }
 
 // ============================================================
-// 19. DOT CLICK NAVIGATION
+// 20. DOT CLICK NAVIGATION
 // ============================================================
 function setupDotNavigation() {
     const dots = document.querySelectorAll('.dot');
@@ -728,7 +745,7 @@ function setupDotNavigation() {
 }
 
 // ============================================================
-// 20. INITIALIZATION
+// 21. INITIALIZATION
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     currentLang = 'en';
@@ -743,7 +760,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================
-// 21. EXPOSE FUNCTIONS TO GLOBAL SCOPE
+// 22. EXPOSE FUNCTIONS TO GLOBAL SCOPE
 // ============================================================
 window.switchLang = switchLang;
 window.nextChapter = nextChapter;
