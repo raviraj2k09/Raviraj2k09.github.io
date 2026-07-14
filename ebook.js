@@ -1,6 +1,7 @@
 // ============================================================
 // EBOOK.JS — PROFESSIONAL BOOK GENERATOR (PREMIUM QUALITY)
 // UNIFORM DARK TEXT · PAGE NUMBERS · 100% JPEG QUALITY
+// SOCIAL LINKS IN ABOUT THE AUTHOR
 // ============================================================
 
 // ============================================================
@@ -440,7 +441,7 @@ async function downloadEbook(lang, langLabel) {
     addPageNumber(toc);
     sections.push(toc);
     
-    // 4. About the Author
+    // 4. About the Author (WITH SOCIAL LINKS)
     const about = document.createElement('div');
     about.style.cssText = `text-align:center;padding:60px 50px;background:#ffffff;display:flex;flex-direction:column;justify-content:center;min-height:842px;`;
     about.innerHTML = `
@@ -463,7 +464,31 @@ async function downloadEbook(lang, langLabel) {
             <p style="font-size:18px;font-style:italic;color:#6c5ce7;font-family:'Georgia',serif;">
                 "Somewhere Between I Want It & I Got It"
             </p>
-            <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:16px;">
+            
+            <!-- SOCIAL LINKS (NEW) -->
+            <div style="width:60px;height:2px;background:#DAA520;margin:20px auto;"></div>
+            <p style="font-size:16px;font-weight:600;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;margin-bottom:12px;letter-spacing:1px;">CONNECT WITH ME</p>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px;max-width:300px;margin:0 auto;font-size:14px;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;">
+                <div style="display:flex;justify-content:space-between;width:100%;padding:4px 0;border-bottom:1px solid #f0f0f0;">
+                    <span>📸 Instagram</span>
+                    <span style="color:#DAA520;">@rravirajhere</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;width:100%;padding:4px 0;border-bottom:1px solid #f0f0f0;">
+                    <span>💼 LinkedIn</span>
+                    <span style="color:#DAA520;">@ravirajhere</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;width:100%;padding:4px 0;border-bottom:1px solid #f0f0f0;">
+                    <span>🌐 Website</span>
+                    <span style="color:#DAA520;">raviraj2k09.github.io</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;width:100%;padding:4px 0;">
+                    <span>💬 WhatsApp</span>
+                    <span style="color:#DAA520;">@singh_ravirajhere</span>
+                </div>
+            </div>
+            
+            <div style="width:60px;height:2px;background:#DAA520;margin:20px auto;"></div>
+            <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:8px;">
                 <span style="background:#f5f5f5;padding:4px 16px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">💻 3+ Years Coding</span>
                 <span style="background:#f5f5f5;padding:4px 16px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">🚀 5+ Projects</span>
                 <span style="background:#f5f5f5;padding:4px 16px;border-radius:20px;font-size:13px;color:#333;font-family:'Space Grotesk',sans-serif;">📚 Loves Novels</span>
@@ -594,7 +619,6 @@ async function downloadEbook(lang, langLabel) {
             }
             isFirstPage = false;
             
-            // ---- 100% JPEG QUALITY ----
             const imgData = canvas.toDataURL('image/jpeg', 1.0);
             pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, contentHeight);
         }
