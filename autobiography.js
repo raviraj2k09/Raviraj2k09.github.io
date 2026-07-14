@@ -1,5 +1,5 @@
 // ============================================================
-// AUTOBIOGRAPHY.JS — BOOK-STYLE NAVIGATION
+// AUTOBIOGRAPHY.JS — BOOK-STYLE NAVIGATION WITH PREV/NEXT
 // ============================================================
 
 // ---- LANGUAGE TOGGLE ----
@@ -29,6 +29,7 @@ function resetChapters(lang) {
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const container = document.getElementById(containerId);
     const chapters = container.querySelectorAll('.chapter');
+    
     chapters.forEach((ch, index) => {
         if (index === 0) {
             ch.classList.add('active');
@@ -36,6 +37,9 @@ function resetChapters(lang) {
             ch.classList.remove('active');
         }
     });
+    
+    // Update button states after reset
+    updateAllButtons(lang);
 }
 
 // ---- NEXT CHAPTER ----
@@ -54,7 +58,50 @@ function nextChapter(lang) {
     if (currentIndex !== -1 && currentIndex < chapters.length - 1) {
         chapters[currentIndex].classList.remove('active');
         chapters[currentIndex + 1].classList.add('active');
+        updateAllButtons(lang);
     }
+}
+
+// ---- PREVIOUS CHAPTER ----
+function prevChapter(lang) {
+    const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
+    const container = document.getElementById(containerId);
+    const chapters = container.querySelectorAll('.chapter');
+    let currentIndex = -1;
+
+    chapters.forEach((ch, index) => {
+        if (ch.classList.contains('active')) {
+            currentIndex = index;
+        }
+    });
+
+    if (currentIndex > 0) {
+        chapters[currentIndex].classList.remove('active');
+        chapters[currentIndex - 1].classList.add('active');
+        updateAllButtons(lang);
+    }
+}
+
+// ---- UPDATE BUTTON STATES ----
+function updateAllButtons(lang) {
+    const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
+    const container = document.getElementById(containerId);
+    const chapters = container.querySelectorAll('.chapter');
+    const totalChapters = chapters.length;
+    
+    chapters.forEach((ch, index) => {
+        if (ch.classList.contains('active')) {
+            const prevBtn = ch.querySelector('.prev-btn');
+            const nextBtn = ch.querySelector('.next-btn');
+            
+            if (prevBtn) {
+                prevBtn.disabled = (index === 0);
+            }
+            if (nextBtn) {
+                nextBtn.disabled = (index === totalChapters - 1);
+            }
+        }
+    });
 }
 
 // ---- GOOGLE TRANSLATE ----
@@ -65,7 +112,10 @@ function openGoogleTranslate() {
 
 // ---- INIT ----
 document.addEventListener('DOMContentLoaded', function() {
-    resetChapters('en');
+    // Show English by default
     document.getElementById('chaptersEn').style.display = 'block';
     document.getElementById('chaptersHi').style.display = 'none';
+    
+    // Reset chapters to first
+    resetChapters('en');
 });
