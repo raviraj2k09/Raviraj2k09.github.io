@@ -584,29 +584,45 @@ function generateFriendCardPDF(isDBFriend) {
         const pw = 297;
         const ph = 210;
         
-        // ---- WHITE BACKGROUND ----
-        pdf.setFillColor('#ffffff');
-        pdf.rect(0, 0, pw, ph, 'F');
+      // ---- BACKGROUND: Dark Navy ----
+pdf.setFillColor('#0a0a0f');
+pdf.rect(0, 0, pw, ph, 'F');
         
-        // FLAG Top
-pdf.setFillColor('#FF9933'); pdf.rect(0, 0, pw, 3, 'F');
-pdf.setFillColor('#FFFFFF'); pdf.rect(0, 3, pw, 3, 'F');
-pdf.setFillColor('#138808'); pdf.rect(0, 6, pw, 3, 'F');
+// ---- BORDER: Top ----
+pdf.setDrawColor('#00d9ff');
+pdf.setLineWidth(2);
+pdf.line(5, 5, pw - 5, 5);
 
-// Bottom
-pdf.setFillColor('#FF9933'); pdf.rect(0, ph - 9, pw, 3, 'F');
-pdf.setFillColor('#FFFFFF'); pdf.rect(0, ph - 6, pw, 3, 'F');
-pdf.setFillColor('#138808'); pdf.rect(0, ph - 3, pw, 3, 'F');
+pdf.setDrawColor('#7c3aed');
+pdf.setLineWidth(1);
+pdf.line(10, 10, pw - 10, 10);
 
-// Left
-pdf.setFillColor('#FF9933'); pdf.rect(0, 0, 3, ph, 'F');
-pdf.setFillColor('#FFFFFF'); pdf.rect(3, 0, 3, ph, 'F');
-pdf.setFillColor('#138808'); pdf.rect(6, 0, 3, ph, 'F');
+// ---- BORDER: Bottom ----
+pdf.setDrawColor('#00d9ff');
+pdf.setLineWidth(2);
+pdf.line(5, ph - 5, pw - 5, ph - 5);
 
-// Right
-pdf.setFillColor('#FF9933'); pdf.rect(pw - 3, 0, 3, ph, 'F');
-pdf.setFillColor('#FFFFFF'); pdf.rect(pw - 6, 0, 3, ph, 'F');
-pdf.setFillColor('#138808'); pdf.rect(pw - 9, 0, 3, ph, 'F');
+pdf.setDrawColor('#7c3aed');
+pdf.setLineWidth(1);
+pdf.line(10, ph - 10, pw - 10, ph - 10);
+
+// ---- BORDER: Left ----
+pdf.setDrawColor('#00d9ff');
+pdf.setLineWidth(2);
+pdf.line(5, 5, 5, ph - 5);
+
+pdf.setDrawColor('#7c3aed');
+pdf.setLineWidth(1);
+pdf.line(10, 10, 10, ph - 10);
+
+// ---- BORDER: Right ----
+pdf.setDrawColor('#00d9ff');
+pdf.setLineWidth(2);
+pdf.line(pw - 5, 5, pw - 5, ph - 5);
+
+pdf.setDrawColor('#7c3aed');
+pdf.setLineWidth(1);
+pdf.line(pw - 10, 10, pw - 10, ph - 10);
         
         // ---- HEADER ----
         pdf.setTextColor('#DAA520');
