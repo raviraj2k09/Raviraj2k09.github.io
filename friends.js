@@ -1,6 +1,6 @@
 // ============================================
 // FRIENDS CORNER — PROFESSIONAL JS (FINAL)
-// Version: 13.0 | Advanced Landscape PDF | Website Match
+// Version: 14.0 | Simple Certificate | Mobile Friendly
 // Author: Ravi Raj
 // ============================================
 
@@ -537,7 +537,7 @@ function downloadFriendCard() {
 }
 
 // ============================================
-// FRIEND CARD PDF — ADVANCED LANDSCAPE
+// FRIEND CARD PDF — SIMPLE CERTIFICATE (Mobile Friendly)
 // ============================================
 function generateFriendCardPDF(isDBFriend) {
     if (!capturedPhotoData) {
@@ -584,72 +584,71 @@ function generateFriendCardPDF(isDBFriend) {
         const pw = 297;
         const ph = 210;
         
-        // Background — Dark Theme
-        pdf.setFillColor('#0a0a0f');
+        // ---- WHITE BACKGROUND ----
+        pdf.setFillColor('#ffffff');
         pdf.rect(0, 0, pw, ph, 'F');
         
-        // Gradient Overlay
-        pdf.setFillColor('#1a0a2e');
-        pdf.rect(0, 0, pw, ph, 'F');
+        // ---- INDIAN FLAG BORDER (Top) ----
+        pdf.setFillColor('#FF9933'); pdf.rect(0, 0, pw, 3, 'F');
+        pdf.setFillColor('#FFFFFF'); pdf.rect(0, 3, pw, 3, 'F');
+        pdf.setFillColor('#138808'); pdf.rect(0, 6, pw, 3, 'F');
         
-        // Gold Border
+        // ---- INDIAN FLAG BORDER (Bottom) ----
+        pdf.setFillColor('#FF9933'); pdf.rect(0, ph - 9, pw, 3, 'F');
+        pdf.setFillColor('#FFFFFF'); pdf.rect(0, ph - 6, pw, 3, 'F');
+        pdf.setFillColor('#138808'); pdf.rect(0, ph - 3, pw, 3, 'F');
+        
+        // ---- HEADER ----
+        pdf.setTextColor('#DAA520');
+        pdf.setFontSize(28);
+        pdf.setFont(undefined, 'bold');
+        pdf.text('RAVI RAJ', 15, 28);
+        
+        pdf.setTextColor('#333333');
+        pdf.setFontSize(12);
+        pdf.setFont(undefined, 'normal');
+        pdf.text('OFFICIAL FRIEND CARD', 15, 36);
+        
+        pdf.setTextColor('#999999');
+        pdf.setFontSize(9);
+        pdf.text('Certificate ID: FR-2026-001', pw - 15, 28, { align: 'right' });
+        
+        pdf.setDrawColor('#DAA520');
+        pdf.setLineWidth(0.5);
+        pdf.line(15, 42, pw - 15, 42);
+        
+        // ---- PHOTO (Left Side) ----
+        const cx = 55;
+        const cy = 100;
+        const size = 44;
+        
         pdf.setDrawColor('#DAA520');
         pdf.setLineWidth(2);
-        pdf.rect(5, 5, pw - 10, ph - 10);
+        pdf.rect(cx - size/2, cy - size/2, size, size);
         
-        // Cyan Inner Border
-        pdf.setDrawColor('#00d9ff');
-        pdf.setLineWidth(0.5);
-        pdf.rect(10, 10, pw - 20, ph - 20);
+        if (img.src && img.src !== '' && img.width > 0) {
+            try {
+                pdf.addImage(img, 'PNG', cx - size/2 + 1, cy - size/2 + 1, size - 2, size - 2);
+            } catch(e) {}
+        }
         
-        // Header
-        pdf.setTextColor('#DAA520');
-        pdf.setFontSize(38);
-        pdf.setFont(undefined, 'bold');
-        pdf.text('RAVI RAJ', pw / 2, 32, { align: 'center' });
+        pdf.setTextColor('#999999');
+        pdf.setFontSize(8);
+        pdf.text('LIVE PHOTO', cx, cy + size/2 + 6, { align: 'center' });
         
-        pdf.setTextColor('#ffffff');
-        pdf.setFontSize(14);
-        pdf.setFont(undefined, 'normal');
-        pdf.text('OFFICIAL FRIEND CARD', pw / 2, 42, { align: 'center' });
-        
-        pdf.setTextColor('#00d9ff');
-        pdf.setFontSize(10);
-        pdf.text('Verified by Ravi Raj', pw / 2, 50, { align: 'center' });
-        
-        pdf.setDrawColor('#DAA520');
-        pdf.setLineWidth(0.5);
-        pdf.line(30, 56, pw - 30, 56);
-        
-        // Photo — Left Side
-        const cx = 95;
-        const cy = 110;
-        const radius = 42;
-        
-        pdf.setDrawColor('#DAA520');
-        pdf.setLineWidth(3);
-        pdf.circle(cx, cy, radius + 4, 'D');
-        
-        pdf.addImage(img, 'PNG', cx - radius, cy - radius, radius * 2, radius * 2);
-        
-        pdf.setTextColor('#00ff88');
-        pdf.setFontSize(9);
-        pdf.text('LIVE PHOTO', cx, cy + radius + 10, { align: 'center' });
-        pdf.text('Captured on: ' + new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }), cx, cy + radius + 16, { align: 'center' });
-        
-        // Friend Info — Right Side
-        let xPos = 165;
-        let yPos = 80;
+        // ---- FRIEND INFO (Right Side) ----
+        let xPos = 110;
+        let yPos = 72;
         
         pdf.setTextColor('#DAA520');
-        pdf.setFontSize(32);
+        pdf.setFontSize(24);
         pdf.setFont(undefined, 'bold');
-        pdf.text(currentFriend.firstName.toUpperCase(), xPos, yPos);
-        yPos += 14;
+        pdf.text(currentFriend.firstName ? currentFriend.firstName.toUpperCase() : 'FRIEND', xPos, yPos);
+        yPos += 12;
         
         if (isDBFriend && currentFriend.connection) {
-            pdf.setTextColor('#ffffff');
-            pdf.setFontSize(16);
+            pdf.setTextColor('#333333');
+            pdf.setFontSize(14);
             pdf.setFont(undefined, 'normal');
             pdf.text(currentFriend.connection, xPos, yPos);
             yPos += 10;
@@ -657,95 +656,74 @@ function generateFriendCardPDF(isDBFriend) {
         
         if (isDBFriend && currentFriend.tag) {
             pdf.setTextColor('#7c3aed');
-            pdf.setFontSize(14);
+            pdf.setFontSize(11);
             pdf.setFont(undefined, 'italic');
             pdf.text('"' + currentFriend.tag + '"', xPos, yPos);
-            yPos += 12;
+            yPos += 14;
         } else {
             yPos += 6;
         }
         
-        if (isDBFriend && currentFriend.experience) {
-            pdf.setFillColor('rgba(124, 58, 237, 0.1)');
-            pdf.roundedRect(xPos - 2, yPos - 4, 110, 38, 4, 4, 'F');
-            pdf.setTextColor('#e0e0e0');
-            pdf.setFontSize(9);
-            pdf.setFont(undefined, 'italic');
-            const lines = pdf.splitTextToSize(currentFriend.experience, 105);
-            pdf.text(lines, xPos, yPos + 4);
-            yPos += 44;
-        } else {
-            pdf.setFillColor('rgba(0, 217, 255, 0.08)');
-            pdf.roundedRect(xPos - 2, yPos - 4, 110, 20, 4, 4, 'F');
-            pdf.setTextColor('#00d9ff');
-            pdf.setFontSize(11);
-            pdf.setFont(undefined, 'italic');
-            pdf.text('A new friend of Ravi Raj', xPos, yPos + 6);
-            yPos += 26;
-        }
-        
-        if (isDBFriend && currentFriend.sinceClass !== 'new') {
-            pdf.setFont(undefined, 'normal');
-            pdf.setFontSize(9);
-            pdf.setTextColor('#a0a0b0');
-            
-            const metrics = [
-                'Since: Class ' + currentFriend.sinceClass + ' (2019)',
-                'Age: ' + currentFriend.age + ' Years',
-                'School: ' + currentFriend.school,
-                'Hobby: ' + currentFriend.hobby
-            ];
-            
-            metrics.forEach(function(m) {
-                pdf.text(m, xPos, yPos);
-                yPos += 7;
-            });
-        }
-        
-        // Certificate Text
-        yPos = 170;
-        pdf.setDrawColor('#DAA520');
+        pdf.setDrawColor('#cccccc');
         pdf.setLineWidth(0.3);
-        pdf.line(30, yPos, pw - 30, yPos);
+        pdf.line(xPos, yPos, pw - 20, yPos);
         yPos += 8;
         
-        pdf.setTextColor('#c0c0c0');
-        pdf.setFontSize(9);
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+        pdf.setTextColor('#888888');
+        pdf.setFontSize(10);
         pdf.setFont(undefined, 'normal');
-        const certText = 'This is to certify that the above person is a verified friend of Ravi Raj. This card is issued on ' + new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) + ' at Begusarai, Bihar, India.';
-        const certLines = pdf.splitTextToSize(certText, pw - 60);
-        pdf.text(certLines, pw / 2, yPos, { align: 'center' });
-        yPos += certLines.length * 6 + 6;
+        pdf.text('Issued on: ' + dateStr, xPos, yPos);
+        yPos += 8;
+        pdf.text('Location: Begusarai, Bihar, India', xPos, yPos);
         
-        // Signature
+        // ---- CERTIFICATE TEXT ----
+        const certY = 150;
+        pdf.setDrawColor('#DAA520');
+        pdf.setLineWidth(0.3);
+        pdf.line(30, certY, pw - 30, certY);
+        
+        pdf.setTextColor('#444444');
+        pdf.setFontSize(11);
+        pdf.setFont(undefined, 'italic');
+        const certText1 = 'This is to certify that the above person is a verified friend of Ravi Raj.';
+        const certText2 = 'This certificate is issued on ' + dateStr + ' at Begusarai, Bihar, India.';
+        pdf.text(certText1, pw/2, certY + 10, { align: 'center' });
+        pdf.text(certText2, pw/2, certY + 20, { align: 'center' });
+        
+        // ---- SIGNATURE ----
+        const signY = 178;
+        const signX = pw - 60;
+        
         pdf.setDrawColor('#DAA520');
         pdf.setLineWidth(0.5);
-        pdf.line(pw - 100, yPos, pw - 20, yPos);
+        pdf.line(signX - 40, signY, signX + 40, signY);
         
         if (signImg.src && signImg.src !== '' && signImg.width > 0) {
-            const sW = 65;
+            const sW = 60;
             const sH = (signImg.height / signImg.width) * sW;
-            pdf.addImage(signImg, 'PNG', pw - 85, yPos + 2, sW, sH);
-            pdf.setTextColor('#ffffff');
-            pdf.setFontSize(9);
-            pdf.text('Ravi Raj', pw - 45, yPos + sH + 8, { align: 'center' });
-            pdf.text('Founder, Friends Corner', pw - 45, yPos + sH + 14, { align: 'center' });
-        } else {
-            pdf.setTextColor('#ffffff');
-            pdf.setFontSize(12);
-            pdf.text('Ravi Raj', pw - 45, yPos + 8, { align: 'center' });
-            pdf.setFontSize(9);
-            pdf.text('Founder, Friends Corner', pw - 45, yPos + 16, { align: 'center' });
+            try {
+                pdf.addImage(signImg, 'PNG', signX - sW/2, signY - sH - 2, sW, sH);
+            } catch(e) {}
         }
         
-        // Footer
-        pdf.setTextColor('#b8960f');
-        pdf.setFontSize(7);
-        pdf.text('Certificate ID: FR-2026-001', 20, ph - 10);
-        pdf.text('2026 Ravi Raj — All Rights Reserved', pw / 2, ph - 10, { align: 'center' });
-        pdf.text('Powered by Friends Corner', pw - 20, ph - 10, { align: 'right' });
+        pdf.setTextColor('#333333');
+        pdf.setFontSize(12);
+        pdf.setFont(undefined, 'bold');
+        pdf.text('Ravi Raj', signX, signY + 8, { align: 'center' });
+        pdf.setTextColor('#666666');
+        pdf.setFontSize(9);
+        pdf.setFont(undefined, 'normal');
+        pdf.text('Founder, Friends Corner', signX, signY + 16, { align: 'center' });
         
-        pdf.save('FriendCard-' + currentFriend.firstName + '.pdf');
+        // ---- FOOTER ----
+        pdf.setTextColor('#999999');
+        pdf.setFontSize(7);
+        pdf.text('© 2026 Ravi Raj · All Rights Reserved', 15, ph - 15);
+        
+        // ---- SAVE ----
+        pdf.save('FriendCard-' + (currentFriend.firstName || 'Friend') + '.pdf');
     }
     
     img.src = capturedPhotoData;
