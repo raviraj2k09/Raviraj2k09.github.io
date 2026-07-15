@@ -1,5 +1,6 @@
 /* ============================================
-   SCRIPT.JS - COMPLETE PORTFOLIO FUNCTIONALITY
+   SCRIPT.JS — COMPLETE PORTFOLIO FUNCTIONALITY
+   FULLY UPGRADED FOR NEW HTML/CSS
    ============================================ */
 
 (function() {
@@ -21,6 +22,9 @@
         animation: {
             delay: 5000,
             duration: 1000
+        },
+        scroll: {
+            showButtonAt: 300
         }
     };
 
@@ -32,10 +36,15 @@
         heroPhoto: document.getElementById('hero-photo'),
         skillBars: document.querySelectorAll('.skill-bar-fill'),
         navLinks: document.querySelectorAll('a[href^="#"]'),
+        navItems: document.querySelectorAll('.nav-links a'),
         themeToggle: document.getElementById('theme-toggle'),
+        toggleIcon: document.querySelector('.premium-toggle .toggle-icon'),
+        toggleTooltip: document.querySelector('.premium-toggle .toggle-tooltip'),
         lastUpdated: document.getElementById('lastUpdated'),
         timeDisplay: document.getElementById('current-date-time'),
-        body: document.body
+        scrollTopBtn: document.getElementById('scrollTopBtn'),
+        body: document.body,
+        sections: document.querySelectorAll('section[id]')
     };
 
     /* ============================================
@@ -74,7 +83,7 @@
             ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
             ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-            ctx.fillStyle = '#00d9ff';
+            ctx.fillStyle = '#4f8cf7';
             ctx.font = `${this.fontSize}px Fira Code`;
 
             for (let i = 0; i < this.drops.length; i++) {
@@ -144,7 +153,7 @@
         }
 
         init() {
-            const targets = Array.from(this.elements).filter(el => 
+            const targets = Array.from(this.elements).filter(el =>
                 ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(el.tagName)
             );
 
@@ -257,11 +266,11 @@
                     e.preventDefault();
                     const targetId = anchor.getAttribute('href');
                     const target = document.querySelector(targetId);
-                    
+
                     if (target) {
-                        target.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'start' 
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
                         });
                         history.pushState(null, '', targetId);
                     }
@@ -293,18 +302,19 @@
             try {
                 const now = new Date();
                 const day = String(now.getDate()).padStart(2, '0');
-                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-                                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+                ];
                 const month = monthNames[now.getMonth()];
                 const year = now.getFullYear();
                 const hours = String(now.getHours()).padStart(2, '0');
                 const minutes = String(now.getMinutes()).padStart(2, '0');
                 const seconds = String(now.getSeconds()).padStart(2, '0');
 
-                this.display.textContent = `${day} ${month} ${year} ${hours}:${minutes}:${seconds}`;
+                this.display.textContent = `📅 ${day} ${month} ${year} | 🕐 ${hours}:${minutes}:${seconds}`;
             } catch (error) {
                 console.error('Error updating time:', error);
-                this.display.textContent = 'Time unavailable';
+                this.display.textContent = '⏳ Time unavailable';
             }
         }
 
@@ -330,7 +340,7 @@
        ============================================ */
     function setLastUpdated(element) {
         if (!element) return;
-        
+
         try {
             const date = new Date(document.lastModified);
             const options = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -353,50 +363,311 @@
     }
 
     /* ============================================
-       THEME MANAGER — TOGGLE SETTING (LAST MEIN)
+       ACTIVE NAV LINK ON SCROLL
+       ============================================ */
+    function updateActiveNav() {
+        const sections = DOM.sections;
+        const navLinks = DOM.navItems;
+
+        let current = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 120;
+            if (window.scrollY >= sectionTop) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    /* ============================================
+       SCROLL TO TOP — SHOW/HIDE
+       ============================================ */
+    function handleScrollToTop() {
+        const btn = DOM.scrollTopBtn;
+        if (!btn) return;
+
+        if (window.scrollY > CONFIG.scroll.showButtonAt) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    }
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    /* ============================================
+       THEME MANAGER — FULLY UPGRADED
        ============================================ */
     class ThemeManager {
-        constructor(button, body) {
+        constructor(button, body, icon, tooltip) {
             this.button = button;
             this.body = body;
+            this.icon = icon;
+            this.tooltip = tooltip;
+            this.isToggling = false;
             this.init();
         }
 
         init() {
             if (!this.button) {
-                console.log('Theme button not found');
+                console.warn('Theme button not found');
                 return;
             }
 
-            // Check localStorage for saved theme
-            if (localStorage.getItem('theme') === 'light') {
-                this.body.classList.add('light-mode');
-                this.button.textContent = '☀️';
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'light') {
+                this.setLightMode();
+            } else if (savedTheme === 'dark') {
+                this.setDarkMode();
             } else {
-                this.button.textContent = '🌙';
+                // Auto-detect
+                if (prefersDark) {
+                    this.setDarkMode();
+                } else {
+                    this.setLightMode();
+                }
             }
 
             this.button.addEventListener('click', () => {
-                this.toggle();
+                if (this.isToggling) return;
+                this.isToggling = true;
+
+                if (this.body.classList.contains('light-mode')) {
+                    this.setDarkMode();
+                } else {
+                    this.setLightMode();
+                }
+
+                // Icon rotate animation
+                if (this.icon) {
+                    this.icon.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    this.icon.style.transform = 'rotate(360deg)';
+                    setTimeout(() => {
+                        this.icon.style.transform = 'rotate(0deg)';
+                        this.isToggling = false;
+                    }, 600);
+                } else {
+                    this.isToggling = false;
+                }
             });
         }
 
-        toggle() {
-            this.body.classList.toggle('light-mode');
-            if (this.body.classList.contains('light-mode')) {
-                this.button.textContent = '☀️';
-                localStorage.setItem('theme', 'light');
-            } else {
-                this.button.textContent = '🌙';
-                localStorage.setItem('theme', 'dark');
-            }
-            console.log('Theme toggled!');
+        setLightMode() {
+            this.body.classList.add('light-mode');
+            if (this.button) this.button.textContent = '☀️';
+            if (this.icon) this.icon.textContent = '☀️';
+            if (this.tooltip) this.tooltip.textContent = 'Switch to Dark Mode';
+            localStorage.setItem('theme', 'light');
+        }
+
+        setDarkMode() {
+            this.body.classList.remove('light-mode');
+            if (this.button) this.button.textContent = '🌙';
+            if (this.icon) this.icon.textContent = '🌙';
+            if (this.tooltip) this.tooltip.textContent = 'Switch to Light Mode';
+            localStorage.setItem('theme', 'dark');
         }
 
         destroy() {
             if (this.button) {
-                this.button.removeEventListener('click', this.toggle);
+                this.button.removeEventListener('click', () => {});
             }
+        }
+    }
+
+    /* ============================================
+       MODAL FUNCTIONS
+       ============================================ */
+
+    // === RJ Achieve Modal ===
+    function openRJModal() {
+        const modal = document.getElementById('rjModal');
+        if (modal) modal.classList.add('active');
+    }
+
+    function closeRJModal() {
+        const modal = document.getElementById('rjModal');
+        if (modal) modal.classList.remove('active');
+    }
+
+    function openAchieveModal(type) {
+        const body = document.getElementById('achieveModalBody');
+        if (!body) {
+            console.warn('⚠️ achieveModalBody not found!');
+            return;
+        }
+
+        const content = {
+            'experience': {
+                title: '💼 My Experience',
+                sub: 'Coming soon — I\'m currently updating this section.',
+                details: ['📌 Available Soon', '🛠️ I\'m working on adding my professional journey here.', '⏳ Please check back later!']
+            },
+            'memories': {
+                title: '📸 Photo Gallery',
+                sub: 'Coming soon — I\'m collecting my favorite moments.',
+                details: ['📌 Available Soon', '🛠️ This section is under development.', '⏳ Stay tuned for updates!']
+            },
+            'autobiography': {
+                title: '📖 Autobiography',
+                sub: 'Coming soon — my life story in words.',
+                details: ['📝 Coming Soon', '🛠️ I\'m currently writing my autobiography.', '⏳ Please check back later for updates!']
+            }
+        };
+
+        const data = content[type];
+        if (!data) {
+            body.innerHTML = `<p style="color: var(--gray);">❌ Section not found.</p>`;
+            return;
+        }
+
+        body.innerHTML = `
+            <h2>${data.title}</h2>
+            <p class="sub">${data.sub}</p>
+            ${data.details.map(item => `<div class="detail-item">${item}</div>`).join('')}
+        `;
+    }
+
+    // === Contact Modal ===
+    function showContactOptions() {
+        const modal = document.getElementById('contactModal');
+        if (modal) modal.classList.add('active');
+    }
+
+    function closeContactModal() {
+        const modal = document.getElementById('contactModal');
+        if (modal) modal.classList.remove('active');
+    }
+
+    // === Modal Outside Click Close ===
+    document.addEventListener('click', function(e) {
+        // RJ Modal
+        const rjModal = document.getElementById('rjModal');
+        if (rjModal && e.target === rjModal) {
+            closeRJModal();
+        }
+
+        // Contact Modal
+        const contactModal = document.getElementById('contactModal');
+        if (contactModal && e.target === contactModal) {
+            closeContactModal();
+        }
+    });
+
+    // === Modal Escape Key Close ===
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeRJModal();
+            closeContactModal();
+        }
+    });
+
+    /* ============================================
+       OPEN CHATBOX — LET'S TALK BUTTON
+       ============================================ */
+    function openChatbox() {
+        const container = document.getElementById('chatbox-container');
+        if (!container) {
+            alert('❌ Chatbox container not found!');
+            return;
+        }
+
+        if (container.innerHTML.trim() !== '') {
+            container.style.display = 'block';
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+
+        fetch('chatbox.html')
+            .then(res => {
+                if (!res.ok) throw new Error('File not found (404)');
+                return res.text();
+            })
+            .then(html => {
+                container.innerHTML = html;
+                container.style.display = 'block';
+                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                console.log('✅ Chatbox loaded!');
+            })
+            .catch(err => {
+                console.error('❌ Chatbox load failed:', err);
+                alert('❌ Chatbox could not load. Please check console for details.');
+                container.innerHTML = `<p style="color:var(--gray);text-align:center;padding:20px;">❌ Chatbox could not load.</p>`;
+                container.style.display = 'block';
+            });
+    }
+
+    /* ============================================
+       SOCIAL TOGGLE - CLICK KARNE PAR ICONS
+       ============================================ */
+    function initSocialToggle() {
+        const trigger = document.getElementById('triggerBtn');
+        const grid = document.getElementById('socialGrid');
+
+        if (trigger && grid) {
+            trigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+                grid.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!trigger.contains(e.target) && !grid.contains(e.target)) {
+                    trigger.classList.remove('active');
+                    grid.classList.remove('show');
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    trigger.classList.remove('active');
+                    grid.classList.remove('show');
+                }
+            });
+        }
+    }
+
+    /* ============================================
+       SCROLL EVENT LISTENER — Active Nav + Scroll to Top
+       ============================================ */
+    function initScrollEvents() {
+        // Throttle function for performance
+        let ticking = false;
+
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    updateActiveNav();
+                    handleScrollToTop();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Initial call
+        updateActiveNav();
+        handleScrollToTop();
+
+        // Scroll to Top button click
+        const btn = DOM.scrollTopBtn;
+        if (btn) {
+            btn.addEventListener('click', scrollToTop);
         }
     }
 
@@ -404,22 +675,8 @@
        INITIALIZATION
        ============================================ */
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🚀 Portfolio v2.0 - Ravi Raj');
+        console.log('🚀 Personal Website v3.0 — Ravi Raj');
         console.log('📅 Loaded:', new Date().toLocaleString());
-
-        // ---- AUTO-DETECT SYSTEM PREFERENCE ----
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const themeToggle = document.getElementById('theme-toggle');
-        
-        if (!localStorage.getItem('theme')) {
-            if (prefersDark) {
-                document.body.classList.remove('light-mode');
-                if (themeToggle) themeToggle.textContent = '🌙';
-            } else {
-                document.body.classList.add('light-mode');
-                if (themeToggle) themeToggle.textContent = '☀️';
-            }
-        }
 
         // ---- INITIALIZE ALL CLASSES ----
         const matrix = new MatrixEffect(
@@ -437,12 +694,27 @@
         const smoothScroll = new SmoothScroll(DOM.navLinks);
         const liveDateTime = new LiveDateTime(DOM.timeDisplay);
 
-        // ---- THEME MANAGER (LAST MEIN) ----
-        const themeManager = new ThemeManager(DOM.themeToggle, DOM.body);
+        // ---- THEME MANAGER (FULLY UPGRADED) ----
+        const themeManager = new ThemeManager(
+            DOM.themeToggle,
+            DOM.body,
+            DOM.toggleIcon,
+            DOM.toggleTooltip
+        );
 
+        // ---- SOCIAL TOGGLE ----
+        initSocialToggle();
+
+        // ---- SCROLL EVENTS (Active Nav + Scroll to Top) ----
+        initScrollEvents();
+
+        // ---- LAST UPDATED ----
         setLastUpdated(DOM.lastUpdated);
+
+        // ---- PHOTO ANIMATION ----
         setupPhotoAnimation(DOM.heroPhoto);
 
+        // ---- CLEANUP ON UNLOAD ----
         window.addEventListener('beforeunload', function() {
             matrix.destroy();
             typewriter.destroy();
@@ -452,6 +724,7 @@
             themeManager.destroy();
         });
 
+        // ---- ERROR HANDLING ----
         window.addEventListener('error', function(e) {
             console.error('Global error caught:', e.message);
         });
@@ -460,170 +733,3 @@
     });
 
 })();
-
-/* ============================================
-   SOCIAL TOGGLE - CLICK KARNE PAR ICONS
-   ============================================ */
-document.addEventListener('DOMContentLoaded', function() {
-    const trigger = document.getElementById('triggerBtn');
-    const grid = document.getElementById('socialGrid');
-
-    if (trigger && grid) {
-        trigger.addEventListener('click', function(e) {
-            e.stopPropagation();
-            this.classList.toggle('active');
-            grid.classList.toggle('show');
-        });
-
-        document.addEventListener('click', function(e) {
-            if (!trigger.contains(e.target) && !grid.contains(e.target)) {
-                trigger.classList.remove('active');
-                grid.classList.remove('show');
-            }
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                trigger.classList.remove('active');
-                grid.classList.remove('show');
-            }
-        });
-    }
-});
-
-/* ============================================
-   RJ ACHIEVE MODAL - FUNCTIONS
-   ============================================ */
-
-function openRJModal() {
-    const modal = document.getElementById('rjModal');
-    if (modal) modal.classList.add('active');
-}
-
-function closeRJModal() {
-    const modal = document.getElementById('rjModal');
-    if (modal) modal.classList.remove('active');
-}
-
-function openAchieveModal(type) {
-    const body = document.getElementById('achieveModalBody');
-    if (!body) {
-        console.warn('⚠️ achieveModalBody not found! Creating fallback...');
-        const modalContent = document.querySelector('.rj-modal-content');
-        if (modalContent) {
-            const newBody = document.createElement('div');
-            newBody.id = 'achieveModalBody';
-            modalContent.appendChild(newBody);
-        }
-        return;
-    }
-
-    const content = {
-        'experience': {
-            title: '💼 My Experience',
-            sub: 'Coming soon — I\'m currently updating this section.',
-            details: ['📌 Available Soon', '🛠️ I\'m working on adding my professional journey here.', '⏳ Please check back later!']
-        },
-        'memories': {
-            title: '📸 Photo Gallery',
-            sub: 'Coming soon — I\'m collecting my favorite moments.',
-            details: ['📌 Available Soon', '🛠️ This section is under development.', '⏳ Stay tuned for updates!']
-        },
-        'autobiography': {
-            title: '📖 Autobiography',
-            sub: 'Coming soon — my life story in words.',
-            details: ['📝 Coming Soon', '🛠️ I\'m currently writing my autobiography.', '⏳ Please check back later for updates!']
-        }
-    };
-
-    const data = content[type];
-    if (!data) {
-        body.innerHTML = `<p style="color: var(--gray);">❌ Section not found.</p>`;
-        return;
-    }
-
-    body.innerHTML = `
-        <h2>${data.title}</h2>
-        <p class="sub">${data.sub}</p>
-        ${data.details.map(item => `<div class="detail-item">${item}</div>`).join('')}
-    `;
-}
-
-// Close RJ Modal on outside click
-document.addEventListener('click', function(e) {
-    const modal = document.getElementById('rjModal');
-    if (modal && e.target === modal) {
-        closeRJModal();
-    }
-});
-
-// Close RJ Modal on Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeRJModal();
-    }
-});
-
-/* ============================================
-   OPEN CHATBOX — LET'S TALK BUTTON
-   ============================================ */
-function openChatbox() {
-    const container = document.getElementById('chatbox-container');
-    if (!container) {
-        alert('❌ Chatbox container not found!');
-        return;
-    }
-
-    if (container.innerHTML.trim() !== '') {
-        container.style.display = 'block';
-        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-    }
-
-    fetch('chatbox.html')
-        .then(res => {
-            if (!res.ok) throw new Error('File not found (404)');
-            return res.text();
-        })
-        .then(html => {
-            container.innerHTML = html;
-            container.style.display = 'block';
-            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            console.log('✅ Chatbox loaded!');
-        })
-        .catch(err => {
-            console.error('❌ Chatbox load failed:', err);
-            alert('❌ Chatbox could not load. Please check console for details.');
-            container.innerHTML = `<p style="color:var(--gray);text-align:center;padding:20px;">❌ Chatbox could not load.</p>`;
-            container.style.display = 'block';
-        });
-}
-
-/* ============================================
-   CONTACT MODAL FUNCTIONS (Same as RJ Achieve)
-   ============================================ */
-
-function showContactOptions() {
-    const modal = document.getElementById('contactModal');
-    if (modal) modal.classList.add('active');
-}
-
-function closeContactModal() {
-    const modal = document.getElementById('contactModal');
-    if (modal) modal.classList.remove('active');
-}
-
-// Close Contact Modal on outside click
-document.addEventListener('click', function(e) {
-    const modal = document.getElementById('contactModal');
-    if (modal && e.target === modal) {
-        closeContactModal();
-    }
-});
-
-// Close Contact Modal on Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeContactModal();
-    }
-});
