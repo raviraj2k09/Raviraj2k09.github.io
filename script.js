@@ -1,6 +1,6 @@
 /* ============================================
-   SCRIPT.JS — COMPLETE PORTFOLIO FUNCTIONALITY
-   FULLY UPGRADED FOR NEW HTML/CSS
+   SCRIPT.JS — COMPLETE WEBSITE FUNCTIONALITY
+   FULLY UPGRADED FOR NEW HTML + CSS
    ============================================ */
 
 (function() {
@@ -80,10 +80,10 @@
             if (!this.isActive) return;
 
             const ctx = this.ctx;
-            ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
+            ctx.fillStyle = 'rgba(15, 15, 26, 0.05)';
             ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-            ctx.fillStyle = '#4f8cf7';
+            ctx.fillStyle = '#f472b6';
             ctx.font = `${this.fontSize}px Fira Code`;
 
             for (let i = 0; i < this.drops.length; i++) {
@@ -435,7 +435,6 @@
             } else if (savedTheme === 'dark') {
                 this.setDarkMode();
             } else {
-                // Auto-detect
                 if (prefersDark) {
                     this.setDarkMode();
                 } else {
@@ -453,7 +452,6 @@
                     this.setLightMode();
                 }
 
-                // Icon rotate animation
                 if (this.icon) {
                     this.icon.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
                     this.icon.style.transform = 'rotate(360deg)';
@@ -514,25 +512,25 @@
 
         const content = {
             'experience': {
-                title: '💼 My Experience',
+                title: '💼 Professional Experience',
                 sub: 'Coming soon — I\'m currently updating this section.',
                 details: ['📌 Available Soon', '🛠️ I\'m working on adding my professional journey here.', '⏳ Please check back later!']
             },
             'memories': {
-                title: '📸 Photo Gallery',
+                title: '📸 Memorable Moments',
                 sub: 'Coming soon — I\'m collecting my favorite moments.',
                 details: ['📌 Available Soon', '🛠️ This section is under development.', '⏳ Stay tuned for updates!']
             },
-            'autobiography': {
-                title: '📖 Autobiography',
-                sub: 'Coming soon — my life story in words.',
-                details: ['📝 Coming Soon', '🛠️ I\'m currently writing my autobiography.', '⏳ Please check back later for updates!']
+            'certificates': {
+                title: '🏅 Certifications',
+                sub: 'Coming soon — my learning milestones.',
+                details: ['📌 Available Soon', '🛠️ I\'m currently adding my certifications.', '⏳ Please check back later!']
             }
         };
 
         const data = content[type];
         if (!data) {
-            body.innerHTML = `<p style="color: var(--gray);">❌ Section not found.</p>`;
+            body.innerHTML = `<p style="color: var(--text-muted);">❌ Section not found.</p>`;
             return;
         }
 
@@ -556,13 +554,11 @@
 
     // === Modal Outside Click Close ===
     document.addEventListener('click', function(e) {
-        // RJ Modal
         const rjModal = document.getElementById('rjModal');
         if (rjModal && e.target === rjModal) {
             closeRJModal();
         }
 
-        // Contact Modal
         const contactModal = document.getElementById('contactModal');
         if (contactModal && e.target === contactModal) {
             closeContactModal();
@@ -576,6 +572,61 @@
             closeContactModal();
         }
     });
+
+    // === Story Modal ===
+    function openStoryModal() {
+        const modal = document.getElementById('storyModal');
+        if (modal) modal.classList.add('active');
+    }
+
+    function closeStoryModal() {
+        const modal = document.getElementById('storyModal');
+        if (modal) modal.classList.remove('active');
+    }
+
+    // === Articles Modal ===
+    function openArticlesModal() {
+        const modal = document.getElementById('articlesModal');
+        if (modal) modal.classList.add('active');
+    }
+
+    function closeArticlesModal() {
+        const modal = document.getElementById('articlesModal');
+        if (modal) modal.classList.remove('active');
+    }
+
+    // === Interests Modal ===
+    function openInterestsModal() {
+        const modal = document.getElementById('interestsModal');
+        if (modal) modal.classList.add('active');
+    }
+
+    function closeInterestsModal() {
+        const modal = document.getElementById('interestsModal');
+        if (modal) modal.classList.remove('active');
+    }
+
+    // === Projects Modal ===
+    function openProjectsModal() {
+        const modal = document.getElementById('projectsModal');
+        if (modal) modal.classList.add('active');
+    }
+
+    function closeProjectsModal() {
+        const modal = document.getElementById('projectsModal');
+        if (modal) modal.classList.remove('active');
+    }
+
+    // === Education Modal ===
+    function openEducationModal() {
+        const modal = document.getElementById('educationModal');
+        if (modal) modal.classList.add('active');
+    }
+
+    function closeEducationModal() {
+        const modal = document.getElementById('educationModal');
+        if (modal) modal.classList.remove('active');
+    }
 
     /* ============================================
        OPEN CHATBOX — LET'S TALK BUTTON
@@ -607,7 +658,7 @@
             .catch(err => {
                 console.error('❌ Chatbox load failed:', err);
                 alert('❌ Chatbox could not load. Please check console for details.');
-                container.innerHTML = `<p style="color:var(--gray);text-align:center;padding:20px;">❌ Chatbox could not load.</p>`;
+                container.innerHTML = `<p style="color:var(--text-muted);text-align:center;padding:20px;">❌ Chatbox could not load.</p>`;
                 container.style.display = 'block';
             });
     }
@@ -646,7 +697,6 @@
        SCROLL EVENT LISTENER — Active Nav + Scroll to Top
        ============================================ */
     function initScrollEvents() {
-        // Throttle function for performance
         let ticking = false;
 
         window.addEventListener('scroll', function() {
@@ -660,11 +710,9 @@
             }
         });
 
-        // Initial call
         updateActiveNav();
         handleScrollToTop();
 
-        // Scroll to Top button click
         const btn = DOM.scrollTopBtn;
         if (btn) {
             btn.addEventListener('click', scrollToTop);
@@ -675,7 +723,7 @@
        INITIALIZATION
        ============================================ */
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🚀 Personal Website v3.0 — Ravi Raj');
+        console.log('🚀 Personal Website v4.0 — Ravi Raj');
         console.log('📅 Loaded:', new Date().toLocaleString());
 
         // ---- INITIALIZE ALL CLASSES ----
@@ -694,7 +742,7 @@
         const smoothScroll = new SmoothScroll(DOM.navLinks);
         const liveDateTime = new LiveDateTime(DOM.timeDisplay);
 
-        // ---- THEME MANAGER (FULLY UPGRADED) ----
+        // ---- THEME MANAGER ----
         const themeManager = new ThemeManager(
             DOM.themeToggle,
             DOM.body,
@@ -705,7 +753,7 @@
         // ---- SOCIAL TOGGLE ----
         initSocialToggle();
 
-        // ---- SCROLL EVENTS (Active Nav + Scroll to Top) ----
+        // ---- SCROLL EVENTS ----
         initScrollEvents();
 
         // ---- LAST UPDATED ----
