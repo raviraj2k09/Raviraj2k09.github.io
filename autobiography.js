@@ -1,6 +1,6 @@
 // ============================================================
-// AUTOBOIOGRAPHY.JS — WEBSITE FUNCTIONALITY ONLY
-// (Language Toggle · Navigation · Reading Mode · Copy Link)
+// AUTOBOIOGRAPHY.JS — COMPLETE FUNCTIONALITY
+// (Language Toggle · Navigation · Reading Mode · Modal)
 // ============================================================
 
 // ---- GLOBAL VARIABLES ----
@@ -38,6 +38,8 @@ function switchLang(lang) {
 function resetChapters(lang) {
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const container = document.getElementById(containerId);
+    if (!container) return;
+    
     const chapters = container.querySelectorAll('.chapter');
     
     chapters.forEach((ch, index) => {
@@ -51,24 +53,31 @@ function resetChapters(lang) {
     updateAllButtons(lang);
     updateProgressInfo(lang);
     updateDots(lang);
+    
+    // Scroll to top of chapter smoothly
+    setTimeout(function() {
+        scrollToChapterHeading(lang);
+    }, 100);
 }
 
 // ============================================================
-// 3. SCROLL TO CHAPTER HEADING
+// 3. SCROLL TO CHAPTER HEADING (SMOOTH)
 // ============================================================
 function scrollToChapterHeading(lang) {
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const container = document.getElementById(containerId);
+    if (!container) return;
+    
     const chapters = container.querySelectorAll('.chapter');
     
     chapters.forEach((ch) => {
         if (ch.classList.contains('active')) {
             const heading = ch.querySelector('h3');
             if (heading) {
-                heading.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start' 
-                });
+                // Smooth scroll to heading with offset
+                const yOffset = -80;
+                const y = heading.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
             }
             return;
         }
@@ -81,6 +90,8 @@ function scrollToChapterHeading(lang) {
 function nextChapter(lang) {
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const container = document.getElementById(containerId);
+    if (!container) return;
+    
     const chapters = container.querySelectorAll('.chapter');
     let currentIndex = -1;
 
@@ -97,6 +108,7 @@ function nextChapter(lang) {
         updateProgressInfo(lang);
         updateDots(lang);
         
+        // Scroll to top of new chapter
         setTimeout(function() {
             scrollToChapterHeading(lang);
         }, 150);
@@ -109,6 +121,8 @@ function nextChapter(lang) {
 function prevChapter(lang) {
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const container = document.getElementById(containerId);
+    if (!container) return;
+    
     const chapters = container.querySelectorAll('.chapter');
     let currentIndex = -1;
 
@@ -125,6 +139,7 @@ function prevChapter(lang) {
         updateProgressInfo(lang);
         updateDots(lang);
         
+        // Scroll to top of new chapter
         setTimeout(function() {
             scrollToChapterHeading(lang);
         }, 150);
@@ -132,11 +147,40 @@ function prevChapter(lang) {
 }
 
 // ============================================================
-// 6. UPDATE BUTTON STATES
+// 6. GO TO SPECIFIC CHAPTER (For Dots)
+// ============================================================
+function goToChapter(lang, chapterNum) {
+    const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    const chapters = container.querySelectorAll('.chapter');
+    
+    chapters.forEach((ch, index) => {
+        if (index === chapterNum - 1) {
+            ch.classList.add('active');
+        } else {
+            ch.classList.remove('active');
+        }
+    });
+    
+    updateAllButtons(lang);
+    updateProgressInfo(lang);
+    updateDots(lang);
+    
+    setTimeout(function() {
+        scrollToChapterHeading(lang);
+    }, 150);
+}
+
+// ============================================================
+// 7. UPDATE BUTTON STATES
 // ============================================================
 function updateAllButtons(lang) {
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const container = document.getElementById(containerId);
+    if (!container) return;
+    
     const chapters = container.querySelectorAll('.chapter');
     const total = chapters.length;
     
@@ -156,11 +200,13 @@ function updateAllButtons(lang) {
 }
 
 // ============================================================
-// 7. UPDATE CHAPTER PROGRESS INFO
+// 8. UPDATE CHAPTER PROGRESS INFO
 // ============================================================
 function updateProgressInfo(lang) {
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const container = document.getElementById(containerId);
+    if (!container) return;
+    
     const chapters = container.querySelectorAll('.chapter');
     let currentIndex = -1;
     
@@ -187,11 +233,13 @@ function updateProgressInfo(lang) {
 }
 
 // ============================================================
-// 8. UPDATE PROGRESS DOTS
+// 9. UPDATE PROGRESS DOTS
 // ============================================================
 function updateDots(lang) {
     const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
     const container = document.getElementById(containerId);
+    if (!container) return;
+    
     const chapters = container.querySelectorAll('.chapter');
     let currentIndex = -1;
     
@@ -214,7 +262,7 @@ function updateDots(lang) {
 }
 
 // ============================================================
-// 9. READING MODE TOGGLE
+// 10. READING MODE TOGGLE
 // ============================================================
 function toggleReadingMode() {
     document.body.classList.toggle('reading-mode');
@@ -222,9 +270,11 @@ function toggleReadingMode() {
     if (document.body.classList.contains('reading-mode')) {
         btn.innerHTML = '☀️ Normal Mode';
         localStorage.setItem('readingMode', 'enabled');
+        showToast('📖 Reading Mode Activated', 'success');
     } else {
         btn.innerHTML = '📖 Reading Mode';
         localStorage.setItem('readingMode', 'disabled');
+        showToast('☀️ Normal Mode Activated', 'success');
     }
 }
 
@@ -240,60 +290,12 @@ function loadReadingMode() {
 }
 
 // ============================================================
-// 10. COPY CHAPTER LINK
-// ============================================================
-function copyChapterLink(chapterNum) {
-    const url = window.location.href.split('#')[0] + `#chapter${chapterNum}`;
-    
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(() => {
-            showCopyFeedback(chapterNum);
-        }).catch(() => {
-            fallbackCopy(url, chapterNum);
-        });
-    } else {
-        fallbackCopy(url, chapterNum);
-    }
-}
-
-function fallbackCopy(text, chapterNum) {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.style.position = 'fixed';
-    textarea.style.opacity = '0';
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textarea);
-    showCopyFeedback(chapterNum);
-}
-
-function showCopyFeedback(chapterNum) {
-    const containerId = currentLang === 'en' ? 'chaptersEn' : 'chaptersHi';
-    const container = document.getElementById(containerId);
-    const chapter = container.querySelector(`.chapter[data-chapter="${chapterNum}"]`);
-    
-    if (chapter) {
-        const btn = chapter.querySelector('.copy-link-btn');
-        if (btn) {
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '✅ Copied!';
-            btn.classList.add('copied');
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.classList.remove('copied');
-            }, 2000);
-        }
-    }
-    showToast('✅ Link copied!', 'success');
-}
-
-// ============================================================
 // 11. GOOGLE TRANSLATE
 // ============================================================
 function openGoogleTranslate() {
     const url = window.location.href;
     window.open('https://translate.google.com/translate?sl=auto&tl=hi&u=' + encodeURIComponent(url), '_blank');
+    showToast('🌐 Opening Google Translate...', 'success');
 }
 
 // ============================================================
@@ -324,6 +326,7 @@ function openModal() {
     if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        showToast('📥 Select your language', 'success');
     }
 }
 
@@ -335,6 +338,7 @@ function closeModal() {
     }
 }
 
+// Close modal on outside click
 document.addEventListener('click', function(e) {
     const modal = document.getElementById('downloadModal');
     if (modal && modal.classList.contains('active')) {
@@ -344,6 +348,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// Close modal on ESC key
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeModal();
@@ -358,24 +363,8 @@ function handleChapterHash() {
     if (hash && hash.startsWith('#chapter')) {
         const chapterNum = parseInt(hash.replace('#chapter', ''));
         if (!isNaN(chapterNum) && chapterNum >= 1 && chapterNum <= totalChapters) {
-            const containerId = currentLang === 'en' ? 'chaptersEn' : 'chaptersHi';
-            const container = document.getElementById(containerId);
-            const chapters = container.querySelectorAll('.chapter');
-            
-            chapters.forEach((ch, index) => {
-                if (index === chapterNum - 1) {
-                    ch.classList.add('active');
-                } else {
-                    ch.classList.remove('active');
-                }
-            });
-            
-            updateAllButtons(currentLang);
-            updateProgressInfo(currentLang);
-            updateDots(currentLang);
-            
             setTimeout(function() {
-                scrollToChapterHeading(currentLang);
+                goToChapter(currentLang, chapterNum);
             }, 300);
         }
     }
@@ -390,52 +379,221 @@ function setupDotNavigation() {
         dot.addEventListener('click', function() {
             const chapterNum = parseInt(this.dataset.dot);
             if (!isNaN(chapterNum)) {
-                const containerId = currentLang === 'en' ? 'chaptersEn' : 'chaptersHi';
-                const container = document.getElementById(containerId);
-                const chapters = container.querySelectorAll('.chapter');
-                
-                chapters.forEach((ch, index) => {
-                    if (index === chapterNum - 1) {
-                        ch.classList.add('active');
-                    } else {
-                        ch.classList.remove('active');
-                    }
-                });
-                
-                updateAllButtons(currentLang);
-                updateProgressInfo(currentLang);
-                updateDots(currentLang);
-                
-                setTimeout(function() {
-                    scrollToChapterHeading(currentLang);
-                }, 150);
+                goToChapter(currentLang, chapterNum);
+                showToast(`📖 Chapter ${chapterNum}`, 'success');
             }
         });
     });
 }
 
 // ============================================================
-// 16. INITIALIZATION
+// 16. KEYBOARD SHORTCUTS (Arrow Keys)
+// ============================================================
+document.addEventListener('keydown', function(e) {
+    // Arrow Right - Next Chapter
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        const containerId = currentLang === 'en' ? 'chaptersEn' : 'chaptersHi';
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        const chapters = container.querySelectorAll('.chapter');
+        let currentIndex = -1;
+        
+        chapters.forEach((ch, index) => {
+            if (ch.classList.contains('active')) {
+                currentIndex = index;
+            }
+        });
+        
+        if (currentIndex !== -1 && currentIndex < chapters.length - 1) {
+            nextChapter(currentLang);
+        }
+    }
+    
+    // Arrow Left - Previous Chapter
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const containerId = currentLang === 'en' ? 'chaptersEn' : 'chaptersHi';
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        const chapters = container.querySelectorAll('.chapter');
+        let currentIndex = -1;
+        
+        chapters.forEach((ch, index) => {
+            if (ch.classList.contains('active')) {
+                currentIndex = index;
+            }
+        });
+        
+        if (currentIndex > 0) {
+            prevChapter(currentLang);
+        }
+    }
+});
+
+// ============================================================
+// 17. SAVE LAST READ CHAPTER
+// ============================================================
+function saveLastReadChapter(lang, chapterNum) {
+    try {
+        localStorage.setItem('lastChapter', chapterNum);
+        localStorage.setItem('lastLang', lang);
+    } catch(e) {
+        // Ignore
+    }
+}
+
+function loadLastReadChapter() {
+    try {
+        const savedChapter = localStorage.getItem('lastChapter');
+        const savedLang = localStorage.getItem('lastLang');
+        
+        if (savedChapter && savedLang) {
+            const chapterNum = parseInt(savedChapter);
+            if (!isNaN(chapterNum) && chapterNum >= 1 && chapterNum <= totalChapters) {
+                // Switch to saved language
+                if (savedLang !== currentLang) {
+                    switchLang(savedLang);
+                }
+                // Go to saved chapter
+                setTimeout(function() {
+                    goToChapter(savedLang, chapterNum);
+                }, 400);
+                return true;
+            }
+        }
+    } catch(e) {
+        // Ignore
+    }
+    return false;
+}
+
+// Override goToChapter to save last read
+const originalGoToChapter = goToChapter;
+goToChapter = function(lang, chapterNum) {
+    originalGoToChapter(lang, chapterNum);
+    saveLastReadChapter(lang, chapterNum);
+};
+
+// Override nextChapter to save
+const originalNextChapter = nextChapter;
+nextChapter = function(lang) {
+    originalNextChapter(lang);
+    const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    const chapters = container.querySelectorAll('.chapter');
+    chapters.forEach((ch, index) => {
+        if (ch.classList.contains('active')) {
+            saveLastReadChapter(lang, index + 1);
+        }
+    });
+};
+
+// Override prevChapter to save
+const originalPrevChapter = prevChapter;
+prevChapter = function(lang) {
+    originalPrevChapter(lang);
+    const containerId = lang === 'en' ? 'chaptersEn' : 'chaptersHi';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    const chapters = container.querySelectorAll('.chapter');
+    chapters.forEach((ch, index) => {
+        if (ch.classList.contains('active')) {
+            saveLastReadChapter(lang, index + 1);
+        }
+    });
+};
+
+// Override resetChapters to save
+const originalResetChapters = resetChapters;
+resetChapters = function(lang) {
+    originalResetChapters(lang);
+    saveLastReadChapter(lang, 1);
+};
+
+// ============================================================
+// 18. SWIPE GESTURES FOR MOBILE
+// ============================================================
+let touchStartX = 0;
+let touchEndX = 0;
+let touchStartY = 0;
+let touchEndY = 0;
+
+document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+
+document.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const diffX = touchStartX - touchEndX;
+    const diffY = touchStartY - touchEndY;
+    
+    // Only handle horizontal swipes (ignore vertical)
+    if (Math.abs(diffX) < Math.abs(diffY)) return;
+    
+    if (Math.abs(diffX) > swipeThreshold) {
+        if (diffX > 0) {
+            // Swipe Left → Next Chapter
+            nextChapter(currentLang);
+        } else {
+            // Swipe Right → Previous Chapter
+            prevChapter(currentLang);
+        }
+    }
+}
+
+// ============================================================
+// 19. INITIALIZATION
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     currentLang = 'en';
     
+    // Show English chapters by default
     document.getElementById('chaptersEn').style.display = 'block';
     document.getElementById('chaptersHi').style.display = 'none';
     
-    resetChapters('en');
+    // Load reading mode preference
     loadReadingMode();
+    
+    // Try to load last read chapter
+    const hasLastRead = loadLastReadChapter();
+    
+    // If no last read, reset to chapter 1
+    if (!hasLastRead) {
+        resetChapters('en');
+    }
+    
+    // Handle URL hash
     handleChapterHash();
+    
+    // Setup dot navigation
     setupDotNavigation();
+    
+    // Show welcome toast
+    setTimeout(function() {
+        showToast('📖 Welcome to My Autobiography!', 'success');
+    }, 500);
 });
 
 // ============================================================
-// 17. EXPOSE FUNCTIONS TO GLOBAL SCOPE
+// 20. EXPOSE FUNCTIONS TO GLOBAL SCOPE
 // ============================================================
 window.switchLang = switchLang;
 window.nextChapter = nextChapter;
 window.prevChapter = prevChapter;
-window.copyChapterLink = copyChapterLink;
+window.goToChapter = goToChapter;
 window.openGoogleTranslate = openGoogleTranslate;
 window.toggleReadingMode = toggleReadingMode;
 window.openModal = openModal;
