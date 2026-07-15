@@ -1,58 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="Ravi Raj - Student Portfolio, Web Developer from Begusarai, Bihar. 12th grade student passionate about web development.">
-    <meta name="keywords" content="Ravi Raj, Portfolio, Student, Web Developer, Begusarai, Bihar">
-    <meta name="author" content="Ravi Raj">
-    <meta property="og:title" content="Ravi Raj | Academic Portfolio">
-    <meta property="og:description" content="Passionate 12th-grade student building modern web experiences.">
-    <meta property="og:type" content="website">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="description" content="Ravi Raj — Student, Web Developer, and lifelong learner from Begusarai, Bihar. Building modern web experiences." />
+    <meta name="keywords" content="Ravi Raj, Portfolio, Student, Web Developer, Begusarai, Bihar, Personal Website" />
+    <meta name="author" content="Ravi Raj" />
+    <meta property="og:title" content="Ravi Raj | Personal Website" />
+    <meta property="og:description" content="Passionate 12th-grade student building modern web experiences." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ravirajhere.github.io" />
     
-    <title>Ravi Raj | Portfolio Website</title>
+    <title>Ravi Raj | Personal Website</title>
     
-    <!-- Fonts & Icons -->
-    <link rel="icon" type="image/png" href="favicon.png?v=1">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png?v=1" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    
-    <!-- Theme Toggle Button -->
-    <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
-    
-    <!-- Matrix Background -->
+
+    <!-- ============================================================
+    PREMIUM THEME TOGGLE — 3D + GLOW + GLASS
+    ============================================================ -->
+    <button id="theme-toggle" class="theme-btn premium-toggle" aria-label="Toggle theme">
+        <span class="toggle-icon">🌙</span>
+        <span class="toggle-tooltip">Switch to Light Mode</span>
+    </button>
+
+    <!-- ============================================================
+    MATRIX BACKGROUND
+    ============================================================ -->
     <canvas id="matrix-bg" aria-hidden="true"></canvas>
-    
-    <!-- Navigation -->
+
+    <!-- ============================================================
+    NAVIGATION — Active Highlight + Hover Effect
+    ============================================================ -->
     <nav role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="logo">
                 Singh<span>_Ravirajhere</span>
             </div>
             <ul class="nav-links">
-                <li><a href="#home" aria-current="page">Home</a></li>
+                <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
-    
-    <!-- Main Container -->
+
+    <!-- ============================================================
+    MAIN CONTAINER
+    ============================================================ -->
     <main class="container">
-        
-        <!-- Hero Section -->
+
+        <!-- ============================================================
+        HERO SECTION — Clean + Mission Line + Typing Effect
+        ============================================================ -->
         <section id="home" class="hero" aria-labelledby="hero-title">
 
+            <!-- Social Trigger — Smooth Animation -->
             <div class="social-wrapper">
                 <div class="social-trigger" id="triggerBtn">
                     <span>@rravirajhere</span>
@@ -71,7 +91,7 @@
                     <a href="https://youtube.com/@Ravirajhere" target="_blank" class="social-icon-item" title="YouTube">
                         <i class="fab fa-youtube"></i>
                     </a>
-                    <a href="#" onclick="alert('GitHub Coming Soon!'); return false;" class="social-icon-item" title="GitHub">
+                    <a href="https://github.com/ravirajhere" target="_blank" class="social-icon-item" title="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
                     <a href="#" onclick="alert('Facebook Coming Soon!'); return false;" class="social-icon-item" title="Facebook">
@@ -79,76 +99,90 @@
                     </a>
                 </div>
             </div>
-            
+
+            <!-- Hero Image -->
             <img 
                 src="Singh_ravirajhere.jpeg" 
-                alt="Ravi Raj - Student and Web Developer" 
+                alt="Ravi Raj — Student and Web Developer" 
                 id="hero-photo" 
                 class="hero-image fly-in-photo" 
                 loading="eager"
                 width="160" 
                 height="160"
-            >
-            
+            />
+
+            <!-- Title -->
             <h1 id="hero-title" class="hero-title">RaviRaj</h1>
-            
+
+            <!-- Subtitle with Typing Effect -->
             <h2 class="hero-subtitle">
-                <span>Student</span> - Web Developer
+                <span>Student</span> — Web Developer
+                <span class="typing-text">| Building the web, one line at a time</span>
             </h2>
-            
+
+            <!-- Description -->
             <p class="hero-desc">
                 Passionate 12th-grade student building modern web experiences with HTML, CSS, and Python.
                 I turn ideas into code and love learning new technologies every day.
             </p>
-            
+
+            <!-- Hero Actions — Only 2 CTAs -->
             <div class="hero-actions">
-                <a href="resume-pdf.html" target="_blank" class="btn btn-primary">
-                    📄 Resume PDF
-                </a>
+                <a href="resume-pdf.html" target="_blank" class="btn btn-primary">📄 Resume PDF</a>
                 <a href="#contactBtn" class="btn btn-secondary">Get In Touch</a>
             </div>
-            
+
+            <!-- Stats with Icons -->
             <div class="hero-stats">
                 <div class="stat-item">
+                    <span class="stat-icon">📚</span>
                     <span class="stat-number">2+</span>
                     <span class="stat-label">Years Learning</span>
                 </div>
                 <div class="stat-item">
+                    <span class="stat-icon">🚀</span>
                     <span class="stat-number">2+</span>
                     <span class="stat-label">Projects Built</span>
                 </div>
                 <div class="stat-item">
+                    <span class="stat-icon">🛠️</span>
                     <span class="stat-number">3</span>
                     <span class="stat-label">Tech Stack</span>
                 </div>
                 <div class="stat-item">
+                    <span class="stat-icon">💯</span>
                     <span class="stat-number">100%</span>
                     <span class="stat-label">Dedication</span>
                 </div>
             </div>
-            
+
+            <!-- Tags with Hover Effect + Learning Badge -->
             <div class="hero-tags">
                 <span class="tag">HTML5</span>
                 <span class="tag">CSS3</span>
                 <span class="tag">Python</span>
                 <span class="tag">JavaScript</span>
                 <span class="tag">Responsive Design</span>
+                <span class="tag learning-badge">📚 Learning React</span>
             </div>
-            
+
+            <!-- CTA Buttons -->
             <div class="cta-buttons">
                 <a href="#projects" class="btn btn-primary">View My Work</a>
                 <a href="#contactBtn" class="btn btn-secondary">Get In Touch</a>
             </div>
         </section>
-        
-        <!-- About Section -->
+
+        <!-- ============================================================
+        ABOUT SECTION — Personal Story + Journey
+        ============================================================ -->
         <section id="about" aria-labelledby="about-title">
             <div class="section-header">
                 <div class="section-label">ABOUT ME</div>
                 <h2 id="about-title" class="section-title">Know Who I Am</h2>
                 <p class="section-desc">My introduction, journey, and what drives me to code</p>
             </div>
-            
+
             <div class="about-content">
                 <div class="about-text">
                     <h3>Hello! I'm Ravi Raj</h3>
@@ -156,27 +190,27 @@
                         A passionate <strong>Student</strong> and <strong>12th-grade student</strong> from Bandwar, Begusarai, Bihar.
                         My coding journey started in 2023, and since then, I've been obsessed with creating beautiful, functional websites.
                     </p>
-                    
+
                     <h3>My Journey</h3>
                     <p>
                         I started with basic HTML and CSS, and now I'm diving deep into JavaScript and Python.
-                        Every day I challenge myself to learn something new. I believe in <strong>learning by building</strong> -
+                        Every day I challenge myself to learn something new. I believe in <strong>learning by building</strong> —
                         that's why I create projects constantly to improve my skills.
                     </p>
-                    
+
                     <h3>What I Do</h3>
                     <p>
                         I specialize in building <strong>responsive, modern websites</strong> that work perfectly on all devices.
                         From landing pages to portfolio sites, I focus on clean code, great design, and smooth user experience.
                     </p>
-                    
+
                     <h3>My Goal</h3>
                     <p>
                         To become a <strong>Full-Stack Developer</strong> and work on projects that make a real impact.
                         Currently mastering frontend technologies while exploring backend with Python.
                     </p>
                 </div>
-                
+
                 <div class="about-card">
                     <h4>Quick Info</h4>
                     <div class="info-item">
@@ -206,284 +240,292 @@
                 </div>
             </div>
         </section>
-        
-        <!-- Skills Section -->
+
+        <!-- ============================================================
+        SKILLS SECTION — Animated Bars on Scroll + Gradient
+        ============================================================ -->
         <section id="skills" aria-labelledby="skills-title">
             <div class="section-header">
                 <div class="section-label">MY SKILLS</div>
                 <h2 id="skills-title" class="section-title">Technologies I Work With</h2>
                 <p class="section-desc">Tools and technologies I'm proficient in and currently learning</p>
             </div>
-            
+
             <div class="skills-container">
+                <!-- Frontend -->
                 <div class="skill-box">
-                    <h3>
-                        <span class="skill-icon" aria-hidden="true">🎨</span> 
-                        Frontend
-                    </h3>
+                    <h3><span class="skill-icon">🎨</span> Frontend</h3>
                     <div class="skill-item">
-                        <div class="skill-name">
-                            <span>HTML5</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" style="width:75%" data-width="75%"></div>
-                        </div>
+                        <div class="skill-name"><span>HTML5</span><span>75%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75%"></div></div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-name">
-                            <span>CSS3</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" style="width:80%" data-width="80%"></div>
-                        </div>
+                        <div class="skill-name"><span>CSS3</span><span>80%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80%"></div></div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-name">
-                            <span>JavaScript</span>
-                            <span>50%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" style="width:50%" data-width="50%"></div>
-                        </div>
+                        <div class="skill-name"><span>JavaScript</span><span>50%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="50%"></div></div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Responsive Design</span>
-                            <span>70%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" style="width:70%" data-width="70%"></div>
-                        </div>
+                        <div class="skill-name"><span>Responsive Design</span><span>70%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70%"></div></div>
                     </div>
                 </div>
-                
+
+                <!-- Backend -->
                 <div class="skill-box">
-                    <h3>
-                        <span class="skill-icon" aria-hidden="true">⚙️</span> 
-                        Backend
-                    </h3>
+                    <h3><span class="skill-icon">⚙️</span> Backend</h3>
                     <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Python</span>
-                            <span>50%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" style="width:50%" data-width="50%"></div>
-                        </div>
+                        <div class="skill-name"><span>Python</span><span>50%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="50%"></div></div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Learning Node.js</span>
-                            <span>20%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" style="width:20%" data-width="20%"></div>
-                        </div>
+                        <div class="skill-name"><span>Node.js</span><span style="color:var(--accent);">Learning</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill learning-fill" data-width="20%"></div></div>
                     </div>
                 </div>
-                
+
+                <!-- Tools -->
                 <div class="skill-box">
-                    <h3>
-                        <span class="skill-icon" aria-hidden="true">🛠️</span> 
-                        Tools & Others
-                    </h3>
+                    <h3><span class="skill-icon">🛠️</span> Tools & Others</h3>
                     <div class="skill-item">
-                        <div class="skill-name">
-                            <span>VS Code</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" style="width:85%" data-width="85%"></div>
-                        </div>
+                        <div class="skill-name"><span>VS Code</span><span>85%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Git & GitHub</span>
-                            <span>60%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" style="width:60%" data-width="60%"></div>
-                        </div>
+                        <div class="skill-name"><span>Git & GitHub</span><span>60%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="60%"></div></div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Chrome DevTools</span>
-                            <span>70%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" style="width:70%" data-width="70%"></div>
-                        </div>
+                        <div class="skill-name"><span>Chrome DevTools</span><span>70%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70%"></div></div>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- Projects Section -->
+
+        <!-- ============================================================
+        PROJECTS SECTION — Glassmorphism Cards + Hover 3D
+        ============================================================ -->
         <section id="projects" aria-labelledby="projects-title">
-    <div class="section-header">
-        <div class="section-label">MY WORK</div>
-        <h2 id="projects-title" class="section-title">Featured Projects</h2>
-        <p class="section-desc">Some of my recent work and projects I'm proud of</p>
-    </div>
-    
-    <div class="projects-grid">
-        <!-- Project 1: Autobiography -->
-        <article class="project-card" role="article" aria-label="Project: Autobiography">
-            <div class="project-card-header">
-                <span class="project-title">Autobiography</span>
-                <span class="project-version">v1.0</span>
+            <div class="section-header">
+                <div class="section-label">MY WORK</div>
+                <h2 id="projects-title" class="section-title">Featured Projects</h2>
+                <p class="section-desc">Some of my recent work and projects I'm proud of</p>
             </div>
-            <div class="project-card-body">
-                <h2 class="project-title">📖 My Autobiography</h2>
-                <p class="project-desc">
-                    Personal life story, childhood memories, education journey, 
-                    and future aspirations — a complete timeline of my life so far.
-                </p>
-                <div class="project-tech" role="list">
-                    <span class="tech-badge" role="listitem">HTML5</span>
-                    <span class="tech-badge" role="listitem">CSS3</span>
-                    <span class="tech-badge" role="listitem">JavaScript</span>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card">
+                    <div class="project-card-header">
+                        <span class="project-title">Autobiography</span>
+                        <span class="project-version">v1.0</span>
+                    </div>
+                    <div class="project-card-body">
+                        <h2 class="project-title">📖 My Autobiography</h2>
+                        <p class="project-desc">
+                            Personal life story, childhood memories, education journey,
+                            and future aspirations — a complete timeline of my life so far.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS3</span>
+                            <span class="tech-badge">JavaScript</span>
+                        </div>
+                        <nav class="project-links">
+                            <a href="autobiography.html" class="project-link">→ Live Demo</a>
+                            <a href="https://github.com/ravirajhere/ravirajhere.github.io/blob/main/autobiography.html" class="project-link" target="_blank">→ Source Code</a>
+                        </nav>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card featured">
+                    <div class="project-card-header project-card-featured">
+                        <span class="project-title">Chatbox</span>
+                        <span class="project-version">v1.0</span>
+                    </div>
+                    <div class="project-card-body">
+                        <h2 class="project-title">💬 Chatbox Application</h2>
+                        <p class="project-desc">
+                            Interactive chat interface with real-time messaging, emoji support,
+                            and local storage for saving conversations.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS3</span>
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">LocalStorage</span>
+                        </div>
+                        <nav class="project-links">
+                            <a href="chatbox.html" class="project-link">→ Live Demo</a>
+                            <a href="https://github.com/ravirajhere/ravirajhere.github.io/blob/main/chatbox.html" class="project-link" target="_blank">→ Source Code</a>
+                        </nav>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card">
+                    <div class="project-card-header">
+                        <span class="project-title">Friends Gallery</span>
+                        <span class="project-version">v1.0</span>
+                    </div>
+                    <div class="project-card-body">
+                        <h2 class="project-title">👥 Friends Gallery</h2>
+                        <p class="project-desc">
+                            Beautiful photo gallery showcasing memories with friends. Features lightbox view,
+                            category filters, and smooth animations.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS3</span>
+                            <span class="tech-badge">JavaScript</span>
+                        </div>
+                        <nav class="project-links">
+                            <a href="friends.html" class="project-link">→ Live Demo</a>
+                            <a href="https://github.com/ravirajhere/ravirajhere.github.io/blob/main/friends.html" class="project-link" target="_blank">→ Source Code</a>
+                        </nav>
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article class="project-card">
+                    <div class="project-card-header project-card-featured">
+                        <span class="project-title">Resume</span>
+                        <span class="project-version">v1.0</span>
+                    </div>
+                    <div class="project-card-body">
+                        <h2 class="project-title">📄 My Resume</h2>
+                        <p class="project-desc">
+                            Professional resume with education details, skills, projects,
+                            and work experience. Clean, modern, and printable design.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS3</span>
+                            <span class="tech-badge">JavaScript</span>
+                        </div>
+                        <nav class="project-links">
+                            <a href="resume-pdf.html" class="project-link">→ Live Demo</a>
+                            <a href="https://github.com/ravirajhere/ravirajhere.github.io/blob/main/resume-pdf.html" class="project-link" target="_blank">→ Source Code</a>
+                        </nav>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Upcoming Projects -->
+            <div class="upcoming-projects">
+                <h3>🔜 Upcoming Projects</h3>
+                <div class="upcoming-grid">
+                    <div class="upcoming-card">
+                        <span class="upcoming-badge">Planning</span>
+                        <h4>E-Commerce Website</h4>
+                        <p>Full-featured online store with cart and payment integration.</p>
+                    </div>
+                    <div class="upcoming-card">
+                        <span class="upcoming-badge">Idea</span>
+                        <h4>Blog Platform</h4>
+                        <p>Personal blogging engine where I'll share my coding journey.</p>
+                    </div>
                 </div>
-                <nav class="project-links" aria-label="Project links for Autobiography">
-                    <a href="autobiography.html" class="project-link" rel="noopener noreferrer">
-                        <span aria-hidden="true">→</span> Live Demo
-                    </a>
-                    <a href="https://github.com/ravirajhere/ravirajhere.github.io/blob/main/autobiography.html" class="project-link" target="_blank" rel="noopener noreferrer">
-                        <span aria-hidden="true">→</span> Source Code
-                    </a>
-                </nav>
             </div>
-        </article>
-        
-        <!-- Project 2: Chatbox -->
-        <article class="project-card" role="article" aria-label="Project: Chatbox">
-            <div class="project-card-header project-card-featured">
-                <span class="project-title">Chatbox</span>
-                <span class="project-version">v1.0</span>
+        </section>
+
+        <!-- ============================================================
+        BLOG SECTION — Cards with Date + Category + Hover
+        ============================================================ -->
+        <section id="blog" aria-labelledby="blog-title">
+            <div class="section-header">
+                <div class="section-label">MY BLOG</div>
+                <h2 id="blog-title" class="section-title">Writings & Thoughts</h2>
+                <p class="section-desc">My experiences, learnings, and stories from my coding journey</p>
             </div>
-            <div class="project-card-body">
-                <h2 class="project-title">💬 Chatbox Application</h2>
-                <p class="project-desc">
-                    Interactive chat interface with real-time messaging, emoji support, 
-                    and local storage for saving conversations.
-                </p>
-                <div class="project-tech" role="list">
-                    <span class="tech-badge" role="listitem">HTML5</span>
-                    <span class="tech-badge" role="listitem">CSS3</span>
-                    <span class="tech-badge" role="listitem">JavaScript</span>
-                    <span class="tech-badge" role="listitem">LocalStorage</span>
-                </div>
-                <nav class="project-links" aria-label="Project links for Chatbox">
-                    <a href="chatbox.html" class="project-link" rel="noopener noreferrer">
-                        <span aria-hidden="true">→</span> Live Demo
-                    </a>
-                    <a href="https://github.com/ravirajhere/ravirajhere.github.io/blob/main/chatbox.html" class="project-link" target="_blank" rel="noopener noreferrer">
-                        <span aria-hidden="true">→</span> Source Code
-                    </a>
-                </nav>
+
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-meta">
+                        <span class="blog-date">June 2026</span>
+                        <span class="blog-category">Journey</span>
+                    </div>
+                    <h3 class="blog-title">How I Started My Coding Journey</h3>
+                    <p class="blog-excerpt">
+                        From writing my first "Hello World" in HTML to building full websites —
+                        here's how a 12th grader fell in love with code...
+                    </p>
+                    <a href="#" class="blog-readmore">Read More →</a>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-meta">
+                        <span class="blog-date">July 2026</span>
+                        <span class="blog-category">Life</span>
+                    </div>
+                    <h3 class="blog-title">Life as a 12th Grader Who Codes</h3>
+                    <p class="blog-excerpt">
+                        Balancing studies, exams, and building websites — it's not easy,
+                        but here's how I manage my time and stay motivated...
+                    </p>
+                    <a href="#" class="blog-readmore">Read More →</a>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-meta">
+                        <span class="blog-date">July 2026</span>
+                        <span class="blog-category">Tech</span>
+                    </div>
+                    <h3 class="blog-title">Why I Love JavaScript (And You Should Too)</h3>
+                    <p class="blog-excerpt">
+                        JavaScript changed everything for me. From static pages to interactive
+                        experiences — here's why it's my favorite language...
+                    </p>
+                    <a href="#" class="blog-readmore">Read More →</a>
+                </article>
             </div>
-        </article>
-        
-        <!-- Project 3: Friends Gallery -->
-        <article class="project-card" role="article" aria-label="Project: Friends Gallery">
-            <div class="project-card-header">
-                <span class="project-title">Friends Gallery</span>
-                <span class="project-version">v1.0</span>
-            </div>
-            <div class="project-card-body">
-                <h2 class="project-title">👥 Friends Gallery</h2>
-                <p class="project-desc">
-                    Beautiful photo gallery showcasing memories with friends. Features lightbox view, 
-                    category filters, and smooth animations.
-                </p>
-                <div class="project-tech" role="list">
-                    <span class="tech-badge" role="listitem">HTML5</span>
-                    <span class="tech-badge" role="listitem">CSS3</span>
-                    <span class="tech-badge" role="listitem">JavaScript</span>
-                </div>
-                <nav class="project-links" aria-label="Project links for Friends Gallery">
-                    <a href="friends.html" class="project-link" rel="noopener noreferrer">
-                        <span aria-hidden="true">→</span> Live Demo
-                    </a>
-                    <a href="https://github.com/ravirajhere/ravirajhere.github.io/blob/main/friends.html" class="project-link" target="_blank" rel="noopener noreferrer">
-                        <span aria-hidden="true">→</span> Source Code
-                    </a>
-                </nav>
-            </div>
-        </article>
-        
-        <!-- Project 4: Resume -->
-        <article class="project-card" role="article" aria-label="Project: Resume">
-            <div class="project-card-header project-card-featured">
-                <span class="project-title">Resume</span>
-                <span class="project-version">v1.0</span>
-            </div>
-            <div class="project-card-body">
-                <h2 class="project-title">📄 My Resume</h2>
-                <p class="project-desc">
-                    Professional resume with education details, skills, projects, 
-                    and work experience. Clean, modern, and printable design.
-                </p>
-                <div class="project-tech" role="list">
-                    <span class="tech-badge" role="listitem">HTML5</span>
-                    <span class="tech-badge" role="listitem">CSS3</span>
-                    <span class="tech-badge" role="listitem">JavaScript</span>
-                </div>
-                <nav class="project-links" aria-label="Project links for Resume">
-                    <a href="resume-pdf.html" class="project-link" rel="noopener noreferrer">
-                        <span aria-hidden="true">→</span> Live Demo
-                    </a>
-                    <a href="https://github.com/ravirajhere/ravirajhere.github.io/blob/main/resume-pdf.html" class="project-link" target="_blank" rel="noopener noreferrer">
-                        <span aria-hidden="true">→</span> Source Code
-                    </a>
-                </nav>
-            </div>
-        </article>
-    </div>
-</section>
-        
-        <!-- Education Section -->
+        </section>
+
+        <!-- ============================================================
+        EDUCATION SECTION — Upgraded (Planning instead of To be updated)
+        ============================================================ -->
         <section id="education" aria-labelledby="education-title">
             <div class="section-header">
                 <div class="section-label">EDUCATION</div>
                 <h2 id="education-title" class="section-title">Academic Journey</h2>
                 <p class="section-desc">My educational background and learning path</p>
             </div>
-            
+
             <div class="education-grid">
                 <div class="education-card">
-                    <div class="education-badge">To be updated</div>
+                    <div class="education-badge">Planning</div>
                     <h3>GRADUATION</h3>
-                    <p>Not Admitted in College Yet.</p>
+                    <p>Planning for college admission in 2026.</p>
                 </div>
-                
+
                 <div class="education-card">
-                    <div class="education-badge">2024 - 2026</div>
+                    <div class="education-badge">2024 – 2026</div>
                     <h3>SENIOR SECONDARY</h3>
                     <h4>Udaan International School, Begusarai</h4>
                     <p>Completed 12th standard with Physics, Chemistry, Maths.</p>
                 </div>
-                
+
                 <div class="education-card">
-                    <div class="education-badge">2019 - 2024</div>
+                    <div class="education-badge">2019 – 2024</div>
                     <h3>SECONDARY</h3>
                     <h4>Mother's Pride International Sr. Sec. Anglo Public School, Begusarai</h4>
                     <p>Completed 10th standard. Discovered passion for coding.</p>
                 </div>
-                
+
                 <div class="education-card">
-                    <div class="education-badge">2014 - 2019</div>
+                    <div class="education-badge">2014 – 2019</div>
                     <h3>PRIMARY</h3>
                     <h4>Gautam Buddha Global School, Begusarai</h4>
                     <p>Completed Primary Education to 5th Standard.</p>
                 </div>
             </div>
         </section>
-        
-                <!-- ============================================================
-               CONTACT SECTION
+
+        <!-- ============================================================
+        CONTACT SECTION — + Online Status (Real)
         ============================================================ -->
         <section id="contact" aria-labelledby="contact-title">
             <div class="section-header">
@@ -491,127 +533,144 @@
                 <h2 id="contact-title" class="section-title">Let's Work Together</h2>
                 <p class="section-desc">Have a project in mind? Let's talk</p>
             </div>
-            
+
             <div class="contact-wrapper">
                 <div class="contact-cta">
                     <h3>Ready to start your project?</h3>
                     <p>I'm currently available for freelance work and open to new opportunities. Feel free to reach out if you want to collaborate!</p>
+                    <p class="online-status">
+                        <span class="green-dot">🟢</span> Online — Usually replies within 24 hours
+                    </p>
                 </div>
             </div>
         </section>
 
         <!-- ============================================================
-     CONTACT ME BUTTON
-============================================================ -->
-<div class="contact-btn-wrapper">
-    <button onclick="showContactOptions()" class="contact-btn" id="contactBtn">
-        <span class="contact-btn-icon">💬</span>
-        <span class="contact-btn-label">Contact Me</span>
-    </button>
-</div>
-
-<!-- ============================================================
-     CONTACT MODAL — SAME STYLE AS RJ ACHIEVE
-============================================================ -->
-<div class="rj-modal" id="contactModal">
-    <div class="rj-modal-content">
-        <span class="rj-modal-close" onclick="closeContactModal()">✕</span>
-        <h2>📬 Contact Me</h2>
-        <p>Choose how you want to connect:</p>
-        <div class="rj-modal-grid">
-            
-            <!-- Option 1: AI Chatbox -->
-            <div class="rj-modal-item" onclick="window.location.href='chatbox.html'">
-                <span>🤖</span>
-                <h4>AI Chatbox</h4>
-                <p>Chat with RaviRaj's AI</p>
-            </div>
-
-            <!-- Option 2: Send a Message -->
-            <div class="rj-modal-item" onclick="window.location.href='emailjs.html'">
-                <span>✉️</span>
-                <h4>Send a Message</h4>
-                <p>I'll reply within 24hrs</p>
-            </div>
-
+        CONTACT BUTTON — SAME
+        ============================================================ -->
+        <div class="contact-btn-wrapper">
+            <button onclick="showContactOptions()" class="contact-btn" id="contactBtn">
+                <span class="contact-btn-icon">💬</span>
+                <span class="contact-btn-label">Contact Me</span>
+            </button>
         </div>
-    </div>
-</div>
 
         <!-- ============================================================
-               RJ ACHIEVE MODAL
+        CONTACT MODAL — Glassmorphism + Animation
         ============================================================ -->
-<div class="achieve-footer-btn">
-    <button onclick="openRJModal()" class="btn-achieve">
-        <span>🏆</span> RJ's Achieve
-    </button>
-</div>
-        
+        <div class="rj-modal" id="contactModal">
+            <div class="rj-modal-content">
+                <span class="rj-modal-close" onclick="closeContactModal()">✕</span>
+                <h2>📬 Contact Me</h2>
+                <p>Choose how you want to connect:</p>
+                <div class="rj-modal-grid">
+                    <div class="rj-modal-item" onclick="window.location.href='chatbox.html'">
+                        <span>🤖</span>
+                        <h4>AI Chatbox</h4>
+                        <p>Chat with RaviRaj's AI</p>
+                    </div>
+                    <div class="rj-modal-item" onclick="window.location.href='emailjs.html'">
+                        <span>✉️</span>
+                        <h4>Send a Message</h4>
+                        <p>I'll reply within 24hrs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ACHIEVE BUTTON — SAME
+        ============================================================ -->
+        <div class="achieve-footer-btn">
+            <button onclick="openRJModal()" class="btn-achieve">
+                <span>🏆</span> RJ's Achieve
+            </button>
+        </div>
+
+        <!-- ============================================================
+        ACHIEVE MODAL — Glassmorphism + Animation
+        ============================================================ -->
         <div class="rj-modal" id="rjModal">
             <div class="rj-modal-content">
                 <span class="rj-modal-close" onclick="closeRJModal()">✕</span>
                 <h2>📥 Achieve</h2>
                 <p>Choose what you want to explore:</p>
                 <div class="rj-modal-grid">
-                    
                     <div class="rj-modal-item" onclick="window.location.href='friends.html'">
                         <span>👥</span>
                         <h4>Friends</h4>
                         <p>Beloved Circle</p>
                     </div>
-
                     <div class="rj-modal-item" onclick="openAchieveModal('experience')">
                         <span>💼</span>
                         <h4>Experience</h4>
                         <p>📌 Updating Soon</p>
                     </div>
-
                     <div class="rj-modal-item" onclick="openAchieveModal('memories')">
                         <span>📸</span>
                         <h4>Photo Zone</h4>
                         <p>🛠️ Updating Soon</p>
                     </div>
-
                     <div class="rj-modal-item" onclick="window.location.href='autobiography.html'">
                         <span>📖</span>
                         <h4>Autobiography</h4>
                         <p>My life story</p>
                     </div>
-
                 </div>
             </div>
         </div>
 
         <!-- ============================================================
-               FOOTER
+        SCROLL TO TOP BUTTON — Smooth Scroll
+        ============================================================ -->
+        <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">
+            <span>↑</span>
+        </button>
+
+        <!-- ============================================================
+        FOOTER — Social Links Added
         ============================================================ -->
         <footer role="contentinfo">
             <p>© 2026 Ravi Raj</p>
             <p>Patna, India</p>
+
+            <!-- Social Links in Footer -->
+            <div class="footer-socials">
+                <a href="https://twitter.com/Raviraj2k09" target="_blank" aria-label="Twitter">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="https://linkedin.com/in/Ravirajhere" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://youtube.com/@Ravirajhere" target="_blank" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://github.com/ravirajhere" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+
             <p>Last Updated: <span id="lastUpdated"></span></p>
         </footer>
-        
+
         <!-- ============================================================
-               LIVE DATE TIME BAR
+        LIVE DATE TIME BAR — Upgraded
         ============================================================ -->
         <div id="live-time-bar" role="status" aria-live="polite">
             <span id="current-date-time">Loading...</span>
         </div>
 
-        <!-- ============================================================
-               CHATBOX LOAD SCRIPT
-        ============================================================ -->
-        <script>
-            // Chatbox load on demand (pehle se nahi load hoga)
-            // openChatbox() function script.js mein define hai
-        </script>
+    </main>
 
-        <!-- JavaScript -->
-        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-        <script src="script.js"></script>
-        <script src="chatbox.js"></script>
-        <script src="emailjs.js"></script>
-        <script src="friends.js"></script>
-        
-    </body>
+    <!-- ============================================================
+    SCRIPTS — Sab Linked (Kuch Nahi Badla)
+    ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script src="script.js"></script>
+    <script src="chatbox.js"></script>
+    <script src="emailjs.js"></script>
+    <script src="friends.js"></script>
+
+</body>
 </html>
