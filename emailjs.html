@@ -10,195 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <!-- Global CSS -->
     <link rel="stylesheet" href="css/global.css" />
     
     <style>
-        /* ==============================
-           ROOT VARIABLES (Dark/Light Mode)
-        ============================== */
-        :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #13131a;
-            --bg-tertiary: #1a1a2e;
-            --bg-input: rgba(255,255,255,0.04);
-            --border-color: rgba(255,255,255,0.08);
-            --text-primary: #f0f0f5;
-            --text-secondary: #a0a0b0;
-            --text-muted: #6a6a7a;
-            --primary: #00d9ff;
-            --secondary: #00ff88;
-            --accent: #7c3aed;
-            --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
-            --gradient-accent: linear-gradient(135deg, var(--accent), var(--primary));
-            --shadow: 0 8px 40px rgba(0, 217, 255, 0.15);
-            --radius: 16px;
-            --radius-sm: 10px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --toggle-bg: rgba(255,255,255,0.05);
-            --toggle-border: rgba(255,255,255,0.15);
-            --toggle-text: #a0a0b0;
-        }
-
-        /* Light Mode Overrides */
-        [data-theme="light"] {
-            --bg-primary: #f5f0eb;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #f0ece6;
-            --bg-input: rgba(0,0,0,0.04);
-            --border-color: rgba(0,0,0,0.1);
-            --text-primary: #1a1a1a;
-            --text-secondary: #555;
-            --text-muted: #999;
-            --primary: #0984e3;
-            --secondary: #00b894;
-            --accent: #6c5ce7;
-            --shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
-            --toggle-bg: rgba(0,0,0,0.05);
-            --toggle-border: rgba(0,0,0,0.15);
-            --toggle-text: #555;
-        }
-
-        /* ==============================
-           RESET
-        ============================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background-image: radial-gradient(ellipse at 50% 0%, rgba(0, 217, 255, 0.05) 0%, transparent 70%);
-            transition: background var(--transition), color var(--transition);
-        }
-
-        [data-theme="light"] body {
-            background-image: radial-gradient(ellipse at 50% 0%, rgba(9, 132, 227, 0.05) 0%, transparent 70%);
-        }
-
-        /* ==============================
-           THEME TOGGLE (Fixed Position)
-        ============================== */
-        .theme-toggle-wrapper {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 9999;
-            background: var(--bg-secondary);
-            padding: 8px 16px 8px 20px;
-            border-radius: 50px;
-            border: 1px solid var(--toggle-border);
-            box-shadow: var(--shadow);
-            transition: all var(--transition);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        #themeLabel {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--toggle-text);
-            transition: color var(--transition);
-            min-width: 42px;
-        }
-
-        .switch {
-            position: relative;
-            width: 50px;
-            height: 26px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 4px;
-            background: var(--toggle-bg);
-            border-radius: 30px;
-            border: 2px solid var(--toggle-border);
-            transition: all var(--transition);
-            flex-shrink: 0;
-        }
-
-        .switch .slider {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 18px;
-            height: 18px;
-            background: var(--primary);
-            border-radius: 50%;
-            transition: all var(--transition);
-            box-shadow: 0 2px 8px rgba(0, 217, 255, 0.3);
-        }
-
-        .switch .switch-icon {
-            font-size: 13px;
-            line-height: 1;
-            z-index: 1;
-            transition: opacity var(--transition);
-        }
-
-        .switch .sun { opacity: 1; }
-        .switch .moon { opacity: 0.3; }
-
-        [data-theme="dark"] .switch .sun { opacity: 0.3; }
-        [data-theme="dark"] .switch .moon { opacity: 1; }
-
-        [data-theme="dark"] .switch .slider {
-            left: 26px;
-            background: var(--primary);
-        }
-
-        [data-theme="dark"] .switch {
-            border-color: var(--primary);
-        }
-
-        .switch:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 217, 255, 0.15);
-        }
-
-        /* ==============================
-           TOAST
-        ============================== */
-        .toast {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px 24px;
-            color: var(--text-secondary);
-            font-size: 14px;
-            z-index: 10001;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-            box-shadow: var(--shadow);
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .toast.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        /* ==============================
-           CONTAINER
-        ============================== */
+        /* ============================================================
+           EMAILJS PAGE SPECIFIC STYLES
+           ============================================================ */
         .email-container {
             width: 100%;
             max-width: 520px;
@@ -211,9 +30,6 @@
             transition: all var(--transition);
         }
 
-        /* ==============================
-           HEADER
-        ============================== */
         .email-header {
             display: flex;
             align-items: center;
@@ -260,9 +76,6 @@
             transition: all var(--transition);
         }
 
-        /* ==============================
-           FORM
-        ============================== */
         .form-group {
             margin-bottom: 18px;
         }
@@ -311,9 +124,6 @@
             min-height: 120px;
         }
 
-        /* ==============================
-           SUBMIT BUTTON
-        ============================== */
         .submit-btn {
             width: 100%;
             padding: 16px;
@@ -349,9 +159,6 @@
             transform: none;
         }
 
-        /* ==============================
-           STATUS
-        ============================== */
         #formStatus {
             margin-top: 16px;
             text-align: center;
@@ -383,9 +190,6 @@
             color: var(--primary);
         }
 
-        /* ==============================
-           FOOTER
-        ============================== */
         .email-footer {
             text-align: center;
             margin-top: 24px;
@@ -406,9 +210,6 @@
             text-decoration: underline;
         }
 
-        /* ==============================
-           RESPONSIVE
-        ============================== */
         @media (max-width: 500px) {
             .email-container {
                 padding: 28px 20px;
@@ -425,70 +226,6 @@
             .form-group textarea {
                 padding: 12px 14px;
                 font-size: 14px;
-            }
-
-            .theme-toggle-wrapper {
-                top: 10px;
-                right: 10px;
-                padding: 4px 10px 4px 14px;
-                gap: 6px;
-            }
-
-            #themeLabel {
-                font-size: 10px;
-                min-width: 28px;
-            }
-
-            .switch {
-                width: 36px;
-                height: 20px;
-            }
-
-            .switch .slider {
-                width: 12px;
-                height: 12px;
-                top: 2px;
-                left: 2px;
-            }
-
-            [data-theme="dark"] .switch .slider {
-                left: 18px;
-            }
-
-            .switch .switch-icon {
-                font-size: 9px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .theme-toggle-wrapper {
-                top: 15px;
-                right: 15px;
-                padding: 6px 12px 6px 16px;
-                gap: 8px;
-            }
-
-            #themeLabel {
-                font-size: 11px;
-                min-width: 34px;
-            }
-
-            .switch {
-                width: 42px;
-                height: 22px;
-            }
-
-            .switch .slider {
-                width: 14px;
-                height: 14px;
-            }
-
-            [data-theme="dark"] .switch .slider {
-                left: 22px;
-            }
-
-            .switch .switch-icon {
-                font-size: 10px;
             }
         }
     </style>
@@ -558,19 +295,19 @@
     </script>
 
     <!-- ============================================================
-       EMAILJS.JS — COMPLETE LOGIC (Template ke hisab se)
+       EMAILJS.JS — COMPLETE LOGIC
     ============================================================ -->
     <script>
         (function() {
             'use strict';
 
             // ============================================
-            // CONFIGURATION — APNI CREDENTIALS DAALO
+            // CONFIGURATION
             // ============================================
             const EMAILJS_CONFIG = {
-                publicKey: 'ZKEUMnGSjznurORAI', // Apna Public Key
-                serviceID: 'service_kc0c1i5', // Apna Service ID
-                templateID: 'template_s53pk7r' // Apna Template ID
+                publicKey: 'ZKEUMnGSjznurORAI',
+                serviceID: 'service_kc0c1i5',
+                templateID: 'template_s53pk7r'
             };
 
             // ============================================
@@ -581,51 +318,6 @@
                 console.log('✅ EmailJS initialized!');
             } else {
                 console.warn('⚠️ EmailJS library not loaded!');
-            }
-
-            // ============================================
-            // THEME TOGGLE
-            // ============================================
-            const themeSwitch = document.getElementById('themeSwitch');
-            const themeLabel = document.getElementById('themeLabel');
-            const toast = document.getElementById('toast');
-            const html = document.documentElement;
-
-            // Load saved theme
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            html.setAttribute('data-theme', currentTheme);
-            themeLabel.textContent = currentTheme === 'dark' ? 'Dark' : 'Light';
-
-            // Toggle click
-            themeSwitch.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const current = html.getAttribute('data-theme');
-                const next = current === 'light' ? 'dark' : 'light';
-                html.setAttribute('data-theme', next);
-                localStorage.setItem('theme', next);
-                themeLabel.textContent = next === 'dark' ? 'Dark' : 'Light';
-                showToast(next === 'dark' ? '🌙 Dark Mode' : '☀️ Light Mode');
-            });
-
-            // Keyboard support
-            themeSwitch.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
-                }
-            });
-
-            // Toast function
-            let toastTimer;
-
-            function showToast(message) {
-                if (!toast) return;
-                clearTimeout(toastTimer);
-                toast.textContent = message;
-                toast.className = 'toast show';
-                toastTimer = setTimeout(function() {
-                    toast.classList.remove('show');
-                }, 2000);
             }
 
             // ============================================
@@ -665,10 +357,6 @@
                     submitBtn.disabled = true;
                     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-                    // ============================================
-                    // EMAILJS SEND — TEMPLATE KE HISAB SE
-                    // Template variables: {{name}}, {{email}}, {{message}}
-                    // ============================================
                     const templateParams = {
                         name: name,
                         email: email,
@@ -686,7 +374,6 @@
                             showStatus('✅ Message sent successfully! I\'ll reply soon.', 'success');
                             form.reset();
 
-                            // Reset button after 3 seconds
                             setTimeout(() => {
                                 submitBtn.disabled = false;
                                 submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
@@ -711,7 +398,6 @@
                 status.className = type;
                 status.style.display = 'block';
 
-                // Auto-hide after 5 seconds (except loading)
                 if (type !== 'loading') {
                     setTimeout(() => {
                         status.style.display = 'none';
@@ -740,32 +426,13 @@
                 }
             });
 
-            // ============================================
-            // RESPONSIVE TOGGLE POSITION
-            // ============================================
-            function adjustTogglePosition() {
-                const wrapper = document.querySelector('.theme-toggle-wrapper');
-                if (!wrapper) return;
-                if (window.innerWidth <= 480) {
-                    wrapper.style.top = '10px';
-                    wrapper.style.right = '10px';
-                } else if (window.innerWidth <= 768) {
-                    wrapper.style.top = '15px';
-                    wrapper.style.right = '15px';
-                } else {
-                    wrapper.style.top = '20px';
-                    wrapper.style.right = '20px';
-                }
-            }
-
-            adjustTogglePosition();
-            window.addEventListener('resize', adjustTogglePosition);
-
-            console.log('✅ Email form with Dark/Light Toggle Loaded!');
+            console.log('✅ Email form loaded successfully!');
 
         })();
-        <script src="js/global.js"></script>
     </script>
+    
+    <!-- ===== GLOBAL JS ===== -->
+    <script src="js/global.js"></script>
 
 </body>
 </html>
