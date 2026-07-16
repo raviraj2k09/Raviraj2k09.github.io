@@ -1,13 +1,14 @@
 // ============================================================
-// CHATBOX.JS — ULTRA ADVANCED AI ENGINE v5.0
-// "Next-Gen Virtual Assistant"
+// CHATBOX.JS — ULTIMATE AI ASSISTANT v6.0
+// "Enterprise-Grade Virtual Assistant for Ravi Raj's Website"
+// Author: Ravi Raj | Built: July 2026
 // ============================================================
 
 (function() {
     'use strict';
 
     // ============================================================
-    // DOM REFS
+    // 1. DOM REFS (Safe & Resilient)
     // ============================================================
     const DOM = {
         messages: document.getElementById('chatMessages'),
@@ -15,459 +16,593 @@
         typing: document.getElementById('typingIndicator'),
         input: document.getElementById('chatInput'),
         send: document.getElementById('sendBtn'),
-        quickBtns: document.getElementById('quickButtons'),
-        chatContainer: document.querySelector('.chat-container')
+        quickBtns: document.getElementById('quickButtons')
+    };
+
+    // Safety check — fallback if elements missing
+    if (!DOM.send) {
+        console.warn('⚠️ Send button not found — using fallback');
+    }
+
+    // ============================================================
+    // 2. COMPLETE WEBSITE DATA (Extracted from all files)
+    // ============================================================
+    const WEBSITE_DATA = {
+        // ---- PERSONAL INFO ----
+        name: 'Ravi Raj Singh',
+        displayName: 'Ravi Raj',
+        born: 'March 2008',
+        birthplace: 'Begusarai, Bihar',
+        location: 'Begusarai, Bihar, India',
+        email: 'raviraj2k09@gmail.com',
+        phone: '+91 91022 24971',
+        title: 'Web Developer & Student',
+        motto: '"Somewhere Between I Want It & I Got It"',
+        quote: '"Humi hum hain to kya hum hain! Tumhi tum ho to kya tum ho!!"',
+
+        // ---- EDUCATION ----
+        education: [
+            { year: '2024-26', school: 'Udaan International School, Begusarai', class: 'Senior Secondary (PCM)' },
+            { year: '2019-24', school: "Mother's Pride International School, Begusarai", class: 'Secondary School' },
+            { year: '2014-19', school: 'Gautam Buddha Global School, Begusarai', class: 'Primary Education' }
+        ],
+
+        // ---- SKILLS ----
+        skills: {
+            frontend: ['HTML5 (75%)', 'CSS3 (80%)', 'JavaScript (50%)', 'Responsive Design'],
+            backend: ['Python (50%)', 'Node.js (Learning)'],
+            tools: ['VS Code', 'Git/GitHub', 'Chrome DevTools'],
+            soft: ['Problem Solving', 'Quick Learner', 'Adaptable', 'Consistent']
+        },
+
+        // ---- PROJECTS ----
+        projects: [
+            {
+                name: 'Autobiography',
+                description: '12 chapters, 2 languages (English/Hinglish). Personal life story with childhood memories.',
+                tech: ['HTML', 'CSS', 'JS'],
+                links: { live: 'autobiography.html', source: 'https://github.com/ravirajhere/ravirajhere.github.io/blob/main/autobiography.html' }
+            },
+            {
+                name: 'Chatbox',
+                description: 'Real-time messaging, emoji support, LocalStorage. Built with vanilla JavaScript.',
+                tech: ['HTML', 'CSS', 'JS', 'LocalStorage'],
+                links: { live: 'chatbox.html', source: 'https://github.com/ravirajhere/ravirajhere.github.io/blob/main/chatbox.html' }
+            },
+            {
+                name: 'Friends Gallery',
+                description: '14 friends with voice search, lightbox, category filters, PDF friend cards.',
+                tech: ['HTML', 'CSS', 'JS', 'Web Speech', 'jsPDF'],
+                links: { live: 'friends.html', source: 'https://github.com/ravirajhere/ravirajhere.github.io/blob/main/friends.html' }
+            },
+            {
+                name: 'Resume/Portfolio',
+                description: 'Professional CV with print support, project showcase, contact form.',
+                tech: ['HTML', 'CSS', 'JS', 'EmailJS'],
+                links: { live: 'resume-pdf.html', source: 'https://github.com/ravirajhere/ravirajhere.github.io' }
+            }
+        ],
+
+        // ---- FRIENDS (14) ----
+        friends: [
+            { name: 'Sitanashu', connection: 'Best Friend', since: 'Class 1', school: 'GBGS', tag: 'Oldest Friend' },
+            { name: 'Rohit', connection: 'Best Friend', since: 'Class 1', school: 'GBGS', tag: 'Day One Friend' },
+            { name: 'Suraj', connection: 'Cricket Partner', since: 'Class 6', school: "Mother's Pride", tag: 'Sports Buddy' },
+            { name: 'Shresth', connection: 'Gaming Buddy', since: 'Class 6', school: "Mother's Pride", tag: 'Gamer Friend' },
+            { name: 'Ayush', connection: 'Drama Partner', since: 'Class 6', school: "Mother's Pride", tag: 'Funniest Friend' },
+            { name: 'Rishidev', connection: 'Study Partner', since: 'Class 6', school: "Mother's Pride", tag: 'Scholar Friend' },
+            { name: 'Jigyasha', connection: 'Classmate', since: 'Class 6', school: "Mother's Pride", tag: 'Positive Vibes' },
+            { name: 'Sudhanshu', connection: 'Best Friend', since: 'Class 7', school: "Mother's Pride", tag: 'Most Loyal' },
+            { name: 'Priyam', connection: 'Coding Buddy', since: 'Class 8', school: "Mother's Pride", tag: 'Tech Genius' },
+            { name: 'Harsh', connection: 'Music Partner', since: 'Class 8', school: "Mother's Pride", tag: 'Rockstar Friend' },
+            { name: 'Keshav', connection: 'Chess Rival', since: 'Class 9', school: "Mother's Pride", tag: 'Smartest Friend' },
+            { name: 'Rani', connection: 'Childhood Friend', since: 'Class 12', school: 'PW Iskon Vidypeeth', tag: 'Sweetest Friend' },
+            { name: 'Sneha', connection: 'Drama Partner', since: 'Class 12', school: 'PW Iskon Vidypeeth', tag: 'Confident Friend' },
+            { name: 'Rohini', connection: 'Art Partner', since: 'Class 12', school: 'PW Iskon Vidypeeth', tag: 'Creative Friend' }
+        ],
+
+        // ---- FAMILY ----
+        family: {
+            parents: 'Father & Mother',
+            sisters: 2,
+            brothers: 2,
+            totalMembers: 7
+        },
+
+        // ---- KEY PEOPLE ----
+        keyPeople: {
+            favoriteTeacher: 'Binod Sir (Hindi Teacher)',
+            firstFriend: 'Ayush Singh',
+            closeFriends: ['Sudhanshu', 'Rohit', 'Sitanashu']
+        },
+
+        // ---- SOCIAL ----
+        social: {
+            github: 'https://github.com/ravirajhere',
+            linkedin: 'https://linkedin.com/in/Ravirajhere',
+            twitter: 'https://twitter.com/Raviraj2k09',
+            youtube: 'https://youtube.com/@Ravirajhere',
+            website: 'https://ravirajhere.github.io'
+        },
+
+        // ---- CONTACT ----
+        contact: {
+            email: 'raviraj2k09@gmail.com',
+            phone: '+91 91022 24971',
+            location: 'Begusarai, Bihar, India'
+        },
+
+        // ---- CAREER ----
+        career: {
+            experience: '2+ years',
+            projects: 4,
+            startYear: 2023,
+            status: 'Open for Freelance & Internship'
+        },
+
+        // ---- AUTOBIOGRAPHY CHAPTERS ----
+        chapters: [
+            { number: 1, title: 'The Beginning (2008–2012)', summary: 'Birth in Begusarai, childhood memories, cycle incident with father.' },
+            { number: 2, title: 'School Days Begin (2013–2019)', summary: 'GBGS to Mother\'s Pride, first friend Ayush, favorite teacher Binod Sir.' },
+            { number: 3, title: 'Middle School & Discoveries (2016–2019)', summary: 'Science and Hindi Literature, 12th pass, lessons from failures.' },
+            { number: 4, title: 'Coding Discovery (2020–2022)', summary: 'First phone, first HTML tag "Hello World", started reading novels.' },
+            { number: 5, title: 'Coding Journey Begins (2023–2024)', summary: 'First portfolio, CSS struggle, first project success.' },
+            { number: 6, title: 'The Present (2025–2026)', summary: 'JavaScript learning, portfolio launch, future startup plans.' },
+            { number: 7, title: 'Family — My Anchor', summary: 'Parents, 2 sisters, 2 brothers, Diwali memories.' },
+            { number: 8, title: 'Friends & Relationships', summary: 'Close friends Ayush, Sudhanshu, Rohit, Sitanashu.' },
+            { number: 9, title: 'Biggest Struggle', summary: 'Confusion about future, step by step progress.' },
+            { number: 10, title: 'Biggest Happiness', summary: 'First website praise — "Bhai, yeh tune banaya?"' },
+            { number: 11, title: 'Message & Motto', summary: 'Motto: "Somewhere Between I Want It & I Got It"' },
+            { number: 12, title: 'The Friend Memory', summary: '12th last days, friendship memories, no regrets.' }
+        ],
+
+        // ---- EBOOK ----
+        ebook: {
+            title: 'My Autobiography',
+            subtitle: 'A Boy Who Never Thought',
+            languages: ['English', 'Hinglish'],
+            cover: 'bookcover.jpg'
+        }
     };
 
     // ============================================================
-    // ULTRA ADVANCED ENGINE
+    // 3. INTENT DETECTION ENGINE
+    // ============================================================
+    const INTENTS = {
+        GREETING: /^(hello|hi|hey|namaste|hola|good morning|good evening)/i,
+        FAREWELL: /^(bye|goodbye|tata|see you|phir milte|godbye|take care)/i,
+        GRATITUDE: /^(thank|thanks|thank you|shukriya|dhanyavaad|thanku)/i,
+        NAME: /(name|kaun|who|introduce|yourself|tum kaun)/i,
+        AGE: /(age|old|born|birth|umra|saal)/i,
+        LOCATION: /(where|location|place|from|kahan|address|city|village|gaon|shahar)/i,
+        SKILLS: /(skill|know|learn|expert|technology|tech|language|tool|coding|programming|frontend|backend|developer|kaunsi|kya aata)/i,
+        PROJECTS: /(project|build|made|create|portfolio|work|banaya|bana|kaam|website|sites)/i,
+        FRIENDS: /(friend|dost|friendship|gallery|corner|saath|mitr|yaar|bhai|dosti)/i,
+        FAMILY: /(family|parents|mother|father|sister|brother|mummy|papa|bhai|behan|ghar|parivaar)/i,
+        EDUCATION: /(school|study|class|student|college|teacher|exam|degree|diploma|learn|padhai|academy|course)/i,
+        CONTACT: /(contact|email|phone|number|call|mail|reach|message|whatsapp|telegram|social)/i,
+        SOCIAL: /(github|linkedin|twitter|youtube|social|follow|connect|platform)/i,
+        BIOGRAPHY: /(biography|autobiography|story|life|journey|chapter|book|ebook|autobio|safar|zindagi|kissa)/i,
+        CAREER: /(career|job|work|experience|hire|freelance|internship|opportunity|position|growth)/i,
+        MOTTO: /(motto|quote|tagline|slogan|message|inspire|motivation|philosophy)/i,
+        TEACHER: /(teacher|sir|madam|guru|binod|school teacher|favorite teacher)/i,
+        MILESTONE: /(achievement|milestone|success|goal|dream|plan|future|launch|startup)/i,
+        EBOOK: /(ebook|book|download|pdf|read|read online|book cover|autobiography book)/i,
+        HELP: /(help|support|assist|guide|explain|problem|issue|suggest)/i,
+        TIME: /(time|clock|hour|minute|second|what time)/i,
+        WEATHER: /(weather|temperature|rain|sunny|cloudy)/i
+    };
+
+    // ============================================================
+    // 4. SMART REPLY ENGINE
     // ============================================================
     const Engine = {
         history: [],
         context: [],
-        userInterests: [],
-        sessionStart: Date.now(),
         lastActive: Date.now(),
+        userInterests: [],
         userName: null,
-        conversationStage: 'greeting',
-        topicHistory: [],
 
-        // ---- MEGA DATABASE (200+ Q&A) ----
-        knowledgeBase: {
-            // STUDENT
-            student: {
-                keywords: ['padhai', 'coding', 'project', 'exam', 'class', 'teacher', 'syllabus', 'study', 'school', 'learn', 'seekh', 'student', 'college', 'subject', 'homework', 'assignment', 'test', 'coaching', 'course', 'degree', 'diploma', 'knowledge', 'book', 'library', 'lecture', 'professor', 'university', 'scholar', 'intelligent', 'brain', 'mind', 'logic', 'reason', 'think', 'understand', 'grasp', 'comprehend', 'notes', 'tutorial', 'video', 'lecture', 'practical', 'lab', 'experiment', 'research', 'paper', 'thesis', 'dissertation', 'scholarship', 'internship', 'placement', 'campus', 'hostel', 'mess', 'canteen', 'sports', 'cultural', 'fest', 'annual day', 'competition', 'olympiad', 'quiz', 'debate', 'workshop', 'seminar', 'conference', 'symposium'],
-                replies: {
-                    'coding': [
-                        "Coding ek art hai! 🎨 Main HTML, CSS, JS, Python sab seekh raha hoon. Tum kaunsi language seekh rahe ho?",
-                        "Coding mein maza aata hai! 💻 Koi specific project hai?",
-                        "I love coding! 🚀 Currently exploring Node.js. Tumhara favorite language kya hai?"
-                    ],
-                    'project': [
-                        "Projects are my strength! 🏗️ Portfolio, Landing Page, Friends Corner — sab live hain!",
-                        "Projects se hi practical knowledge aati hai! 🔥 Kya bana rahe ho?",
-                        "Main 5+ projects kar chuka hoon! 💪 Tum bhi banao, maza aayega!"
-                    ],
-                    'exam': [
-                        "Exam ka tension mat lo! 📚 Main bhi 12th pass hoon. Padhai aur coding saath mein karo!",
-                        "All the best for exams! 💪 Just stay consistent!",
-                        "Exams are temporary, knowledge is permanent! 🧠 Chill karo!"
-                    ],
-                    'teacher': [
-                        "Teachers shape our future! 👨‍🏫 Binod Sir ne meri soch badli!",
-                        "Great teachers make great students! 🙏 Kaunse teacher se inspiration mili?",
-                        "Mother's Pride mein Hindi padhaya — unforgettable experience! ❤️"
-                    ],
-                    'future': [
-                        "Full-Stack Developer + Entrepreneur! 🚀 Kya tumhara bhi koi dream hai?",
-                        "Future is bright! ✨ AI and Web Dev ka zamana hai!",
-                        "Main toh apna startup launch karunga! 💼 Tum kya karna chahte ho?"
-                    ]
-                }
-            },
-            
-            // PARENT
-            parent: {
-                keywords: ['beta', 'baba', 'mummy', 'papa', 'ghar', 'khana', 'naukri', 'beti', 'bahu', 'sasur', 'sas', 'rishta', 'shaadi', 'bhai', 'behen', 'parivaar', 'family', 'maa', 'pitaji', 'chacha', 'tau', 'tai', 'mausi', 'mama', 'bua', 'devrani', 'jethani', 'nanad', 'sasural', 'rishtedaar', 'viraasat', 'jagir', 'zameen', 'kheti', 'paani', 'bijli', 'sadak', 'gaon', 'shahar', 'basti', 'mohalla', 'padosi', 'raah', 'rasta', 'khet', 'kisan', 'mandi', 'bazaar', 'dukaan', 'dukaan', 'vyapar', 'rozi', 'rot', 'kapda', 'makaan'],
-                replies: {
-                    'beta': [
-                        "Babu ji, main apna best de raha hoon! ❤️ Aap ka ashirwad ho toh sab accha hai!",
-                        "Beta hoon aap ka! 🙏 Aap ki dua se sab accha chal raha hai!",
-                        "Babu ji, aap ka pyar aur dua chahiye bas! 🌹"
-                    ],
-                    'padhai': [
-                        "Babu ji, padhai aur coding dono saath mein! 📚 Aap ki dua hai toh sab ho jayega!",
-                        "Padhai mein focus hai! 💪 Aap ka ashirwad chahiye!",
-                        "Main mehnat kar raha hoon babu ji! 🎯 Aap tension mat lo!"
-                    ],
-                    'ghar': [
-                        "Ghar ki yaad aa rahi hai, babu ji! 🏠 Jaldi aaunga!",
-                        "Ghar sabse accha lagta hai! ❤️ Mummy ka khana miss kar raha hoon!",
-                        "Babu ji, ghar aana hai! 😊 Jald hi aaunga!"
-                    ],
-                    'naukri': [
-                        "Babu ji, mehnat kar raha hoon! 💼 Jald hi acchi job milegi!",
-                        "Naukri ka tension mat lo babu ji! 🎯 Main consistent hoon!",
-                        "Aap ka ashirwad ho toh sab milega! 🙏"
-                    ]
-                }
-            },
-
-            // RECRUITER
-            recruiter: {
-                keywords: ['skills', 'experience', 'projects', 'hire', 'job', 'team', 'portfolio', 'resume', 'interview', 'candidate', 'position', 'salary', 'work', 'professional', 'career', 'growth', 'opportunity', 'internship', 'freelance', 'client', 'project management', 'leadership', 'management', 'strategy', 'business', 'entrepreneur', 'startup', 'venture', 'funding', 'investment', 'revenue', 'profit', 'loss', 'balance sheet', 'annual report', 'quarterly', 'target', 'KPI', 'metric', 'analytics', 'dashboard', 'presentation', 'pitch', 'deck', 'proposal', 'contract', 'negotiation', 'CTO', 'CEO', 'founder', 'co-founder', 'head', 'director', 'manager', 'lead', 'senior', 'junior', 'associate', 'analyst', 'developer', 'engineer', 'architect', 'consultant', 'advisor'],
-                replies: {
-                    'skills': [
-                        "🎯 Core Skills: HTML5 (75%), CSS3 (80%), JavaScript (50%), Python (50%), Node.js (learning). Frontend-focused with backend aspirations!",
-                        "🔧 I specialize in frontend development but I'm expanding into backend. Always learning!",
-                        "💪 My strength is consistency and problem-solving. I can quickly learn new technologies!"
-                    ],
-                    'experience': [
-                        "🏗️ 5+ projects built — each one taught me something new. I'm a hands-on developer!",
-                        "💼 From portfolio to Friends Corner — I've covered diverse projects. Let me show you!",
-                        "📈 Every project has improved my skills. I'm growth-oriented and results-driven!"
-                    ],
-                    'hire': [
-                        "🤝 I'm open to freelance and internship opportunities! Let's connect and create something amazing!",
-                        "🚀 I'm looking for challenging roles where I can grow and contribute. Tell me more!",
-                        "💡 I'm consistent, motivated, and love solving problems. Hire me and see the magic!"
-                    ]
-                }
-            },
-
-            // ROMANTIC
-            romantic: {
-                keywords: ['love', 'girlfriend', 'boyfriend', 'crush', 'relationship', 'breakup', 'heart', 'pyaar', 'ishq', 'romance', 'date', 'propose', 'single', 'commitment', 'trust', 'jealousy', 'marriage', 'affair', 'kiss', 'hug', 'dosti', 'friend', 'bff', 'bestie', 'soulmate', 'forever', 'together', 'apart', 'distance', 'long distance', 'love letter', 'rose', 'teddy', 'valentine', 'couple', 'partner', 'life partner', 'husband', 'wife', 'fiance', 'fiancee', 'lover', 'beloved', 'darling', 'sweetheart', 'honey', 'dear', 'cutie', 'handsome', 'beautiful', 'gorgeous', 'stunning', 'amazing', 'wonderful'],
-                replies: {
-                    'girlfriend': [
-                        "Abhi nahi hai, but I believe in 'right time, right person'! 😊 Career pe focus hai abhi!",
-                        "Girlfriend? 😄 Pehle khud ko improve karo, phir sab mil jayega!",
-                        "Single hoon but happy! 💪 Pehle apna startup launch karo!"
-                    ],
-                    'love': [
-                        "Love is beautiful ❤️ But so is coding! Balance is key!",
-                        "Love is a beautiful journey 🌹 Kya poochhna chahte ho?",
-                        "Love happens when you least expect it! 💕 Trust the process!"
-                    ],
-                    'breakup': [
-                        "Breakup is tough, but life goes on! 💪 Focus on growth and self-love!",
-                        "Heartbreak is painful, but it makes you stronger! ❤️ Keep moving forward!",
-                        "Main hoon na! ❤️ Kuch bhi ho, you're not alone!"
-                    ]
-                }
-            },
-
-            // CASUAL
-            casual: {
-                keywords: ['game', 'play', 'fun', 'party', 'masti', 'hangout', 'chill', 'movie', 'music', 'song', 'dance', 'travel', 'adventure', 'road trip', 'vacation', 'hobby', 'cycle', 'swim', 'gym', 'workout', 'fitness', 'sport', 'cricket', 'football', 'badminton', 'table tennis', 'chess', 'carrom', 'ludo', 'pubg', 'freefire', 'valorant', 'cod', 'gta', 'nfs', 'ps5', 'xbox', 'gaming', 'streamer', 'youtuber', 'influencer', 'weekend', 'plan', 'outing', 'picnic', 'camping', 'trekking', 'hiking', 'biking', 'driving', 'roadtrip', 'beach', 'mountain', 'city', 'nightlife'],
-                replies: {
-                    'game': [
-                        "Games are fun! 🎮 But abhi coding ka time hai! Koi aur din?",
-                        "Gaming is a great stress buster! 🎯 Kaunsa game khelte ho?",
-                        "Main bhi PUBG khelta tha! 😄 But abhi coding hai priority!"
-                    ],
-                    'fun': [
-                        "Fun is essential! 😄 Consistency matters but masti bhi zaroori hai!",
-                        "Life is about balance — work hard, play harder! 🎉",
-                        "Masti toh hoti hai bhai! 🔥 Kya plan hai aaj?"
-                    ],
-                    'travel': [
-                        "Travel is life! 🗺️ Patna se Begusarai tak ka safar kaafi hai abhi!",
-                        "Travel experiences shape us! ✈️ Kahan jaana hai next?",
-                        "Road trips are amazing! 🚗 Let's plan one someday!"
-                    ]
-                }
-            },
-
-            // TECH
-            tech: {
-                keywords: ['tech', 'technology', 'ai', 'machine learning', 'data science', 'cloud', 'devops', 'blockchain', 'web3', 'metaverse', 'vr', 'ar', 'iot', 'cybersecurity', 'hacking', 'ethical hacking', 'bug bounty', 'security', 'penetration testing', 'vulnerability', 'exploit', 'malware', 'ransomware', 'phishing', 'social engineering', 'api', 'microservices', 'container', 'docker', 'kubernetes', 'aws', 'azure', 'gcp', 'firebase', 'mongodb', 'sql', 'nosql', 'graphql', 'rest', 'soap', 'grpc', 'websocket', 'serverless', 'edge computing', 'quantum computing', 'blockchain', 'crypto', 'bitcoin', 'ethereum', 'smart contract', 'defi', 'nft', 'web3', 'dapp'],
-                replies: {
-                    'ai': [
-                        "AI is the future! 🤖 I've used Gemini API and I'm fascinated!",
-                        "Artificial Intelligence is revolutionizing everything! 🧠 What aspect interests you?",
-                        "AI + Web Dev = Killer combination! 🚀 I'm exploring both!"
-                    ],
-                    'blockchain': [
-                        "Blockchain is revolutionary! 🔗 But I'm more into web development currently!",
-                        "Decentralization is the future! 💎 Let's discuss more!",
-                        "Smart contracts are amazing! 💻 I'm learning about Web3!"
-                    ],
-                    'security': [
-                        "Security is paramount! 🔐 I always use HTTPS and secure APIs!",
-                        "Ethical hacking is fascinating! 🛡️ Let's discuss security best practices!",
-                        "Cyber threats are real! 💪 Stay safe, stay secure!"
-                    ]
-                }
-            },
-
-            // BUSINESS
-            business: {
-                keywords: ['business', 'startup', 'entrepreneur', 'founder', 'ceo', 'cto', 'product', 'market', 'customer', 'sales', 'marketing', 'advertising', 'brand', 'strategy', 'growth hacking', 'scale', 'investment', 'funding', 'pitch', 'deck', 'valuation', 'exit', 'ipo', 'acquisition', 'merger', 'revenue', 'profit', 'loss', 'cash flow', 'burn rate', 'runway', 'pivot', 'lean', 'agile', 'scrum', 'kanban', 'okr', 'kpi', 'metrics', 'analytics', 'user acquisition', 'retention', 'churn', 'lifetime value', 'customer acquisition cost', 'roi', 'break even'],
-                replies: {
-                    'startup': [
-                        "Startup launch karna hai ek din! 🚀 Pehle skills strong karo, phir business!",
-                        "Great startups solve real problems! 💡 What problem are you solving?",
-                        "Main bhi entrepreneur banna chahta hoon! 💼 Let's discuss ideas!"
-                    ],
-                    'market': [
-                        "Market understanding is key! 📊 Know your customer, know your product!",
-                        "Product-market fit is everything! 🎯 I'm studying it deeply!",
-                        "Market research is crucial! 📈 Let's analyze together!"
-                    ],
-                    'customer': [
-                        "Customer is king! 👑 I always focus on user experience!",
-                        "Happy customers = Successful business! 😊 What's your customer strategy?",
-                        "Customer feedback is gold! 💛 Always listen to them!"
-                    ]
-                }
-            }
-        },
-
-        // ---- ADVANCED DETECTION ----
+        // ---- DETECT INTENT ----
         detectIntent(text) {
             const t = text.toLowerCase();
-            if (t.match(/^(hello|hi|hey|namaste|hola)/)) return 'greeting';
-            if (t.match(/\?$/)) return 'question';
-            if (t.match(/help|support|assist|guide|explain/i)) return 'help';
-            if (t.match(/complaint|problem|issue|error|bug|not working/i)) return 'complaint';
-            if (t.match(/thank|thanks|thank you|shukriya|dhanyavaad/i)) return 'gratitude';
-            if (t.match(/bye|goodbye|tata|see you|phir milte|godbye/i)) return 'farewell';
-            if (t.match(/joke|funny|haha|lol|rofl|meme/i)) return 'fun';
-            return 'general';
+            for (const [intent, pattern] of Object.entries(INTENTS)) {
+                if (pattern.test(t)) {
+                    return intent;
+                }
+            }
+            return 'GENERAL';
         },
 
-        detectPersona(text) {
-            const t = text.toLowerCase();
-            // Student detection (enhanced)
-            const studentScore = this.knowledgeBase.student.keywords.filter(k => t.includes(k)).length;
-            // Parent detection (enhanced)
-            const parentScore = this.knowledgeBase.parent.keywords.filter(k => t.includes(k)).length;
-            // Recruiter detection
-            const recruiterScore = this.knowledgeBase.recruiter.keywords.filter(k => t.includes(k)).length;
-            // Romantic detection
-            const romanticScore = this.knowledgeBase.romantic.keywords.filter(k => t.includes(k)).length;
-            // Casual detection
-            const casualScore = this.knowledgeBase.casual.keywords.filter(k => t.includes(k)).length;
-            // Tech detection
-            const techScore = this.knowledgeBase.tech.keywords.filter(k => t.includes(k)).length;
-            // Business detection
-            const businessScore = this.knowledgeBase.business.keywords.filter(k => t.includes(k)).length;
-
-            // Find max score
-            const scores = [
-                { persona: 'student', score: studentScore },
-                { persona: 'parent', score: parentScore },
-                { persona: 'recruiter', score: recruiterScore },
-                { persona: 'romantic', score: romanticScore },
-                { persona: 'casual', score: casualScore },
-                { persona: 'tech', score: techScore },
-                { persona: 'business', score: businessScore }
-            ];
-
-            const max = Math.max(...scores.map(s => s.score));
-            if (max === 0) return 'general';
-            return scores.find(s => s.score === max).persona;
-        },
-
-        detectMood(text) {
-            const t = text.toLowerCase();
-            if (t.match(/sad|depressed|lonely|bura|pareshan|tension|worried|stress|panic|anxiety|grief|heartbroken|alone|hopeless|failure|cry|upset|hurt|pain|suffer|struggle|worry|fear|scared|nervous|overwhelmed|exhausted|tired|fatigue|burden|heavy|dark|gloomy|miserable|sorrow|melancholy|despair|empty|hollow|broken|defeated|lost|confused/)) return 'sad';
-            if (t.match(/happy|excited|awesome|great|wow|maza|accha|badhiya|wonderful|amazing|fantastic|brilliant|love it|enjoy|fun|celebrate|cheerful|joy|grateful|proud|blessed|elated|thrilled|ecstatic|overjoyed|radiant|optimistic|glad|delighted|pleased|satisfied/content|fulfilled/)) return 'happy';
-            if (t.match(/angry|frustrated|gussa|nahi chal raha|error|bug|annoyed|irritated|rage|furious|upset|disappointed|betrayed|jealous|impatient|hate|useless|worst|terrible|fed up|sick of|tired of|done with|over it|grumpy|hostile|aggressive|mad|enraged|infuriated/)) return 'angry';
-            if (t.match(/curious|interesting|tell more|explain|how|why|what|when|where|who|want to know|understand|clarify|elaborate|details|specify|define|describe|uncover|discover|learn|knowledge|insight|perspective|exploration|inquiry|investigation/)) return 'curious';
-            if (t.match(/funny|haha|lol|rofl|lmfao|hilarious|comedy|joke|meme|fun|entertaining|amusing|humorous|witty|clever|smart|sarcastic|ironic|satirical|comical|ridiculous|absurd/)) return 'humorous';
-            if (t.match(/scared|fear|terrified|horror|nightmare|spooky|creepy|weird|strange|unusual|odd|bizarre|paranoid|anxious|nervous|uneasy|troubled/)) return 'scared';
-            return 'neutral';
-        },
-
-        // ---- SMART REPLY ENGINE ----
+        // ---- GET SMART REPLY ----
         getSmartReply(msg) {
             const t = msg.toLowerCase().trim();
-            const persona = this.detectPersona(t);
-            const mood = this.detectMood(t);
             const intent = this.detectIntent(t);
 
-            // Store context
-            this.context.push({ msg, persona, mood, intent, time: Date.now() });
-            if (this.context.length > 10) this.context.shift();
-
-            // Check for adult content
-            if (t.match(/x-rated|adult|porn|sex|nangi|hot video|xxx|18\+|nsfw|explicit|mature content|erotic|vulgar|obscene|lewd|indecent|profanity|swear|cuss|curse|fuck|shit|bitch|asshole|bastard|dick|pussy|cunt|tits|boobs|breasts|ass|butt|penis|vagina|nipple|erotic|kamasutra|sex story|bed story/)) {
-                return "Sorry, main professional assistant hoon! 😊 Kuch aur pucho jo main help kar sakta hoon.";
+            // ---- Adult content filter ----
+            if (t.match(/x-rated|adult|porn|sex|nangi|xxx|18\+|nsfw|explicit|fuck|shit|bitch|asshole|bastard|dick|pussy|cunt|tits|boobs|penis|vagina/)) {
+                return "I'm a professional assistant! 😊 Please ask something appropriate.";
             }
 
-            // ---- PERSONA-BASED REPLY ----
-            if (persona !== 'general' && this.knowledgeBase[persona]) {
-                const kb = this.knowledgeBase[persona];
-                // Find matching keyword
-                let matchedKey = null;
-                for (const key in kb.replies) {
-                    if (t.includes(key)) {
-                        matchedKey = key;
-                        break;
-                    }
+            // ---- Store user interests ----
+            const words = t.split(' ');
+            const commonWords = ['the', 'a', 'an', 'is', 'am', 'are', 'was', 'were', 'i', 'you', 'he', 'she', 'it', 'we', 'they', 'my', 'your', 'his', 'her', 'our', 'their', 'me', 'him', 'her', 'us', 'them', 'to', 'for', 'of', 'on', 'at', 'by', 'in', 'with', 'without', 'and', 'or', 'but'];
+            words.forEach(word => {
+                if (!commonWords.includes(word) && word.length > 3 && !this.userInterests.includes(word)) {
+                    this.userInterests.push(word);
+                    if (this.userInterests.length > 20) this.userInterests.shift();
                 }
-                if (matchedKey) {
-                    const replies = kb.replies[matchedKey];
-                    return replies[Math.floor(Math.random() * replies.length)];
-                }
-                // Fallback for persona
-                const fallbacks = {
-                    student: "Student life mein maza aata hai! 📚 Kya seekh rahe ho?",
-                    parent: "Babu ji, main apna best de raha hoon! 🙏 Aap ka ashirwad chahiye!",
-                    recruiter: "I'd love to discuss my skills in detail! 💼 What would you like to know?",
-                    romantic: "Love is a beautiful journey! ❤️ Kya poochhna chahte ho?",
-                    casual: "Life is fun! 😄 Kya chal raha hai aaj?",
-                    tech: "Technology is amazing! 🔥 Kya specific topic discuss karna hai?",
-                    business: "Business is about solving problems! 💡 Kya discuss karna hai?"
-                };
-                return fallbacks[persona] || "That's interesting! Tell me more! 🤔";
-            }
+            });
 
-            // ---- GREETING ----
-            if (intent === 'greeting') {
-                const greetings = [
-                    "Hello! 👋 Kaise ho? Kya help chahiye?",
-                    "Namaste! 🙏 Welcome! How can I assist you today?",
-                    "Hey there! 😊 What brings you here?",
-                    "Hi! 💫 I'm Ravi's AI assistant. What's on your mind?",
-                    "Greetings! 🌟 Ready to chat? Let's go!"
-                ];
-                return greetings[Math.floor(Math.random() * greetings.length)];
-            }
+            // ---- Intent-based replies ----
+            switch (intent) {
+                case 'GREETING':
+                    return this.getGreeting();
 
-            // ---- FAREWELL ----
-            if (intent === 'farewell') {
-                const farewells = [
-                    "Bye bye! 👋 Take care! Phir milte hain!",
-                    "Goodbye! 😊 It was nice chatting with you!",
-                    "Tata! 🎉 Come back anytime!",
-                    "See you soon! 🌟 Have a great day!",
-                    "Alvida! ❤️ Stay awesome!"
-                ];
-                return farewells[Math.floor(Math.random() * farewells.length)];
-            }
+                case 'FAREWELL':
+                    return this.getFarewell();
 
-            // ---- GRATITUDE ----
-            if (intent === 'gratitude') {
-                const thanks = [
-                    "Welcome! 😊 Happy to help!",
-                    "My pleasure! ❤️ Keep shining!",
-                    "Anytime! 💫 You're awesome!",
-                    "Glad I could help! 🎉"
-                ];
-                return thanks[Math.floor(Math.random() * thanks.length)];
-            }
+                case 'GRATITUDE':
+                    return this.getGratitude();
 
-            // ---- NAME ----
-            if (t.includes('name')) {
-                return "I'm RJ AI — Ravi Raj's virtual assistant! 🤖 How can I help you?";
-            }
+                case 'NAME':
+                    return `I'm RJ AI — ${WEBSITE_DATA.displayName}'s virtual assistant! 🤖 ${WEBSITE_DATA.displayName} is a ${WEBSITE_DATA.title} from ${WEBSITE_DATA.location}.`;
 
-            // ---- TIME ----
-            if (t.includes('time')) {
-                const now = new Date();
-                return `Time is ${now.toLocaleTimeString()} ⏰ Let's make the most of it!`;
-            }
+                case 'AGE':
+                    return `${WEBSITE_DATA.displayName} was born in ${WEBSITE_DATA.born} in ${WEBSITE_DATA.birthplace}. Currently ${new Date().getFullYear() - 2008} years old! 🎂`;
 
-            // ---- LIFE/MOTIVATION ----
-            if (t.includes('life') || t.includes('motivation')) {
-                const responses = [
-                    "Life is beautiful! 🌈 Main apne family aur friends se motivation leta hoon! 💪",
-                    "Stay positive, work hard, and never give up! 🚀 That's my mantra!",
-                    "Life is a journey, enjoy every moment! ❤️"
-                ];
-                return responses[Math.floor(Math.random() * responses.length)];
-            }
+                case 'LOCATION':
+                    return `${WEBSITE_DATA.displayName} is from ${WEBSITE_DATA.location}. Born in ${WEBSITE_DATA.birthplace}. 🌏`;
 
-            // ---- FUN (Jokes) ----
-            if (intent === 'fun' || t.includes('joke')) {
-                const jokes = [
-                    "Why do programmers prefer dark mode? Because light attracts bugs! 😄",
-                    "What do you call a programmer from Finland? Nerdic! 😂",
-                    "Why did the developer go broke? Because he used up all his cache! 💰",
-                    "A SQL query walks into a bar, sees two tables and asks... 'Can I join you?' 😆"
-                ];
-                return jokes[Math.floor(Math.random() * jokes.length)];
-            }
+                case 'SKILLS':
+                    return this.getSkillsReply();
 
-            // ---- HELP ----
-            if (intent === 'help') {
-                return "Main yahan help karne ke liye hoon! 💪 Kya problem hai? Batao, dekhte hain kya kar sakta hoon! 😊";
-            }
+                case 'PROJECTS':
+                    return this.getProjectsReply();
 
-            // ---- COMPLAINT ----
-            if (intent === 'complaint') {
-                return "Arre! 😮 Kya problem hai? Main sun raha hoon. Detail mein batao, saath mein solve karenge! 🤝";
-            }
+                case 'FRIENDS':
+                    return this.getFriendsReply();
 
-            // ---- FALLBACK WITH CLARIFICATION ----
-            const clarifications = [
-                "Accha sawaal hai! 🤔 Thoda aur detail mein batao?",
-                "Main samajh gaya... ❓ Kya aap iske baare mein poochh rahe ho?",
-                "Interesting! 📚 Kya aap specific kuch poochhna chahte ho?",
-                "Hmm... 🤔 Let me think. Thoda aur context do?",
-                "Mujhe laga aap XYZ ke baare mein poochh rahe ho... Kya sahi hai? 😊"
-            ];
-            return clarifications[Math.floor(Math.random() * clarifications.length)];
+                case 'FAMILY':
+                    return this.getFamilyReply();
+
+                case 'EDUCATION':
+                    return this.getEducationReply();
+
+                case 'CONTACT':
+                    return this.getContactReply();
+
+                case 'SOCIAL':
+                    return this.getSocialReply();
+
+                case 'BIOGRAPHY':
+                    return this.getBiographyReply();
+
+                case 'CAREER':
+                    return this.getCareerReply();
+
+                case 'MOTTO':
+                    return this.getMottoReply();
+
+                case 'TEACHER':
+                    return this.getTeacherReply();
+
+                case 'MILESTONE':
+                    return this.getMilestoneReply();
+
+                case 'EBOOK':
+                    return this.getEbookReply();
+
+                case 'HELP':
+                    return this.getHelpReply();
+
+                case 'TIME':
+                    return this.getTimeReply();
+
+                case 'WEATHER':
+                    return "I don't have weather data, but I can tell you about ${WEBSITE_DATA.displayName}'s website! ☀️";
+
+                default:
+                    return this.getFallbackReply(t);
+            }
         },
 
-        // ---- CONTEXT-AWARE REPLY ----
+        // ---- GREETING ----
+        getGreeting() {
+            const greetings = [
+                `Hello! 👋 Welcome to ${WEBSITE_DATA.displayName}'s website! How can I help you today?`,
+                `Hi there! 😊 I'm RJ AI, ${WEBSITE_DATA.displayName}'s virtual assistant. What would you like to know?`,
+                `Namaste! 🙏 Great to see you! Ask me anything about ${WEBSITE_DATA.displayName} or this website.`,
+                `Hey! 💫 Welcome! I know everything about ${WEBSITE_DATA.displayName} — his projects, friends, skills, and more!`
+            ];
+            return greetings[Math.floor(Math.random() * greetings.length)];
+        },
+
+        // ---- FAREWELL ----
+        getFarewell() {
+            const farewells = [
+                `Bye! 👋 Thanks for visiting ${WEBSITE_DATA.displayName}'s website. Come back anytime!`,
+                `Take care! 😊 It was nice chatting with you. Keep exploring!`,
+                `See you soon! 🌟 Don't forget to check out the projects!`,
+                `Alvida! ❤️ Thanks for stopping by. ${WEBSITE_DATA.displayName} would be happy!`
+            ];
+            return farewells[Math.floor(Math.random() * farewells.length)];
+        },
+
+        // ---- GRATITUDE ----
+        getGratitude() {
+            const thanks = [
+                `You're welcome! 😊 Happy to help!`,
+                `My pleasure! ❤️ ${WEBSITE_DATA.displayName} appreciates your visit!`,
+                `Anytime! 💫 Feel free to ask anything about the website!`
+            ];
+            return thanks[Math.floor(Math.random() * thanks.length)];
+        },
+
+        // ---- SKILLS ----
+        getSkillsReply() {
+            const skills = WEBSITE_DATA.skills;
+            return `🎯 ${WEBSITE_DATA.displayName}'s Skills:\n\n` +
+                   `🖥️ Frontend: ${skills.frontend.join(', ')}\n` +
+                   `⚙️ Backend: ${skills.backend.join(', ')}\n` +
+                   `🔧 Tools: ${skills.tools.join(', ')}\n` +
+                   `🧠 Soft Skills: ${skills.soft.join(', ')}`;
+        },
+
+        // ---- PROJECTS ----
+        getProjectsReply() {
+            const projects = WEBSITE_DATA.projects;
+            let reply = `🚀 ${WEBSITE_DATA.displayName} has built ${projects.length} projects:\n\n`;
+            projects.forEach((p, i) => {
+                reply += `${i+1}. **${p.name}** — ${p.description}\n`;
+                reply += `   Tech: ${p.tech.join(', ')}\n`;
+                reply += `   🔗 ${p.links.live}\n\n`;
+            });
+            reply += `\nCheck them all at: ${WEBSITE_DATA.social.github}`;
+            return reply;
+        },
+
+        // ---- FRIENDS ----
+        getFriendsReply() {
+            const friends = WEBSITE_DATA.friends;
+            const total = friends.length;
+            let reply = `👥 ${WEBSITE_DATA.displayName} has ${total} amazing friends! Here are some:\n\n`;
+            
+            // Show first 5 friends
+            friends.slice(0, 5).forEach(f => {
+                reply += `• **${f.name}** — ${f.connection} (${f.tag}) from ${f.school}\n`;
+            });
+            reply += `\n...and ${total - 5} more! Visit Friends Gallery to see all: friends.html`;
+            return reply;
+        },
+
+        // ---- FAMILY ----
+        getFamilyReply() {
+            const family = WEBSITE_DATA.family;
+            return `👨‍👩‍👧‍👦 ${WEBSITE_DATA.displayName}'s Family:\n\n` +
+                   `• Parents: ${family.parents}\n` +
+                   `• Sisters: ${family.sisters}\n` +
+                   `• Brothers: ${family.brothers}\n` +
+                   `• Total Members: ${family.totalMembers}\n\n` +
+                   `💡 Fun Fact: Diwali nights with family are his favorite memories!`;
+        },
+
+        // ---- EDUCATION ----
+        getEducationReply() {
+            const edu = WEBSITE_DATA.education;
+            let reply = `🎓 ${WEBSITE_DATA.displayName}'s Education:\n\n`;
+            edu.forEach(e => {
+                reply += `• ${e.year}: ${e.class}\n`;
+                reply += `  ${e.school}\n\n`;
+            });
+            reply += `📚 Favorite Subjects: Science & Hindi Literature`;
+            return reply;
+        },
+
+        // ---- CONTACT ----
+        getContactReply() {
+            const contact = WEBSITE_DATA.contact;
+            return `📬 Contact ${WEBSITE_DATA.displayName}:\n\n` +
+                   `✉️ Email: ${contact.email}\n` +
+                   `📱 Phone: ${contact.phone}\n` +
+                   `📍 Location: ${contact.location}\n\n` +
+                   `💬 You can also use the contact form: emailjs.html`;
+        },
+
+        // ---- SOCIAL ----
+        getSocialReply() {
+            const social = WEBSITE_DATA.social;
+            return `🌐 Connect with ${WEBSITE_DATA.displayName}:\n\n` +
+                   `🐙 GitHub: ${social.github}\n` +
+                   `💼 LinkedIn: ${social.linkedin}\n` +
+                   `🐦 Twitter: ${social.twitter}\n` +
+                   `📺 YouTube: ${social.youtube}\n` +
+                   `🌍 Website: ${social.website}`;
+        },
+
+        // ---- BIOGRAPHY ----
+        getBiographyReply() {
+            const chapters = WEBSITE_DATA.chapters;
+            let reply = `📖 ${WEBSITE_DATA.displayName}'s Autobiography:\n\n` +
+                        `"${WEBSITE_DATA.quote}"\n\n` +
+                        `📚 ${chapters.length} Chapters:\n`;
+            chapters.slice(0, 6).forEach(ch => {
+                reply += `• Ch ${ch.number}: ${ch.title}\n`;
+            });
+            reply += `\n...and ${chapters.length - 6} more chapters!\n` +
+                    `📥 Download ebook: Autobiography page\n` +
+                    `🔗 Read online: autobiography.html`;
+            return reply;
+        },
+
+        // ---- CAREER ----
+        getCareerReply() {
+            const career = WEBSITE_DATA.career;
+            return `💼 ${WEBSITE_DATA.displayName}'s Career:\n\n` +
+                   `• Experience: ${career.experience}\n` +
+                   `• Projects: ${career.projects}\n` +
+                   `• Started Coding: ${career.startYear}\n` +
+                   `• Status: ${career.status}\n\n` +
+                   `🎯 Goal: Full-Stack Developer & Entrepreneur\n` +
+                   `🚀 Dream: Launch his own startup!`;
+        },
+
+        // ---- MOTTO ----
+        getMottoReply() {
+            return `💡 ${WEBSITE_DATA.displayName}'s Motto:\n\n` +
+                   `"${WEBSITE_DATA.motto}"\n\n` +
+                   `Also his favorite quote:\n` +
+                   `"${WEBSITE_DATA.quote}"\n\n` +
+                   `✨ His life philosophy: No regrets in life — that's his biggest achievement.`;
+        },
+
+        // ---- TEACHER ----
+        getTeacherReply() {
+            const teacher = WEBSITE_DATA.keyPeople.favoriteTeacher;
+            return `👨‍🏫 ${WEBSITE_DATA.displayName}'s Favorite Teacher:\n\n` +
+                   `• Name: ${teacher}\n` +
+                   `• Subject: Hindi\n` +
+                   `• School: Mother's Pride International School\n\n` +
+                   `💬 "Binod Sir ne meri soch badli! Unhone sikhaya ki zindagi ka nazariya alag hona chahiye."`;
+        },
+
+        // ---- MILESTONE ----
+        getMilestoneReply() {
+            return `🏆 ${WEBSITE_DATA.displayName}'s Milestones:\n\n` +
+                   `• 2023: First Line of Code (HTML "Hello World")\n` +
+                   `• 2024: First Project (Portfolio)\n` +
+                   `• 2026: 4+ Projects Complete\n` +
+                   `• ${WEBSITE_DATA.career.projects} Projects Built\n` +
+                   `• ${WEBSITE_DATA.career.experience} Experience\n\n` +
+                   `🚀 Next Goal: Full-Stack Developer → Startup!`;
+        },
+
+        // ---- EBOOK ----
+        getEbookReply() {
+            return `📥 ${WEBSITE_DATA.ebook.title}\n\n` +
+                   `📖 "${WEBSITE_DATA.ebook.subtitle}"\n` +
+                   `✍️ By: ${WEBSITE_DATA.displayName}\n` +
+                   `🌐 Languages: ${WEBSITE_DATA.ebook.languages.join(', ')}\n` +
+                   `📚 ${WEBSITE_DATA.chapters.length} Chapters\n\n` +
+                   `💡 Download ebook from Autobiography page!\n` +
+                   `🔗 Read online: autobiography.html`;
+        },
+
+        // ---- HELP ----
+        getHelpReply() {
+            return `💡 I can help you with:\n\n` +
+                   `• About ${WEBSITE_DATA.displayName}\n` +
+                   `• Skills & Projects\n` +
+                   `• Friends & Family\n` +
+                   `• Education & Career\n` +
+                   `• Contact & Social Links\n` +
+                   `• Autobiography & Ebook\n\n` +
+                   `Just ask me anything! 😊`;
+        },
+
+        // ---- TIME ----
+        getTimeReply() {
+            const now = new Date();
+            return `⏰ Current time: ${now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}\n` +
+                   `📅 Date: ${now.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}\n` +
+                   `📍 Timezone: IST (UTC+5:30)`;
+        },
+
+        // ---- FALLBACK ----
+        getFallbackReply(text) {
+            const fallbacks = [
+                `That's a great question! 🤔 Let me think... Based on what I know about ${WEBSITE_DATA.displayName}:\n\n` +
+                `• He's a ${WEBSITE_DATA.title} from ${WEBSITE_DATA.location}\n` +
+                `• He has ${WEBSITE_DATA.career.projects} projects and ${WEBSITE_DATA.career.experience} experience\n` +
+                `• He's always learning and improving\n\n` +
+                `💡 Could you be more specific about what you'd like to know?`,
+
+                `Interesting topic! 😊 I know a lot about ${WEBSITE_DATA.displayName}. Here are some things I can tell you about:\n\n` +
+                `• His skills and projects\n` +
+                `• His ${WEBSITE_DATA.friends.length} friends\n` +
+                `• His family and education\n` +
+                `• His autobiography and ebook\n\n` +
+                `What would you like to know?`,
+
+                `Hmm, that's something new! 🤔 I specialize in answering questions about ${WEBSITE_DATA.displayName} and his website.\n\n` +
+                `Try asking about:\n` +
+                `• Skills, Projects, Friends\n` +
+                `• Family, Education, Contact\n` +
+                `• Autobiography, Ebook, Career\n\n` +
+                `I'm here to help! 😊`
+            ];
+            return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+        },
+
+        // ---- CONTEXTUAL REPLY ----
         getContextualReply(userMessage) {
             this.lastActive = Date.now();
-            let reply = this.getSmartReply(userMessage);
-
-            // Mood-based enhancement
-            const mood = this.detectMood(userMessage);
-            if (mood === 'sad') reply += " ❤️ Main hoon na, kuch bhi ho sakta hai!";
-            else if (mood === 'happy') reply += " 😄 Tumhara excitement contagious hai!";
-            else if (mood === 'angry') reply += " 🤝 Let's solve this together!";
-            else if (mood === 'curious') reply += " 📚 Interesting! Let's dive deeper!";
-            else if (mood === 'humorous') reply += " 😂 Tumhari sense of humour acchi hai!";
-            else if (mood === 'scared') reply += " 😊 Don't worry, I'm here for you!";
-
-            // Store history
+            const reply = this.getSmartReply(userMessage);
             this.history.push({ message: userMessage, reply, timestamp: Date.now() });
             if (this.history.length > 200) this.history.shift();
-
             return reply;
         }
     };
 
     // ============================================================
-    // UI FUNCTIONS (Enhanced)
+    // 5. UI FUNCTIONS
     // ============================================================
     function getTime() {
         const now = new Date();
-        const h = String(now.getHours()).padStart(2, '0');
-        const m = String(now.getMinutes()).padStart(2, '0');
-        return h + ':' + m;
+        return String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
     }
 
     function scrollToBottom() {
-        DOM.messages.scrollTop = DOM.messages.scrollHeight;
+        if (DOM.messages) {
+            DOM.messages.scrollTop = DOM.messages.scrollHeight;
+        }
     }
 
     function addMessage(text, sender) {
-        DOM.empty.style.display = 'none';
+        if (!DOM.messages) return;
+        if (DOM.empty) DOM.empty.style.display = 'none';
         const div = document.createElement('div');
         div.className = `message ${sender}`;
         
-        // Rich formatting (basic markdown-like)
-        let formattedText = text;
-        if (sender === 'bot') {
-            // Bold, italic, lists, emojis already there
-            formattedText = text;
-        }
-        
+        // Format: Replace newlines with <br>
+        const formattedText = text.replace(/\n/g, '<br>');
         div.innerHTML = `${formattedText}<span class="msg-time">${getTime()}</span>`;
         DOM.messages.appendChild(div);
+        
+        // Re-attach quick buttons if they exist
+        if (DOM.quickBtns) {
+            DOM.messages.appendChild(DOM.quickBtns);
+        }
         scrollToBottom();
     }
 
     function showTyping() {
-        DOM.typing.style.display = 'flex';
-        scrollToBottom();
+        if (DOM.typing) {
+            DOM.typing.style.display = 'flex';
+            scrollToBottom();
+        }
     }
 
     function hideTyping() {
-        DOM.typing.style.display = 'none';
+        if (DOM.typing) {
+            DOM.typing.style.display = 'none';
+        }
     }
 
     // ============================================================
-    // QUICK REPLY BUTTONS (Dynamic)
+    // 6. QUICK REPLY BUTTONS
     // ============================================================
     function generateQuickReplies() {
+        if (!DOM.quickBtns) return;
         const buttons = [
             { text: '👋 Hello', value: 'Hello' },
-            { text: '📚 Coding', value: 'Coding kaise seekhni hai?' },
-            { text: '💼 Skills', value: 'What skills do you have?' },
-            { text: '❤️ Love', value: 'Pyaar ke baare mein batao' },
-            { text: '😂 Joke', value: 'Tell me a joke' },
-            { text: '💡 Help', value: 'Help' },
-            { text: '🚀 Future', value: 'What are your future plans?' },
-            { text: '🏠 Ghar', value: 'Ghar ki yaad aa rahi hai' }
+            { text: '💻 Skills', value: 'What skills do you have?' },
+            { text: '🚀 Projects', value: 'Tell me about your projects' },
+            { text: '👥 Friends', value: 'Who are your friends?' },
+            { text: '🎓 Education', value: 'What is your education?' },
+            { text: '📖 Autobiography', value: 'Tell me about your autobiography' },
+            { text: '📬 Contact', value: 'How can I contact you?' },
+            { text: '🏆 Motto', value: 'What is your motto?' }
         ];
 
         DOM.quickBtns.innerHTML = '';
@@ -475,20 +610,24 @@
             const el = document.createElement('button');
             el.className = 'quick-btn';
             el.textContent = btn.text;
-            el.addEventListener('click', () => {
-                DOM.input.value = btn.value;
-                sendMessage();
+            el.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (DOM.input) {
+                    DOM.input.value = btn.value;
+                    sendMessage();
+                }
             });
             DOM.quickBtns.appendChild(el);
         });
     }
 
     // ============================================================
-    // SEND MESSAGE
+    // 7. SEND MESSAGE
     // ============================================================
     let isProcessing = false;
 
     function sendMessage() {
+        if (!DOM.input || !DOM.send) return;
         const text = DOM.input.value.trim();
         if (!text || isProcessing) return;
 
@@ -500,9 +639,9 @@
         DOM.send.disabled = true;
         showTyping();
 
-        // Dynamic typing delay based on message length
+        // Dynamic delay based on message length
         const delay = 600 + Math.random() * 1200 + (text.length / 10) * 50;
-        setTimeout(() => {
+        setTimeout(function() {
             hideTyping();
             const reply = Engine.getContextualReply(text);
             addMessage(reply, 'bot');
@@ -512,15 +651,15 @@
     }
 
     // ============================================================
-    // INACTIVITY DETECTION
+    // 8. INACTIVITY DETECTION
     // ============================================================
-    setInterval(() => {
+    setInterval(function() {
         const inactiveTime = Date.now() - Engine.lastActive;
-        if (inactiveTime > 120000 && !isProcessing) { // 2 minutes
+        if (inactiveTime > 120000 && !isProcessing) {
             const messages = [
-                "Kya hua? 🤔 Kuch soch rahe ho?",
-                "Main yahan hoon! 😊 Koi baat karo?",
-                "Zinda ho? 😄 Batao kya help chahiye?"
+                "Still there? 🤔 I'm here if you need anything!",
+                "Hello? 😊 Just checking in — need any help?",
+                "I'm still here! 💫 Ask me anything about ${WEBSITE_DATA.displayName}'s website!"
             ];
             addMessage(messages[Math.floor(Math.random() * messages.length)], 'bot');
             Engine.lastActive = Date.now();
@@ -528,43 +667,68 @@
     }, 60000);
 
     // ============================================================
-    // EVENT LISTENERS
+    // 9. EVENT LISTENERS
     // ============================================================
-    DOM.send.addEventListener('click', sendMessage);
-    DOM.input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
+    if (DOM.send) {
+        DOM.send.addEventListener('click', function(e) {
             e.preventDefault();
             sendMessage();
-        }
-    });
+        });
+    }
+
+    if (DOM.input) {
+        DOM.input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    }
 
     // ============================================================
-    // CLOSE CHATBOX
+    // 10. CLOSE CHATBOX
     // ============================================================
     window.closeChatbox = function() {
-        document.referrer ? window.location.href = document.referrer : window.history.back();
+        if (document.referrer) {
+            window.location.href = document.referrer;
+        } else {
+            window.history.back();
+        }
     };
 
     // ============================================================
-    // KEYBOARD SHORTCUTS
+    // 11. KEYBOARD SHORTCUTS
     // ============================================================
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', function(e) {
         if ((e.ctrlKey || e.metaKey) && e.key === '/') {
             e.preventDefault();
-            DOM.input.focus();
+            if (DOM.input) DOM.input.focus();
         }
-        if (e.key === 'Escape') closeChatbox();
+        if (e.key === 'Escape') {
+            window.closeChatbox();
+        }
     });
 
     // ============================================================
-    // INIT
+    // 12. INIT
     // ============================================================
     generateQuickReplies();
-    setTimeout(() => DOM.input.focus(), 300);
+    setTimeout(function() {
+        if (DOM.input) DOM.input.focus();
+    }, 300);
 
-    console.log('🤖 RJ AI Chatbox — Ultra Advanced v5.0');
-    console.log('🧠 200+ Q&A Database');
-    console.log('🎯 8 Personas | 6 Moods | 6 Intents');
-    console.log('⚡ Dynamic Quick Replies | Inactivity Detection');
-    console.log('🔥 Built by Ravi Raj — Next Gen AI');
+    // ============================================================
+    // 13. CONSOLE LOG — PRO LEVEL
+    // ============================================================
+    console.log('🤖 RJ AI Chatbox — Enterprise Edition v6.0');
+    console.log('📊 Data Loaded:');
+    console.log(`   • ${WEBSITE_DATA.projects.length} Projects`);
+    console.log(`   • ${WEBSITE_DATA.friends.length} Friends`);
+    console.log(`   • ${WEBSITE_DATA.chapters.length} Chapters`);
+    console.log(`   • ${WEBSITE_DATA.education.length} Schools`);
+    console.log(`   • ${Object.keys(WEBSITE_DATA.skills).length} Skill Categories`);
+    console.log('🧠 Intent Detection: ' + Object.keys(INTENTS).length + ' intents');
+    console.log('💡 Tip: Press Ctrl+/ to focus input, Escape to close.');
+    console.log('🔥 Built by Ravi Raj — Professional Edition');
+
 })();
