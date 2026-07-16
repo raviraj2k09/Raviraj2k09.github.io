@@ -1,36 +1,44 @@
 # 🚀 Ravi Raj — Personal Website
 
-My digital home on the internet — a personal portfolio, autobiography, friends corner, AI chatbox, and more.
+> My digital home on the internet — a personal portfolio, autobiography, friends corner, AI chatbox, and more.
+
+![Website Preview](assets/images/Singh_ravirajhere.jpeg)
 
 ---
 
 ## 📖 About The Project
 
-This is my personal website where I share my journey as a web developer, student, and author. It's a reflection of who I am — my projects, my friends, my story, and my vision.
+Welcome to my **personal website** — a space where I share my journey as a **web developer**, **student**, and **author**. This project is more than just a portfolio; it's a reflection of who I am, what I've built, and what I stand for.
 
-### ✨ Features
+From my **12-chapter autobiography** to an **AI-powered chatbox**, this website brings together my experiences, projects, and the people who matter most to me.
 
-- 🏠 Portfolio — Showcase of my projects
-- 📖 Autobiography — 12 chapters of my life story (English/Hinglish)
-- 👥 Friends Corner — 14 friends with voice search & friend cards
-- 💬 AI Chatbox — Virtual assistant with 20+ intents
-- 📄 Professional Resume — Printable CV
-- ✉️ Contact Form — EmailJS powered messaging
-- 🌓 Dark/Light Mode — Toggle themes
-- 📱 Fully Responsive — Works on all devices
-- 🚀 Fast & Clean — Optimized for performance
+---
+
+## ✨ Features
+
+| Feature | Description |
+| :--- | :--- |
+| 🏠 **Portfolio** | Showcase of my projects with live demos & source code |
+| 📖 **Autobiography** | 12 chapters of my life story (English & Hinglish) |
+| 👥 **Friends Corner** | 14 friends with voice search & downloadable friend cards |
+| 💬 **AI Chatbox** | Virtual assistant with 20+ intent detection |
+| 📄 **Resume** | Professional CV with print-friendly design |
+| ✉️ **Contact Form** | EmailJS-powered messaging system |
+| 🌓 **Theme Toggle** | Seamless dark/light mode switching |
+| 📱 **Responsive** | Fully optimized for all screen sizes |
+| ⚡ **Performance** | Fast loading with optimized assets |
 
 ---
 
 ## 🛠️ Tech Stack
 
 | Category | Technologies |
-|----------|--------------|
-| Frontend | HTML5, CSS3, JavaScript |
-| Styling | CSS Variables, Dark/Light Mode, Responsive Design |
-| Libraries | Font Awesome, Google Fonts, EmailJS, jsPDF, html2canvas |
-| Tools | VS Code, Git, GitHub Pages |
-| Hosting | GitHub Pages (Free) |
+| :--- | :--- |
+| **Frontend** | HTML5, CSS3, JavaScript (Vanilla) |
+| **Styling** | CSS Variables, Dark/Light Mode, Responsive Design |
+| **Libraries** | Font Awesome, Google Fonts, EmailJS, jsPDF, html2canvas |
+| **Tools** | VS Code, Git, GitHub Pages |
+| **Hosting** | GitHub Pages (Free) |
 
 ---
 
