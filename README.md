@@ -195,7 +195,7 @@ This project is licensed under the MIT License — feel free to use, modify, and
 
 🙏 Acknowledgments
 
-· All my friends who inspired the Friends Corner ❤️
+· All my 14 friends who inspired the Friends Corner ❤️
 · Teachers & mentors who guided me
 · Open source community for amazing tools
 · You for visiting my website! 😊
@@ -208,5 +208,3 @@ This project is licensed under the MIT License — feel free to use, modify, and
   <sub>© 2026 Ravi Raj — All Rights Reserved</sub>
 </p>
 ```
-
----
