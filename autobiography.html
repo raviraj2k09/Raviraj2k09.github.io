@@ -11,10 +11,15 @@
 </head>
 <body>
 
-    <!-- ===== READING MODE TOGGLE ===== -->
-    <button class="reading-mode-toggle" id="readingModeToggle" onclick="toggleReadingMode()">
-        📖 Reading Mode
-    </button>
+    <!-- ===== THEME TOGGLE (SAME AS MAIN WEBSITE) ===== -->
+    <div class="theme-toggle-wrapper">
+        <span id="themeLabel">Light</span>
+        <div class="switch" id="themeSwitch" role="button" tabindex="0" aria-label="Toggle theme">
+            <span class="switch-icon sun">☀️</span>
+            <span class="switch-icon moon">🌙</span>
+            <div class="slider"></div>
+        </div>
+    </div>
 
     <!-- ===== TOAST NOTIFICATION ===== -->
     <div class="toast" id="toast"></div>
@@ -45,6 +50,9 @@
     </div>
 
     <div class="autobio-wrapper">
+
+        <!-- ===== BACK LINK (TOP) ===== -->
+        <a href="index.html" class="back-link-top">← Back to Home</a>
 
         <!-- ===== HERO ===== -->
         <div class="autobio-header">
@@ -607,8 +615,6 @@
                     <p style="margin-top:10px;"><strong>Yeh sirf memory nahi, ek ehsaas hai.</strong></p>
                 </div>
                 
-                
-                
                 <p style="margin-top:20px; color:var(--text3); font-size:14px; text-align:center; border-top:1px solid var(--border); padding-top:18px;">
                     Life mein koi regret nahi — yeh meri sabse badi achievement hai.
                 </p>
@@ -642,6 +648,13 @@
             <span class="dot" data-dot="10"></span>
             <span class="dot" data-dot="11"></span>
             <span class="dot" data-dot="12"></span>
+        </div>
+
+        <!-- ===== THANK YOU NOTE ===== -->
+        <div class="thank-you-box">
+            <h2>🙏 Thank You</h2>
+            <p>For reading my story. This is not the end — it's just the beginning.</p>
+            <p class="signature">— Ravi Raj</p>
         </div>
 
     </div>
