@@ -317,3 +317,55 @@ img {
 [data-theme="dark"] #scrollTopBtn:hover {
     box-shadow: 0 6px 24px rgba(255, 255, 255, 0.2);
 }
+/* ============================================================
+   TOAST NOTIFICATION
+   ============================================================ */
+.toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 24px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 10001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    box-shadow: var(--shadow);
+    font-family: var(--font);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    max-width: 90%;
+    text-align: center;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast.success {
+    border-color: #4caf50;
+    color: #4caf50;
+}
+
+.toast.error {
+    border-color: #f44336;
+    color: #f44336;
+}
+
+.toast.info {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.toast.warning {
+    border-color: #ff9800;
+    color: #ff9800;
+}
