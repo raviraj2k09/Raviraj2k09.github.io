@@ -1,18 +1,19 @@
 /* ============================================================
-   AUTOBIOGRAPHY CSS — SYNCED WITH MAIN WEBSITE
+   AUTOBIOGRAPHY CSS — SIMPLE DARK/LIGHT MODE
    ============================================================ */
 
 /* ============================================================
-   ROOT VARIABLES (Same as Main Website)
+   ROOT VARIABLES
    ============================================================ */
 :root {
+    /* Light Mode (Default) */
     --bg: #f5f0eb;
     --bg-card: #ffffff;
-    --bg2: rgba(0, 0, 0, 0.03);
-    --bg3: rgba(0, 0, 0, 0.05);
+    --bg2: rgba(0, 0, 0, 0.04);
+    --bg3: rgba(0, 0, 0, 0.06);
     --text: #1a1a1a;
     --text-muted: #555;
-    --text2: rgba(0, 0, 0, 0.7);
+    --text2: rgba(0, 0, 0, 0.75);
     --text3: rgba(0, 0, 0, 0.4);
     --primary: #2d3436;
     --secondary: #0984e3;
@@ -25,18 +26,20 @@
     --accent: #0984e3;
     --accent2: #6c5ce7;
     --gold: #DAA520;
-    --gold-glow: rgba(218, 165, 32, 0.3);
     --grad: linear-gradient(135deg, #0984e3, #6c5ce7);
 }
 
+/* ============================================================
+   DARK MODE
+   ============================================================ */
 [data-theme="dark"] {
     --bg: #0a0a0a;
     --bg-card: #1a1a1a;
-    --bg2: rgba(255, 255, 255, 0.03);
-    --bg3: rgba(255, 255, 255, 0.05);
+    --bg2: rgba(255, 255, 255, 0.04);
+    --bg3: rgba(255, 255, 255, 0.08);
     --text: #f0f0f0;
     --text-muted: #aaa;
-    --text2: rgba(255, 255, 255, 0.7);
+    --text2: rgba(255, 255, 255, 0.75);
     --text3: rgba(255, 255, 255, 0.4);
     --border: #333;
     --shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
@@ -83,263 +86,6 @@ body {
 }
 
 /* ============================================================
-   READING MODE (Light Theme)
-   ============================================================ */
-body.reading-mode {
-    --bg: #f5efe8;
-    --bg-card: #fcf8f0;
-    --bg2: rgba(0, 0, 0, 0.03);
-    --bg3: rgba(0, 0, 0, 0.05);
-    --text: #1a1a1a;
-    --text-muted: #555;
-    --text2: rgba(0, 0, 0, 0.7);
-    --text3: rgba(0, 0, 0, 0.4);
-    --border: rgba(0, 0, 0, 0.08);
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-body.reading-mode .autobio-wrapper {
-    background: var(--bg-card);
-    border-color: var(--border);
-    box-shadow: var(--shadow);
-}
-
-body.reading-mode .autobio-wrapper::before {
-    display: none;
-}
-
-body.reading-mode .chapter {
-    background: transparent;
-    border-color: var(--border);
-}
-
-body.reading-mode .chapter p,
-body.reading-mode .chapter li {
-    color: var(--text2);
-    font-family: 'Georgia', 'Times New Roman', serif;
-    font-size: 18px;
-    line-height: 2;
-}
-
-body.reading-mode .chapter p strong {
-    color: var(--text);
-}
-
-body.reading-mode .stat-card {
-    background: var(--bg2);
-    border-color: var(--border);
-}
-
-body.reading-mode .stat-number {
-    color: var(--gold);
-}
-
-body.reading-mode .stat-label {
-    color: var(--text3);
-}
-
-body.reading-mode .photo-slot {
-    background: var(--bg2);
-    border-color: var(--border);
-}
-
-body.reading-mode .photo-slot:hover {
-    border-color: var(--gold);
-    background: var(--bg3);
-}
-
-body.reading-mode .quote-box {
-    background: rgba(184, 134, 11, 0.06);
-    border-left-color: var(--gold);
-}
-
-body.reading-mode .quote-box .author {
-    color: var(--gold);
-}
-
-body.reading-mode .quote-box.purple {
-    border-left-color: var(--accent2);
-}
-
-body.reading-mode .friend-memory-pdf {
-    background: rgba(184, 134, 11, 0.04);
-    border-color: rgba(184, 134, 11, 0.2);
-}
-
-body.reading-mode .friend-memory-pdf strong {
-    color: var(--gold);
-}
-
-body.reading-mode .friend-memory-pdf .pdf-label {
-    background: var(--gold);
-    color: #fff;
-}
-
-body.reading-mode .lang-btn {
-    border-color: var(--gold);
-    color: var(--gold);
-}
-
-body.reading-mode .lang-btn:hover {
-    background: var(--gold);
-    color: #fff;
-}
-
-body.reading-mode .lang-btn.active {
-    background: var(--gold);
-    color: #fff;
-}
-
-body.reading-mode .nav-btn {
-    background: var(--grad);
-    color: #fff;
-    box-shadow: 0 4px 20px rgba(184, 134, 11, 0.3);
-}
-
-body.reading-mode .nav-btn.prev-btn {
-    background: var(--bg2);
-    color: var(--text2);
-    border-color: var(--border);
-    box-shadow: none;
-}
-
-body.reading-mode .nav-btn.prev-btn:hover:not(:disabled) {
-    background: var(--bg3);
-    color: var(--text);
-}
-
-body.reading-mode .back-link {
-    color: var(--accent2);
-}
-
-body.reading-mode .back-link:hover {
-    color: var(--text);
-}
-
-body.reading-mode .chapter h3 {
-    color: var(--text);
-    font-family: 'Georgia', 'Times New Roman', serif;
-}
-
-body.reading-mode .family-item {
-    background: var(--bg2);
-    border-color: var(--border);
-}
-
-body.reading-mode .family-item .value {
-    color: var(--text);
-}
-
-body.reading-mode .teacher-tribute {
-    background: rgba(108, 92, 231, 0.06);
-    border-color: rgba(108, 92, 231, 0.15);
-}
-
-body.reading-mode .teacher-tribute h4 {
-    color: var(--gold);
-}
-
-body.reading-mode .sub-line {
-    color: var(--text3);
-}
-
-body.reading-mode .bio-line {
-    color: var(--text2);
-}
-
-body.reading-mode .intro-line {
-    color: var(--gold);
-}
-
-body.reading-mode .download-actions {
-    border-color: var(--border);
-}
-
-body.reading-mode .download-btn {
-    background: var(--bg2);
-    color: var(--text2);
-    border-color: var(--border);
-}
-
-body.reading-mode .download-btn:hover {
-    background: var(--gold);
-    color: #fff;
-    border-color: var(--gold);
-}
-
-body.reading-mode .modal-content {
-    background: var(--bg-card);
-    color: var(--text);
-}
-
-body.reading-mode .modal-close {
-    color: var(--text);
-}
-
-body.reading-mode .modal-close:hover {
-    color: var(--gold);
-}
-
-body.reading-mode .modal-btn {
-    background: var(--gold);
-    color: #fff;
-}
-
-body.reading-mode .modal-btn:hover {
-    background: #d4a017;
-}
-
-body.reading-mode .autobio-header h1 {
-    background: var(--grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-body.reading-mode .chapter-progress-info .chapter-num {
-    color: var(--accent2);
-}
-
-body.reading-mode .chapter-progress-info .chapter-percent {
-    color: var(--gold);
-}
-
-body.reading-mode .dot.active {
-    background: var(--gold);
-    box-shadow: 0 0 20px rgba(184, 134, 11, 0.3);
-}
-
-body.reading-mode .reading-time span {
-    color: var(--accent2);
-}
-
-body.reading-mode .toast {
-    background: rgba(255, 252, 245, 0.95);
-    border-color: var(--border);
-    color: var(--text);
-}
-
-body.reading-mode .thank-you-box {
-    background: rgba(184, 134, 11, 0.06);
-    border-color: var(--gold);
-}
-
-body.reading-mode .thank-you-box p {
-    color: var(--text2);
-}
-
-body.reading-mode .thank-you-box .signature {
-    color: var(--gold);
-}
-
-body.reading-mode ::-webkit-scrollbar-track {
-    background: var(--bg);
-}
-body.reading-mode ::-webkit-scrollbar-thumb {
-    background: var(--gold);
-}
-
-/* ============================================================
    WRAPPER
    ============================================================ */
 .autobio-wrapper {
@@ -366,6 +112,10 @@ body.reading-mode ::-webkit-scrollbar-thumb {
     background: radial-gradient(circle at 30% 20%, rgba(9, 132, 227, 0.03) 0%, transparent 60%);
     pointer-events: none;
     transition: opacity var(--transition);
+}
+
+[data-theme="dark"] .autobio-wrapper::before {
+    opacity: 0;
 }
 
 @keyframes fadeIn {
@@ -486,6 +236,10 @@ body.reading-mode ::-webkit-scrollbar-thumb {
     box-shadow: 0 8px 30px rgba(9, 132, 227, 0.1);
 }
 
+[data-theme="dark"] .stat-card:hover {
+    box-shadow: 0 8px 30px rgba(9, 132, 227, 0.2);
+}
+
 .stat-number {
     font-size: 28px;
     font-weight: 700;
@@ -576,6 +330,10 @@ body.reading-mode ::-webkit-scrollbar-thumb {
     transform: translateY(-2px);
 }
 
+[data-theme="dark"] .download-btn:hover {
+    background: rgba(9, 132, 227, 0.15);
+}
+
 .download-btn.primary {
     background: var(--grad);
     color: #fff;
@@ -585,80 +343,6 @@ body.reading-mode ::-webkit-scrollbar-thumb {
 .download-btn.primary:hover {
     box-shadow: 0 4px 20px rgba(9, 132, 227, 0.4);
     transform: translateY(-2px) scale(1.02);
-}
-
-/* ============================================================
-   STICKY DOWNLOAD BUTTON
-   ============================================================ */
-.download-sticky {
-    position: fixed;
-    top: 80px;
-    right: 20px;
-    z-index: 9998;
-}
-
-.download-sticky-btn {
-    padding: 14px 24px;
-    background: var(--grad);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    font-family: var(--font);
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    box-shadow: 0 8px 30px rgba(9, 132, 227, 0.4);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.download-sticky-btn:hover {
-    transform: scale(1.05) translateY(-3px);
-    box-shadow: 0 12px 40px rgba(9, 132, 227, 0.5);
-}
-
-/* ============================================================
-   READING MODE TOGGLE (Top-Right)
-   ============================================================ */
-.reading-mode-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    padding: 10px 18px;
-    border-radius: 50px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text2);
-    font-size: 14px;
-    cursor: pointer;
-    transition: all var(--transition);
-    font-family: var(--font);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: var(--shadow);
-}
-
-.reading-mode-toggle:hover {
-    border-color: var(--secondary);
-    color: var(--secondary);
-    box-shadow: 0 0 30px rgba(9, 132, 227, 0.1);
-}
-
-body.reading-mode .reading-mode-toggle {
-    background: var(--bg-card);
-    border-color: var(--border);
-    color: var(--text2);
-}
-
-body.reading-mode .reading-mode-toggle:hover {
-    border-color: var(--gold);
-    color: var(--gold);
 }
 
 /* ============================================================
@@ -833,6 +517,10 @@ body.reading-mode .reading-mode-toggle:hover {
     background: rgba(9, 132, 227, 0.05);
 }
 
+[data-theme="dark"] .photo-slot:hover {
+    background: rgba(9, 132, 227, 0.1);
+}
+
 .photo-slot .upload-hint {
     color: var(--text3);
     font-size: 14px;
@@ -877,9 +565,8 @@ body.reading-mode .reading-mode-toggle:hover {
     margin: 0;
 }
 
-body.reading-mode .photo-slot.has-image .fig-caption {
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--text);
+[data-theme="dark"] .photo-slot.has-image .fig-caption {
+    background: rgba(0, 0, 0, 0.8);
 }
 
 /* ============================================================
@@ -896,6 +583,10 @@ body.reading-mode .photo-slot.has-image .fig-caption {
     font-size: 17px;
     line-height: 1.7;
     transition: all var(--transition);
+}
+
+[data-theme="dark"] .quote-box {
+    background: rgba(9, 132, 227, 0.1);
 }
 
 .quote-box .author {
@@ -921,6 +612,11 @@ body.reading-mode .photo-slot.has-image .fig-caption {
     margin: 16px 0;
     border: 1px solid rgba(9, 132, 227, 0.15);
     transition: all var(--transition);
+}
+
+[data-theme="dark"] .teacher-tribute {
+    background: rgba(9, 132, 227, 0.08);
+    border-color: rgba(9, 132, 227, 0.2);
 }
 
 .teacher-tribute h4 {
@@ -984,6 +680,11 @@ body.reading-mode .photo-slot.has-image .fig-caption {
     font-size: 15px;
     line-height: 1.8;
     transition: all var(--transition);
+}
+
+[data-theme="dark"] .friend-memory-pdf {
+    background: rgba(9, 132, 227, 0.08);
+    border-color: rgba(9, 132, 227, 0.2);
 }
 
 .friend-memory-pdf strong {
@@ -1053,6 +754,10 @@ body.reading-mode .photo-slot.has-image .fig-caption {
     border-color: var(--secondary);
 }
 
+[data-theme="dark"] .nav-btn.prev-btn:hover:not(:disabled) {
+    background: var(--bg3);
+}
+
 /* ============================================================
    BACK LINK (Bottom)
    ============================================================ */
@@ -1083,8 +788,11 @@ body.reading-mode .photo-slot.has-image .fig-caption {
     padding: 30px 35px;
     margin: 25px 0;
     text-align: center;
-    font-family: 'Georgia', serif;
     transition: all var(--transition);
+}
+
+[data-theme="dark"] .thank-you-box {
+    background: linear-gradient(135deg, rgba(9, 132, 227, 0.1), rgba(108, 92, 231, 0.1));
 }
 
 .thank-you-box h2 {
@@ -1294,34 +1002,8 @@ body.reading-mode .photo-slot.has-image .fig-caption {
         height: 100px;
     }
 
-    .reading-mode-toggle {
-        top: 10px;
-        right: 10px;
-        padding: 6px 12px;
-        font-size: 12px;
-    }
-
     .modal-content {
         padding: 30px 20px;
-    }
-
-    .download-sticky {
-        top: auto;
-        bottom: 20px;
-        right: 20px;
-        left: 20px;
-    }
-
-    .download-sticky-btn {
-        width: 100%;
-        justify-content: center;
-        padding: 12px 20px;
-        font-size: 14px;
-    }
-
-    body.reading-mode .chapter p {
-        font-size: 16px;
-        line-height: 1.8;
     }
 }
 
@@ -1384,13 +1066,6 @@ body.reading-mode .photo-slot.has-image .fig-caption {
         height: 8px;
     }
 
-    .reading-mode-toggle {
-        top: 8px;
-        right: 8px;
-        padding: 4px 10px;
-        font-size: 11px;
-    }
-
     .modal-content {
         padding: 24px 16px;
     }
@@ -1414,23 +1089,6 @@ body.reading-mode .photo-slot.has-image .fig-caption {
         font-size: 12px;
     }
 
-    .download-sticky {
-        bottom: 10px;
-        right: 10px;
-        left: 10px;
-    }
-
-    .download-sticky-btn {
-        padding: 10px 16px;
-        font-size: 13px;
-        border-radius: 30px;
-    }
-
-    body.reading-mode .chapter p {
-        font-size: 15px;
-        line-height: 1.7;
-    }
-
     .thank-you-box {
         padding: 20px 16px;
     }
@@ -1448,13 +1106,11 @@ body.reading-mode .photo-slot.has-image .fig-caption {
    PRINT STYLES
    ============================================================ */
 @media print {
-    .reading-mode-toggle,
     .lang-controls,
     .nav-buttons,
     .progress-dots,
     .chapter-progress-info,
     .download-actions,
-    .download-sticky,
     .modal-overlay,
     .toast {
         display: none !important;
