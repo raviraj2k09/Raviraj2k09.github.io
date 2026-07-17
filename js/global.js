@@ -148,110 +148,86 @@
 
 })();
 // ============================================================
-// 💚 RAVI RAJ KI BAARISH — GLOBAL EFFECT
+// 💚 MATRIX BACKGROUND — GLOBAL (Custom: rravirajhere)
 // ============================================================
 (function() {
     'use strict';
 
     // Canvas create karo
     const canvas = document.createElement('canvas');
-    canvas.id = 'rain-canvas';
-    document.body.prepend(canvas);
+    canvas.id = 'matrix-bg';
+    document.body.prepend(canvas);  // Body ke sabse upar (background ke liye)
 
     const ctx = canvas.getContext('2d');
 
-    let width, height;
-    let raindrops = [];
+    let width, height, columns, drops;
 
-    class Raindrop {
-        constructor() {
-            this.reset();
-        }
-
-        reset() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * -height;
-            this.length = Math.random() * 15 + 10;
-            this.speed = Math.random() * 8 + 4;
-            this.opacity = Math.random() * 0.4 + 0.3;
-        }
-
-        fall() {
-            this.y += this.speed;
-            this.x += this.speed * 0.1;
-
-            if (this.y > height) {
-                this.reset();
-                this.y = -10;
-            }
-        }
-
-        draw() {
-            ctx.beginPath();
-            ctx.moveTo(this.x, this.y);
-            ctx.lineTo(this.x + this.speed * 0.3, this.y + this.length);
-            ctx.strokeStyle = `rgba(174, 194, 224, ${this.opacity})`;
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-        }
-    }
-
-    function initRain() {
+    function initMatrix() {
         width = window.innerWidth;
         height = window.innerHeight;
         canvas.width = width;
         canvas.height = height;
 
-        raindrops = [];
-        const count = Math.floor((width * height) / 8000);
-        for (let i = 0; i < count; i++) {
-            raindrops.push(new Raindrop());
+        const chars = 'rravirajhere';  // 👈 Aapka custom text!
+        const fontSize = 14;
+        columns = Math.floor(width / fontSize);
+        drops = Array(Math.floor(columns)).fill(1);
+    }
+
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = '#00d9ff';
+        ctx.font = '14px Fira Code, monospace';
+
+        const chars = 'rravirajhere';
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(text, i * 14, drops[i] * 14);
+
+            if (drops[i] * 14 > height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
         }
     }
 
-    function drawRain() {
-        ctx.clearRect(0, 0, width, height);
-
-        const gradient = ctx.createLinearGradient(0, 0, 0, height);
-        gradient.addColorStop(0, 'rgba(10, 10, 20, 0.3)');
-        gradient.addColorStop(1, 'rgba(20, 20, 40, 0.5)');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, width, height);
-
-        raindrops.forEach(drop => {
-            drop.fall();
-            drop.draw();
-        });
-    }
-
-    function updateRainTheme() {
+    // Theme ke hisaab se opacity adjust karo
+    function updateMatrixTheme() {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        canvas.style.opacity = isDark ? '0.7' : '0.4';
+        canvas.style.opacity = isDark ? '0.12' : '0.06';
     }
 
+    // Resize handler
     window.addEventListener('resize', function() {
-        initRain();
+        initMatrix();
     });
 
-    document.addEventListener('themeChanged', updateRainTheme);
+    // Theme change par update
+    document.addEventListener('themeChanged', updateMatrixTheme);
 
-    initRain();
-    updateRainTheme();
+    // Initial setup
+    initMatrix();
+    updateMatrixTheme();
 
-    let rainInterval = setInterval(drawRain, 30);
+    // Animation loop
+    let matrixInterval = setInterval(drawMatrix, 35);
 
+    // Tab hidden ho toh pause (performance)
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-            clearInterval(rainInterval);
+            clearInterval(matrixInterval);
         } else {
-            rainInterval = setInterval(drawRain, 30);
+            matrixInterval = setInterval(drawMatrix, 35);
         }
     });
 
+    // Cleanup on page unload
     window.addEventListener('beforeunload', function() {
-        clearInterval(rainInterval);
+        clearInterval(matrixInterval);
     });
 
-    console.log('☔ Ravi Raj Ki Baarish Loaded!');
+    console.log('💚 Matrix Background Loaded — rravirajhere!');
 
 })();
