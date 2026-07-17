@@ -147,3 +147,111 @@
     console.log('✅ Global JS Loaded Successfully!');
 
 })();
+// ============================================================
+// 💚 RAVI RAJ KI BAARISH — GLOBAL EFFECT
+// ============================================================
+(function() {
+    'use strict';
+
+    // Canvas create karo
+    const canvas = document.createElement('canvas');
+    canvas.id = 'rain-canvas';
+    document.body.prepend(canvas);
+
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    let raindrops = [];
+
+    class Raindrop {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * -height;
+            this.length = Math.random() * 15 + 10;
+            this.speed = Math.random() * 8 + 4;
+            this.opacity = Math.random() * 0.4 + 0.3;
+        }
+
+        fall() {
+            this.y += this.speed;
+            this.x += this.speed * 0.1;
+
+            if (this.y > height) {
+                this.reset();
+                this.y = -10;
+            }
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(this.x + this.speed * 0.3, this.y + this.length);
+            ctx.strokeStyle = `rgba(174, 194, 224, ${this.opacity})`;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
+    }
+
+    function initRain() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+
+        raindrops = [];
+        const count = Math.floor((width * height) / 8000);
+        for (let i = 0; i < count; i++) {
+            raindrops.push(new Raindrop());
+        }
+    }
+
+    function drawRain() {
+        ctx.clearRect(0, 0, width, height);
+
+        const gradient = ctx.createLinearGradient(0, 0, 0, height);
+        gradient.addColorStop(0, 'rgba(10, 10, 20, 0.3)');
+        gradient.addColorStop(1, 'rgba(20, 20, 40, 0.5)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+
+        raindrops.forEach(drop => {
+            drop.fall();
+            drop.draw();
+        });
+    }
+
+    function updateRainTheme() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        canvas.style.opacity = isDark ? '0.7' : '0.4';
+    }
+
+    window.addEventListener('resize', function() {
+        initRain();
+    });
+
+    document.addEventListener('themeChanged', updateRainTheme);
+
+    initRain();
+    updateRainTheme();
+
+    let rainInterval = setInterval(drawRain, 30);
+
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            clearInterval(rainInterval);
+        } else {
+            rainInterval = setInterval(drawRain, 30);
+        }
+    });
+
+    window.addEventListener('beforeunload', function() {
+        clearInterval(rainInterval);
+    });
+
+    console.log('☔ Ravi Raj Ki Baarish Loaded!');
+
+})();
