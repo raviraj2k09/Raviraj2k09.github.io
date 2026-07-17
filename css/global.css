@@ -1,6 +1,6 @@
 /* ============================================================
    GLOBAL.CSS — COMPLETE WITH ALL FEATURES
-   (Dark/Light Mode, Matrix, Loading, Progress, Glassmorphism, etc.)
+   (Dark/Light Mode, Loading, Progress, Social, WhatsApp, Cursor, Trail, Bubbles, Quick Tools, Profile Card, Popup)
    ============================================================ */
 
 /* ============================================================
@@ -608,29 +608,215 @@ h3.gradient-text,
 }
 
 /* ============================================================
-   MATRIX BACKGROUND
+   QUICK TOOLS PANEL (Command Palette)
    ============================================================ */
-#matrix-bg {
+#quick-tools-toggle {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    opacity: 0.06;
-    pointer-events: none;
+    bottom: 30px;
+    right: 100px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--gradient-text);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-[data-theme="light"] #matrix-bg {
-    opacity: 0.02;
+#quick-tools-toggle:hover {
+    transform: scale(1.08) rotate(90deg);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
 }
 
-[data-theme="dark"] #matrix-bg {
-    opacity: 0.05;
+#quick-tools-panel {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    width: 280px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
+    padding: 20px;
+    z-index: 9998;
+    display: none;
+    animation: slideUp 0.3s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+#quick-tools-panel.active {
+    display: block;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.tool-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.tool-item:hover {
+    background: var(--quick-btn-hover);
+    transform: translateX(4px);
+}
+
+.tool-item .icon {
+    font-size: 18px;
+    width: 28px;
+    text-align: center;
+}
+
+.tool-item .label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.tool-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 8px 0;
 }
 
 /* ============================================================
-   RESPONSIVE - THEME TOGGLE
+   DYNAMIC PROFILE CARD
+   ============================================================ */
+#profile-card {
+    position: fixed;
+    bottom: 150px;
+    left: 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    box-shadow: var(--shadow-hover);
+    z-index: 9997;
+    max-width: 220px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+}
+
+#profile-card .name {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
+#profile-card .bio {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 4px 0;
+    line-height: 1.4;
+}
+
+#profile-card .status {
+    font-size: 11px;
+    color: var(--primary);
+    font-weight: 500;
+    display: inline-block;
+    background: var(--quick-btn-bg);
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-top: 4px;
+}
+
+/* ============================================================
+   SOCIAL PROOF POPUP
+   ============================================================ */
+#social-popup {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 16px 24px;
+    box-shadow: var(--shadow-hover);
+    z-index: 9999;
+    max-width: 400px;
+    width: 90%;
+    display: none;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#social-popup.active {
+    display: block;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: translateX(-50%) scale(0.8) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); }
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.popup-content .message {
+    font-size: 14px;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.popup-content .sub-message {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.popup-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.popup-actions .btn {
+    padding: 6px 16px;
+    font-size: 12px;
+}
+
+.popup-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.popup-close:hover {
+    color: var(--primary);
+    transform: rotate(90deg);
+}
+
+/* ============================================================
+   RESPONSIVE
    ============================================================ */
 @media (max-width: 500px) {
     .theme-toggle-wrapper {
@@ -693,6 +879,31 @@ h3.gradient-text,
         bottom: 20px;
         right: 20px;
     }
+
+    #quick-tools-toggle {
+        bottom: 20px;
+        right: 80px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    #quick-tools-panel {
+        bottom: 72px;
+        right: 10px;
+        width: 240px;
+        padding: 16px;
+    }
+
+    #profile-card {
+        display: none;
+    }
+
+    #social-popup {
+        bottom: 80px;
+        max-width: 340px;
+        padding: 14px 18px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -726,7 +937,7 @@ h3.gradient-text,
         font-size: 10px;
     }
 
-    .floating-socials {
+    #profile-card {
         display: none;
     }
 }
